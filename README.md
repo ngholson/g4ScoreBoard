@@ -110,7 +110,7 @@ Until I get all of the code for that completed there is a work around. i have in
 everyone else can use whatever photo editor you wish just make sure the image size is 2267 x 653 (weirdly specific i know,
 i didn't plan it that way it just happened that way) 
 
-rename the existing "g4logo.png" file in the images folder to anything else and save your new image as "g4logo.png". 
+rename the existing "g4logo.png" file in the "images" folder to anything else and save your new image as "g4logo.png". 
 
 after that you can use the "Show G4Billiards Logo" checkbox to display your logo in the scoreboard. 
 ```

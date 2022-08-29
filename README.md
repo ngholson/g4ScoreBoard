@@ -30,30 +30,31 @@ readme.txt
 
 in OBS: 
 ```
-	1. click on the Docks Menu from the top menu bar.
-	2. Select "Custom Browser Docks".
-	3. type a name (G4ScoreBoard) in the "Dock Name" box.
-	4. input the full path to "control_panel.html" in the URL box. 
-	   (ex "c:\users\yourname\desktop\g4scoreboard\control_panel.html")
-	5. Click "Close"
-	6. Select the scene you want the scoreboard to display.
-	7. Add a "Browser Source" -> "Create New" -> give it a name. click OK.
-	8. Input the full path to "browser_source.html" in the URL box.
-	   (ex "c:\users\yourname\desktop\g4scoreboard\browser_source.html")
-	9. Set Width to 1920 and Height to 1080. 
-	10. click OK. 
+1. click on the Docks Menu from the top menu bar.
+2. Select "Custom Browser Docks".
+3. type a name (G4ScoreBoard) in the "Dock Name" box.
+4. input the full path to "control_panel.html" in the URL box. 
+   (ex "c:\users\yourname\desktop\g4scoreboard\control_panel.html")
+5. Click "Close"
+6. Select the scene you want the scoreboard to display.
+7. Add a "Browser Source" -> "Create New" -> give it a name. click OK.
+8. Input the full path to "browser_source.html" in the URL box.
+   (ex "c:\users\yourname\desktop\g4scoreboard\browser_source.html")
+9. Set Width to 1920 and Height to 1080. 
+10. click OK. 
 ```
 --------------------------------------------------------------
 
 Notes on use:  (in no particular order, my brain is all over the place right now)
 ```
-	1. The race info and wager info boxes will disappear if text box is left blank when updating match info.
-	2. The shot clock will auto display in the stream starting at 10s remaining.
-	3. Once a player strokes the ball click Stop Clock and then start a new 30s timer for incoming player.
-	4. Audible alerts will sound starting at 5s remaining. (these only play locally unless picked up by microphone).
-	5. Players get 1 30s extension per rack. if accidently clicked you can use the P1/P2 ext reset buttons. 
-	6. When a player score is recorded the shot clock will stop and the player extensions are reset. 
-	7. Clock will display in the control_panel in obs when Shot clock is started. 
+1. The race info and wager info boxes will disappear if text box is left blank when updating match info.
+2. The shot clock will auto display in the stream starting at 10s remaining.
+3. Once a player strokes the ball click Stop Clock and then start a new 30s timer for incoming player.
+4. Audible alerts will sound starting at 5s remaining. 
+   (these only play locally unless picked up by microphone).
+5. Players get 1 30s extension per rack. if accidently clicked you can use the P1/P2 ext reset buttons. 
+6. When a player score is recorded the shot clock will stop and the player extensions are reset. 
+7. Clock will display in the control_panel in obs when Shot clock is started. 
 ```	
 ---------------------------------------------------------------
 

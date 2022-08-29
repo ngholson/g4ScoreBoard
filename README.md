@@ -57,6 +57,8 @@ LICENSE
 (in no particular order, my brain is all over the place right now)
 ```
 1. The race info and wager info boxes will disappear if text box is left blank when updating match info.
+   (behavior is by design. if you wish to have the panels display empty,
+   type "&nbsp;" (without the quotes) in the text box.)
 2. The shot clock will auto display in the stream starting at 10s remaining.
 3. Once a player strokes the ball click Stop Clock and then start a new 30s timer for incoming player.
 4. Audible alerts will sound starting at 5s remaining. 

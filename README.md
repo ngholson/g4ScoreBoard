@@ -24,7 +24,7 @@ readme.txt
 
 --------------------------------------------------------------
 
-in OBS: 
+in OBS: [code]
 	1. click on the Docks Menu from the top menu bar.
 	2. Select "Custom Browser Docks".
 	3. type a name (G4ScoreBoard) in the "Dock Name" box.
@@ -37,7 +37,7 @@ in OBS:
 	   (ex "c:\users\yourname\desktop\g4scoreboard\browser_source.html")
 	9. Set Width to 1920 and Height to 1080. 
 	10. click OK. 
-	
+	[/code]
 --------------------------------------------------------------
 
 Notes on use:  (in no particular order, my brain is all over the place right now)

@@ -15,8 +15,10 @@ for more information about Salotto please visit https://salotto.app
 -------------------------------------------------------------
 
 Extract zip file to the folder of your choice.<br>
-Zip contents:
+
 ```
+Zip contents:
+
 [images]
    |-salotto.png
    |-g4logo.png

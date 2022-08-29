@@ -1,0 +1,531 @@
+<!-- 
+
+G4ScoreBoard addon for OBS version 1.5. Copyright 2022 Norman Gholson IV
+https://g4billiards.com http://www.g4creations.com
+
+this is a purely javascript/html/css driven scoreboard system for OBS Studio
+
+free to use and modify for non-commercial use as long as this copyright statment remains intact. 
+for a commercial license please contact norman@g4creations.com
+
+Salotto logo is the copyright of Salotto and is used with their permission.
+for more information about Salotto please visit https://salotto.app
+
+-->
+
+<html>
+    <head>
+            
+         <style>
+            body{
+				/*
+				background: #00FF00;
+				*/
+				-moz-transform: scale(1.75, 1.75);
+                zoom: 1.75;
+                zoom: 175%;
+                font-family:tahoma;
+            }
+			
+            #scoreBoardDiv {
+                position:absolute;
+                bottom:5px;
+                width:90%;
+                left:5%;
+                padding:5px;
+             
+            }
+    
+            td {
+                border:2px solid black;
+                border-radius:10px;
+                vertical-align: middle;
+
+            }
+			
+            #scoreBoard{
+                width: 95%;
+                margin:auto;
+            }
+			
+            #player1Score, #player2Score{
+                text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+                text-align:center;
+                width:9%;
+                padding-right:1px;
+                padding-left:1px;
+                background: rgba(255,255,255,1);;
+                font-size:15pt;
+                font-weight:bold;
+                vertical-align: middle
+                text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+                }
+				
+           .noShow{
+                visibility:hidden;
+            }
+			
+            #player1Name, #player2Name, #shotClock {
+                background: rgba(255,255,255,1);
+                font-size:15pt;
+                font-weight:bold;                
+                text-align: center;
+                vertical-align: middle
+            }
+            #player1Name, #player2Name {
+                width:250px;
+
+            }
+            #player1Name {
+                 background-image: linear-gradient(to left, white , steelblue);
+				 text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+
+            }
+            #player2Name {
+                 background-image: linear-gradient(to right, white , steelblue);
+				 text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+
+            }            
+            #p1ExtIcon{
+                position:absolute;
+                left:32px;
+                top:39.5px;
+                background:green;
+                border: solid 1px #000;
+                border-radius:10px 0px 0px 10px;
+                color:#fff;
+                font-size:9pt;
+                padding:6px;
+            }
+            #p2ExtIcon {
+                position:absolute;
+                right:32px;
+                top:39.5px;
+                background:green;
+                border: solid 1px #000;
+                border-radius:0px 10px 10px 0px;
+                color:#fff;
+                font-size:9pt;
+                padding:6px;
+                
+            }
+                       
+            .greenBtn {
+                background:green;
+                color:white;
+            }
+            .redBtn {
+                background:red;
+                color:white;
+            }
+            .shotRed {
+                color:white;
+            }
+            .fadeInElm {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 1s linear;
+            }
+            .fadeOutElm {
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s 1s, opacity 1s linear;
+            }
+			
+            /* blink code */
+			
+            @keyframes blinking {
+				0% {
+				background-color: #ffffff;
+				}
+				100% {
+				background-color: lightgreen;
+				}
+            }
+            .winBlink {
+                animation: blinking .15s 3;
+			}
+			
+              /* end of blink code */
+            
+            #salottoLogo {
+                position:absolute;
+                top: 44px;
+                left: 338px;
+                z-index:9;
+            }
+			 #g4Logo {
+                position:absolute;
+                top: 43px;
+                right: 338px;
+                z-index:9;
+            }
+           #player1Image {
+               position:absolute;
+               top:8px;
+               z-index:9;
+               left:60px;
+               width:50px;
+               height:50px;
+            }
+            #player2Image {
+               position:absolute;
+               top:8px;
+               z-index:9;
+               right:60px;
+               width:50px;
+               height:50px;
+            }
+            #raceInfo {
+                background-image: linear-gradient(to right, grey, white);
+				position:fixed;
+				bottom:1px;
+				width:20%;
+				left:100px;
+				border-radius: 0px 00px 10px 10px;
+				text-align:center;
+				font-size:7pt;
+				font-weight:bolder;
+				border:1px solid #000;
+			}
+			#wagerInfo {
+                background-image: linear-gradient(to left, grey, white);
+				position:fixed;
+				bottom:1px;
+				width:20%;
+				right:90px;
+				border-radius: 0px 00px 10px 10px;
+				text-align:center;
+				font-size:7pt;
+				font-weight:bolder;
+				border:1px solid #000;
+			}
+			
+			.shotclockvis {
+				position:absolute;
+				width: 90%;
+				left:5%;
+				bottom:36px;
+				height: 3px;
+				background: ;
+				border-radius:5px;
+ 
+			}
+
+			.startTimer {
+				width: 0px;
+				transition: width 29s;
+				transition-timing-function: linear;
+			}
+			.start60 {
+				width: 0px;
+				transition-property: width;
+				transition-duration: 59s;
+				transition-timing-function: linear;
+			}
+			
+        </style>
+    </head>
+    <body>
+		<div id="raceInfo">&nbsp;</div><div id="wagerInfo">&nbsp;</div>
+
+        <div id="scoreBoardDiv"  class="fadeInElm">
+		<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
+        <img class="" id="salottoLogo" height="20px" src="./images/salotto.png">
+        <img class="" id="g4Logo" height="20px" src="./images/g4logo.png">
+
+        <div class="" id="p1ExtIcon">Ex</div>            
+        <div class="" id="p2ExtIcon">Ex</div>            
+        <table id="scoreBoard">
+             <tr>
+                <td class="noShow"></td>
+                <td class="fadeOutElm" colspan="2" id="shotClock">&nbsp;</td>
+                <td class="noShow"></td>
+            </tr>
+			
+            <tr>
+                <td id="player1Name">Player 1</td>
+                <td id="player1Score">0</td>
+                <td id="player2Score">0</td>
+                <td id="player2Name">Player 2</td>
+            </tr>
+           
+        </table>
+        </div>
+        <script>
+			
+            var elem = document.documentElement;
+            var countDownTime;
+            var shotClockxr = null;
+            const bcp1s = new BroadcastChannel('player1Score');
+            const bcp2s = new BroadcastChannel('player2Score');
+            const bcp1n = new BroadcastChannel('player1Name');
+            const bcp2n = new BroadcastChannel('player2Name');
+			const bcShotClockStart = new BroadcastChannel('shotClockStart');
+			const bcClockDisplay = new BroadcastChannel('clockDisplay');
+			const bcri = new BroadcastChannel('race');
+			const bcw = new BroadcastChannel('wager');
+			const bcp1c = new BroadcastChannel('p1_color');
+			const bcp2c = new BroadcastChannel('p2_color');
+
+			bcClockDisplay.onmessage = (event) => {
+				console.log("event.data: " + event.data);
+				if (event.data == "show"){
+					showClock();
+					}  
+
+				if (event.data == "hide") {
+						hideClock();
+					}  
+
+				if (event.data == "stopClock") {
+						stopClock();
+					}  
+
+				if (event.data == "noClock") {
+						document.getElementById("p1ExtIcon").classList.add("noShow");
+						document.getElementById("p2ExtIcon").classList.add("noShow");
+					}  
+
+				if (event.data == "useClock") {
+						document.getElementById("p1ExtIcon").classList.remove("noShow");
+						document.getElementById("p2ExtIcon").classList.remove("noShow");
+					} 
+
+				if (event.data == "p1extension") {
+						add30(1);
+					} 
+
+				if (event.data == "p2extension") {
+						add30(2);
+					} 
+
+				if (event.data == "p1ExtReset") {
+						extReset('p1');
+					} 
+
+				if (event.data =="p2ExtReset") {
+						extReset('p2');
+					}  
+
+				if (event.data =="hidesalotto") {
+						salottoHide();
+					}  
+
+				if (event.data =="showsalotto") {
+						salottoShow();
+					}
+					
+				if (event.data =="hidecustomLogo") {
+						customHide();
+					} 
+					
+				if (event.data =="showcustomLogo") {
+						customShow();
+					}
+													
+			}
+			
+			bcp1c.onmessage = (event) => {
+				console.log("event.data: " + event.data);			
+				document.getElementById("player1Name").style.background = "linear-gradient(to left, white , "+event.data;
+			}
+			
+			bcp2c.onmessage = (event) => {
+				console.log("event.data: " + event.data);
+				document.getElementById("player2Name").style.background = "linear-gradient(to right, white , "+event.data;
+			}
+			
+			
+			bcri.onmessage = (event) => {
+			console.log("event.data: " + event.data);
+			if (event.data == "") {
+					document.getElementById("raceInfo").classList.add("noShow");
+					} else {
+						document.getElementById("raceInfo").classList.remove("noShow");
+						document.getElementById("raceInfo").innerHTML = event.data;
+				}
+			}
+			bcw.onmessage = (event) => {
+			console.log("event.data: " + event.data);
+				if (event.data == "") {
+					document.getElementById("wagerInfo").classList.add("noShow");
+					} else {
+						document.getElementById("wagerInfo").classList.remove("noShow");
+						document.getElementById("wagerInfo").innerHTML = event.data;
+				}
+			}
+			
+			bcShotClockStart.onmessage = (event) => {
+				console.log("event.data: " + event.data);
+				shotTimer(event.data);
+			}
+			
+           bcp1s.onmessage = (event) => { 
+		   		console.log("event.data: " + event.data);
+               document.getElementById("player1Score").innerHTML = event.data;
+               document.getElementById("player1Score").classList.add("winBlink");
+               setTimeout("clearWinBlink()",1000);
+
+               
+               
+            }
+            
+			bcp2s.onmessage = (event) => { 
+				console.log("event.data: " + event.data);
+               document.getElementById("player2Score").innerHTML = event.data;
+               document.getElementById("player2Score").classList.add("winBlink");
+               setTimeout("clearWinBlink()",1000);
+               
+            }
+            
+			bcp1n.onmessage = (event) => { 
+				console.log("event.data: " + event.data);
+				if (!event.data == ""){
+					document.getElementById("player1Name").innerHTML = event.data;
+						} else {
+							document.getElementById("player1Name").innerHTML = "Player 1";
+						}
+            }
+		   
+            bcp2n.onmessage = (event) => { 
+				console.log("event.data: " + event.data);
+               if (!event.data == ""){
+					document.getElementById("player2Name").innerHTML = event.data;
+						} else {
+							document.getElementById("player2Name").innerHTML = "Player 2";
+						}
+               
+               
+           }
+		   
+			function clearWinBlink() {
+                document.getElementById("player1Score").classList.remove("winBlink");
+                document.getElementById("player2Score").classList.remove("winBlink");
+            }
+			
+			 function shotTimer(shottime){
+                document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
+               	document.getElementById("shotClockVis").style.background = "lime";
+				if (shottime == 61000) {
+					document.getElementById("shotClockVis").classList.add("start60");
+					} else {
+						document.getElementById("shotClockVis").classList.add("startTimer");
+						}
+				
+			    countDownTime = new Date().getTime() + shottime;
+                shotClockxr = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownTime - now;
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+						
+				if (distance > 60000) {
+                      seconds = seconds + 60;
+                    } 
+                    document.getElementById("shotClock").innerHTML = seconds + "s";
+                    if (distance < 31000) {
+						document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
+                    	document.getElementById("shotClockVis").style.background = "lime";
+						document.getElementById("shotClockVis").classList.add("startTimer");
+
+						}
+					if (distance < 26000) {
+                    	document.getElementById("shotClockVis").style.background = "#5aa500";
+                        }
+                        
+					if (distance < 21000) {
+                    	document.getElementById("shotClockVis").style.background = "#639b00";
+                        }
+                    if (distance < 16000) {
+
+                        document.getElementById("shotClock").style.background = "yellow";
+						document.getElementById("shotClockVis").style.background = "#926d00";
+
+                    }
+
+                    if (distance < 11000) {
+                        document.getElementById("shotClock").style.background = "tomato";
+						document.getElementById("shotClockVis").style.background = "#d12f00";
+                        showClock();
+                    }
+                    if (distance < 6000 && distance > 999) {
+                        document.getElementById("shotClock").classList.add("shotRed");
+                        document.getElementById("shotClock").style.background = "red";
+						document.getElementById("shotClockVis").style.background = "red";
+          
+                    }
+                    if (distance < 1000) {
+                        clearInterval(shotClockxr);
+                        document.getElementById("shotClock").style.background = "red";
+						document.getElementById("shotClockVis").style.background = "red";
+
+                        setTimeout("stopClock()", 2000)
+
+                    }
+                 }, 1000);
+                
+				}
+			  
+            
+
+			 function showClock(){
+                document.getElementById("shotClock").classList.replace("fadeOutElm","fadeInElm");
+            }
+
+            function hideClock(){
+                document.getElementById("shotClock").classList.replace("fadeInElm", "fadeOutElm");
+            }
+			
+			function stopClock() {
+                clearInterval(shotClockxr);
+				hideClock();
+				document.getElementById("shotClock").innerHTML = "&nbsp;";
+				document.getElementById("shotClock").classList.remove("shotRed");
+                document.getElementById("shotClock").style.background = "";
+                document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
+				document.getElementById("shotClockVis").classList.remove("startTimer");
+				document.getElementById("shotClockVis").classList.remove("start60");
+				document.getElementById("shotClockVis").style.background = "";
+
+			}
+			
+			function add30(player) { 
+					countDownTime = countDownTime + 30000;
+					document.getElementById("p"+player+"ExtIcon").style.background = "darkred";
+                    document.getElementById("shotClock").classList.remove("shotRed");
+                    document.getElementById("shotClock").style.background = "";    
+					document.getElementById("shotClockVis").classList.remove("startTimer");
+					document.getElementById("shotClockVis").classList.remove("start60");
+					document.getElementById("shotClockVis").style.background = "";
+					document.getElementById("shotClock").classList.replace("fadeInElm", "fadeOutElm");
+					document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
+
+			}
+			
+			function extReset(player) {
+			    document.getElementById(player+"ExtIcon").style.background = "green";
+
+				}
+				
+			function salottoShow() {
+				document.getElementById("salottoLogo").classList.remove("noShow")
+			
+			}
+			function salottoHide() {
+				document.getElementById("salottoLogo").classList.add("noShow")
+			
+			}
+			
+			function customShow() {
+				document.getElementById("g4Logo").classList.remove("noShow")
+			
+			}
+			function customHide() {
+				document.getElementById("g4Logo").classList.add("noShow")
+			
+			}
+			
+			
+        </script>
+    </body>
+</html>

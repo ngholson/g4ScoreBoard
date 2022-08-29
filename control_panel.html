@@ -1,0 +1,436 @@
+<!-- 
+
+G4ScoreBoard addon for OBS version 1.5. Copyright 2022 Norman Gholson IV
+https://g4billiards.com http://www.g4creations.com
+
+this is a purely javascript/html/css driven scoreboard system for OBS Studio
+
+free to use and modify for non-commercial use as long as this copyright statment remains intact. 
+for a commercial license please contact norman@g4creations.com
+
+Salotto logo is the copyright of Salotto and is used with their permission.
+for more information about Salotto please visit https://salotto.app
+
+-->
+
+<html>
+    <head>
+     
+	 <script>
+	 //---------------------------------------------------------------------------------------------
+	 
+	 var versionNum = "1.5";
+	 	 
+	 //---------------------------------------------------------------------------------------------
+	 </script>
+	 
+    <style>
+	body{
+		font-family:tahoma;
+		background:#3a393a;
+		margin:auto;
+		display: flex;
+		}
+	span {
+		color:lightgrey;
+		font-size:10pt;
+		}
+	div {
+
+		background: #4c4c4c;
+		color:lightgrey;
+		min-height: 30px;
+		border: 1px solid #000;
+		border-radius: 5px;
+		min-width:50px;
+		display: flex;
+		justify-content: center; /* align horizontal */
+		align-items: center; /* align vertical */
+		font-size:9pt;
+		}
+	#mainDiv {
+		margin: auto;
+		background: #1f1e1f;
+		min-height: 30px;
+		border: 0px solid #000;
+		border-radius: 0px;
+		min-width:50px;
+		display: flex;
+		justify-content: center; /* align horizontal */
+		align-items: center; /* align vertical */
+		font-size:9pt;
+		padding:20px;
+		padding-right:60px;
+		padding-left:60px;
+	
+		}
+	
+	#sendP1Score, #sendP1ScoreSub, #shotClock30, #shotClockShow, #p1extensionBtn, #p1ExtReset {
+		cursor: pointer;
+		min-width:85px;
+		max-width:85px;
+		position:absolute;
+		right:50%;
+		padding-left:10px;
+		padding-right:10px;
+		margin-right:20px;
+		}
+		
+	#sendP2Score, #sendP2ScoreSub, #shotClock60, #clockLocalDisplay, #p2extensionBtn, #p2ExtReset {
+		cursor: pointer;
+		min-width:85px;
+		max-width:85px;
+		position:absolute;
+		left:50%;
+		padding-left:10px;
+		padding-right:10px;
+		margin-left:20px;
+		}
+			
+	#p1colorDiv {
+		cursor: pointer;
+		min-width:75px;
+		position:absolute;
+		right:50%;
+		padding-left:10px;
+		padding-right:10px;
+		background:#4c4c4c;
+		color: #fff;
+		border-radius:5px;
+		margin-right:24px;
+		font-family:tahoma;
+		font-size:9pt;
+		color: lightgrey;
+	}
+	
+	#p2colorDiv {
+		cursor: pointer;
+		min-width:75px;
+		position:absolute;
+		left:50%;
+		padding-left:10px;
+		padding-right:10px;
+		background:#4c4c4c;
+		color: #fff;
+		border-radius:5px;
+		margin-left:24px;
+		font-family:tahoma;
+		font-size:9pt;
+		color: lightgrey;
+	}
+	
+	
+	#stopClockDiv, #resetBtn, #sendPNames {
+			cursor: pointer;
+			width:253px;
+		}
+	.hover {
+	}
+	.hover:hover {
+		background-color:grey
+		}
+	
+	.noShow{
+        visibility:hidden;
+        }
+	#clockLocalDisplay {
+		color:#000;
+		font-weight:bolder;
+	}
+	</style>
+	</head>
+	
+	
+    <body>
+       
+        <div id="mainDiv">
+         <center>
+	    <span>Player/Team 1 Name:</span>&nbsp;<input style="width: 120px; background:lightgrey" type="text" id="p1Name" placeholder="Player 1"><br>
+        <span>Player/Team 2 Name:</span>&nbsp;<input style="width: 120px; background:lightgrey" type="text" id="p2Name" placeholder="Player 2"><br>
+		<span><text style="font-size:4px">&nbsp;</text>Game and Race Info:</span>&nbsp;<input style="width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br>
+		<span><text style="font-size:11px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:</span>&nbsp;<input style="width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:2pt">&nbsp;</p><div class="hover" id="sendPNames" onclick="postNames()">Update Info</div>
+		<p style="font-size:1.5pt">&nbsp;</p>
+		<select style="text-align:justify" name="p1Colors" id="p1colorDiv" onchange="playerColorChange(1)">
+			<option value="none" default>P1 Color</option>
+            <option value="grey">Grey</option>
+			<option value="steelblue">SteelBlue</option>
+            <option value="cadetblue">CadetBlue</option>
+			<option value="blue">Blue</option>
+            <option value="tomato">Tomato</option>
+			<option value="red">Red</option>
+            <option value="orangered">OrangeRed</option>
+            <option value="orange">Orange</option>
+            <option value="khaki">Khaki</option>
+            <option value="green">Green</option>
+			<option value="lightgreen">lightGreen</option>
+            <option value="lightseagreen">SeaGreen</option>
+			<option value="purple">Purple</option>
+
+        </select>
+		
+		<select style="text-align:justify" name="p2Colors" id="p2colorDiv" onchange="playerColorChange(2)">
+            <option value="none" default>P2 Color</option>
+            <option value="grey">Grey</option>
+			<option value="steelblue">SteelBlue</option>
+            <option value="cadetblue">CadetBlue</option>
+			<option value="blue">Blue</option>
+            <option value="tomato">Tomato</option>
+			<option value="red">Red</option>
+            <option value="orangered">OrangeRed</option>
+            <option value="orange">Orange</option>
+            <option value="khaki">Khaki</option>
+            <option value="green">Green</option>
+			<option value="lightgreen">lightGreen</option>
+            <option value="lightseagreen">SeaGreen</option>
+			<option value="purple">Purple</option>
+            
+        </select><p style="font-size:7pt">&nbsp;</p>
+		<hr>
+        <div class="hover" id="sendP1Score" onclick="postP1Score('add')">P1 +1 Score</div>
+        <div class="hover" id="sendP2Score" onclick="postP2Score('add')">P2 +1 Score</div>
+		<p style="font-size:10pt">&nbsp;</p>
+		<div class="hover" id="sendP1ScoreSub" onclick="postP1Score('sub')">P1 -1 Score</div>
+        <div class="hover" id="sendP2ScoreSub" onclick="postP2Score('sub')">P2 -1 Score</div>
+		<p style="font-size:12pt">&nbsp;</p><hr>
+		<div class="hover" id="shotClock30" onclick="shotClock(31000)">30s Shot Clock</div>
+		<div class="hover" id="shotClock60" onclick="shotClock(61000)">60s Shot Clock</div><p style="font-size:9.25pt">&nbsp;</p>
+		<div class="hover" id="shotClockShow" onclick="clockDisplay('show')">Show Clock</div>
+		<div class="noShow" id="clockLocalDisplay" onclick=""></div><p style="font-size:11pt">&nbsp;</p>
+		<div class="hover" id="p1extensionBtn" onclick="add30('p1')">P1 Extension</div>
+		<div class="hover" id="p2extensionBtn" onclick="add30('p2')">P2 Extension</div><p style="font-size:12pt">&nbsp;</p>
+		<div class="hover" id="stopClockDiv" onclick="stopClock()">Stop Clock</div>
+		<HR><div class="hover" id="resetBtn" onclick="resetScore()">Reset Scores and Extensions</div><p style="font-size:1pt">&nbsp;</p>
+		<div class="hover" id="p1ExtReset" onclick="resetExt('p1')">P1 Ext Reset</div>
+		<div class="hover" id="p2ExtReset" onclick="resetExt('p2')">P2 Ext Reset</div><p style="font-size:9pt">&nbsp;</p>
+		
+		
+		
+		<span>Use Clock:<span> <input type="checkbox" id="useClockSetting" onchange="clockSetting()" checked><br><span>Show Salotto Logo:<span> <input type="checkbox" id="useSalottoSetting" onchange="salottoSetting()" checked>
+		<br><span>Show G4Billiards Logo:<span> <input type="checkbox" id="customLogo" onchange="customLogoSetting()" checked>
+		<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:absolute; top:8px; right:50%;">g4ScoreB</text><text style="font-size:7pt; color:#818181; position:absolute; top:8px; left:50%;">oard v<text id="verNum"></text></text>
+		</center>
+	</div>
+        <script>
+			document.getElementById("verNum").innerHTML = versionNum;
+			var p1ScoreValue = 0;
+			var p2ScoreValue = 0;
+            const bcp1s = new BroadcastChannel('player1Score');
+            const bcp2s = new BroadcastChannel('player2Score');
+            const bcp1n = new BroadcastChannel('player1Name');
+            const bcp2n = new BroadcastChannel('player2Name');
+			const bcShotClockStart = new BroadcastChannel('shotClockStart');
+			const bcClockDisplay = new BroadcastChannel('clockDisplay');
+			const bcri = new BroadcastChannel('race');
+			const bcw = new BroadcastChannel('wager');
+			const bcp1c = new BroadcastChannel('p1_color');
+			const bcp2c = new BroadcastChannel('p2_color');
+
+			function playerColorChange(player) {
+			if (player == 1) {
+				console.log("p"+player+"color: "+document.getElementById("p"+player+"colorDiv").value);
+				bcp1c.postMessage(document.getElementById("p"+player+"colorDiv").value);
+				} else {
+					console.log("p"+player+"color: "+document.getElementById("p"+player+"colorDiv").value);
+					bcp2c.postMessage(document.getElementById("p"+player+"colorDiv").value);
+					}
+			}
+
+			function clockSetting() {
+				if (!document.getElementById("useClockSetting").checked) {
+						bcClockDisplay.postMessage("noClock");
+						document.getElementById("shotClock30").classList.add("noShow");
+						document.getElementById("shotClock60").classList.add("noShow");
+						document.getElementById("shotClockShow").classList.add("noShow");
+						document.getElementById("stopClockDiv").classList.add("noShow");
+						document.getElementById("p1extensionBtn").classList.add("noShow");
+						document.getElementById("p2extensionBtn").classList.add("noShow");
+						document.getElementById("p1ExtReset").classList.add("noShow");
+						document.getElementById("p2ExtReset").classList.add("noShow");
+						document.getElementById("resetBtn").innerHTML = "Reset Scores";
+
+					} else if (document.getElementById("useClockSetting").checked) {
+						bcClockDisplay.postMessage("useClock");
+						document.getElementById("shotClock30").classList.remove("noShow");
+						document.getElementById("shotClock60").classList.remove("noShow");
+						document.getElementById("shotClockShow").classList.remove("noShow");
+						document.getElementById("stopClockDiv").classList.remove("noShow");
+						document.getElementById("p1extensionBtn").classList.remove("noShow");
+						document.getElementById("p2extensionBtn").classList.remove("noShow");
+						document.getElementById("p1ExtReset").classList.remove("noShow");
+						document.getElementById("p2ExtReset").classList.remove("noShow");
+						document.getElementById("resetBtn").innerHTML = "Reset Scores and Extensions";
+					}
+			}
+	
+			function clockDisplay(opt3) {
+				bcClockDisplay.postMessage(opt3);
+				if (opt3 == "show") {
+					document.getElementById("shotClockShow").innerHTML = "Hide Clock";
+					document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('hide')");
+				} else if (opt3 == "hide") {
+					document.getElementById("shotClockShow").innerHTML = "Show Clock";
+					document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('show')");
+				}
+			}
+					
+
+            function postNames() {
+                bcp1n.postMessage(document.getElementById("p1Name").value);    
+				bcp2n.postMessage(document.getElementById("p2Name").value);
+				bcri.postMessage(document.getElementById("raceInfoTxt").value);
+				bcw.postMessage(document.getElementById("wagerInfoTxt").value);
+				if (!p1Name.value == "") {document.getElementById("p1extensionBtn").innerHTML = p1Name.value+"'s<br>Extension";} else {document.getElementById("p1extensionBtn").innerHTML = "P1 Extension";}
+				if (!p2Name.value == "") {document.getElementById("p2extensionBtn").innerHTML = p2Name.value+"'s<br>Extension";} else {document.getElementById("p2extensionBtn").innerHTML = "P2 Extension";}
+			}
+			            
+            function postP1Score(opt1) {
+				if (opt1 == "add") {
+					p1ScoreValue = p1ScoreValue +++ 1;
+					bcp1s.postMessage(p1ScoreValue);
+					stopClock();
+					} else {
+						if (p1ScoreValue > 0) {
+							p1ScoreValue = p1ScoreValue --- 1;
+							bcp1s.postMessage(p1ScoreValue);
+							} 
+				}
+				resetExt('p1');
+				resetExt('p2');
+				
+			}
+            
+			var warningBeep = new Audio("./sound/beep2.mp3");
+            var foulSound = new Audio("./sound/buzz.mp3");
+            var elem = document.documentElement;
+            var countDownTime;
+            var shotClockxr = null;
+			
+			function shotClock(timex) {
+				document.getElementById("shotClock30").setAttribute("onclick", "");
+				document.getElementById("shotClock60").setAttribute("onclick", "");
+				document.getElementById("shotClock30").style.color = "dimgrey";
+				document.getElementById("shotClock60").style.color = "dimgrey";
+				document.getElementById("stopClockDiv").style.background = "maroon";
+				bcShotClockStart.postMessage(timex);
+			    document.getElementById("clockLocalDisplay").classList.remove("noShow");
+				countDownTime = new Date().getTime() + timex;
+                shotClockxr = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownTime - now;
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                if (distance > 60000) {
+                      seconds = seconds + 60;
+                    } 
+	                    document.getElementById("clockLocalDisplay").innerHTML = seconds + "s";
+						document.getElementById("clockLocalDisplay").style.background = "lightgreen";
+						
+
+					if (distance < 16000) {
+						document.getElementById("clockLocalDisplay").style.background = "yellow";
+						}
+					if (distance < 11000) {
+						document.getElementById("clockLocalDisplay").style.background = "tomato";
+						}
+                    if (distance < 6000 && distance > 999) {
+						document.getElementById("clockLocalDisplay").style.background = "red";
+						document.getElementById("clockLocalDisplay").style.color = "white";
+                        warningBeep.loop = false;
+                        warningBeep.play(); 
+                    }
+                    if (distance < 1000) {
+                        clearInterval(shotClockxr);
+                        foulSound.loop= false;
+                        foulSound.play();
+                        document.getElementById("shotClock30").setAttribute("onclick", "shotClock(31000)");
+						document.getElementById("shotClock60").setAttribute("onclick", "shotClock(61000)");
+						document.getElementById("clockLocalDisplay").classList.add("noShow");
+						document.getElementById("clockLocalDisplay").innerHTML = "";
+						document.getElementById("shotClockShow").innerHTML = "Show Clock";
+						document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('show')");
+						document.getElementById("clockLocalDisplay").style.background = "lightgreen";
+						document.getElementById("clockLocalDisplay").style.color = "black";
+						
+						}
+                 }, 1000);
+			
+			}
+			
+			function stopClock() {
+				bcClockDisplay.postMessage('stopClock');
+                clearInterval(shotClockxr);
+				document.getElementById("clockLocalDisplay").style.background = "lightgreen";
+				document.getElementById("shotClock30").setAttribute("onclick", "shotClock(31000)");
+				document.getElementById("shotClock60").setAttribute("onclick", "shotClock(61000)");
+				document.getElementById("clockLocalDisplay").innerHTML = "";
+				document.getElementById("clockLocalDisplay").classList.add("noShow");
+				document.getElementById("shotClockShow").innerHTML = "Show Clock";
+				document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('show')");
+				document.getElementById("clockLocalDisplay").style.color = "black";
+				document.getElementById("shotClock30").style.color = "white";
+				document.getElementById("shotClock60").style.color = "white";
+				document.getElementById("stopClockDiv").style.background = "#4c4c4c";
+			}
+			
+			
+            function postP2Score(opt2) {
+				if (opt2 == "add") {
+					p2ScoreValue = p2ScoreValue +++ 1;
+					bcp2s.postMessage(p2ScoreValue);
+					stopClock();
+					} else {
+						if (p2ScoreValue > 0) {
+							p2ScoreValue = p2ScoreValue --- 1;
+							bcp2s.postMessage(p2ScoreValue);
+							} 
+				}
+				resetExt('p1');
+				resetExt('p2');
+			}
+			
+			function resetScore() {
+				p1ScoreValue = 0;
+				p2ScoreValue = 0;
+				bcp1s.postMessage(p1ScoreValue);   
+				bcp2s.postMessage(p2ScoreValue);   
+				resetExt('p1');
+				resetExt('p2');
+			}	
+
+
+			function add30(player) { 
+					countDownTime = countDownTime + 30000;
+					bcClockDisplay.postMessage(player +"extension");
+					document.getElementById(player+"extensionBtn").setAttribute("onclick", "");
+					document.getElementById(player+"extensionBtn").style.background = "maroon";
+					document.getElementById(player+"extensionBtn").style.color = "dimgrey"
+					document.getElementById("shotClockShow").innerHTML = "Show Clock";
+					document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('show')");
+			}
+
+			function resetExt(player) {
+				bcClockDisplay.postMessage(player +"ExtReset");
+				document.getElementById(player+"extensionBtn").setAttribute("onclick", "add30('"+player+"')");
+				document.getElementById(player+"extensionBtn").style.background = "#4c4c4c";
+				document.getElementById(player+"extensionBtn").style.color = "white"
+			}
+
+			function salottoSetting() {
+				if (!document.getElementById("useSalottoSetting").checked) {
+				bcClockDisplay.postMessage("hidesalotto");
+				} else {
+				bcClockDisplay.postMessage("showsalotto");
+				}
+			}
+			
+			function customLogoSetting() {
+				if (!document.getElementById("customLogo").checked) {
+				bcClockDisplay.postMessage("hidecustomLogo");
+				} else {
+				bcClockDisplay.postMessage("showcustomLogo");
+				}
+			}
+				
+        </script>
+  
+	</body>
+</html>

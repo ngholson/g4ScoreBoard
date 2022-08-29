@@ -57,20 +57,20 @@ with a text editor and remove the comment tags[/*] [*/] from above and below the
 
      browser_source.html
 	
-	17 <head>								
-	18									
-	19   <style>								
-        20 	body{								
-	21 	/*      <----------------------------------------remove this.	
-	22	background: #00FF00;	<------ replace with color of choice. 	
-	23	*/      <----------------------------------------remove this.	
-	24 	-moz-transform: scale(1.75, 1.75);				
-        25     zoom: 1.75;							
-        26     zoom: 175%;							
-        27     font-family:tahoma;						
-        28     }								
-	29									
-		
+	17 <head>
+	18
+	19   <style>
+	20 	body{
+	21 	/*      <----------------------------------------remove this.
+	22	background: #00FF00;	<------ replace with color of choice.
+	23	*/      <----------------------------------------remove this.
+	24 	-moz-transform: scale(1.75, 1.75);
+	25     zoom: 1.75;
+	26     zoom: 175%;
+	27     font-family:tahoma;
+	28     }
+	29
+
 
 
 --------------------------------------------------------------

@@ -49,7 +49,7 @@ Notes on use:  (in no particular order, my brain is all over the place right now
 	6. When a player score is recorded the shot clock will stop and the player extensions are reset. 
 	7. Clock will display in the control_panel in obs when Shot clock is started. 
 	
---------------------------------------------------------------
+---------------------------------------------------------------
 
 if you need a specific color for the background (such as green) open the "browser_source.html" 
 with a text editor and remove the comment tags[/*] [*/] from above and below the [background: #00FF00;] statement. 

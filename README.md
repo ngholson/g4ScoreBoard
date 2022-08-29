@@ -53,7 +53,8 @@ LICENSE
 ```
 --------------------------------------------------------------
 
-## Notes on use:  (in no particular order, my brain is all over the place right now)
+## Notes on use:  
+(in no particular order, my brain is all over the place right now)
 ```
 1. The race info and wager info boxes will disappear if text box is left blank when updating match info.
 2. The shot clock will auto display in the stream starting at 10s remaining.

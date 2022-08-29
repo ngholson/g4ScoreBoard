@@ -7,24 +7,29 @@ copyright 2022 Norman Gholson IV
 
 8/28/2022 - COMING SOON! ADD YOUR OWN CUSTOM LOGO!! 
 
-
-install instructions:
-
 -------------------------------------------------------------
 
-Extract zip file to the folder of your choice.
+Extract zip file to the folder of your choice.<br>
 Zip contents:
+```
+[images]
+   |-salotto.png
+   |-g4logo.png
+   |_template.psd
 
-[images] - folder
-[js]     - folder
-[sound]  - folder
+[sound]
+   |-beep2.mp3
+   |_buzz.mp3
+   
 browser_source.html   
 control_panel.html
 readme.txt
 
+```
 --------------------------------------------------------------
 
-in OBS: [code]
+in OBS: 
+```
 	1. click on the Docks Menu from the top menu bar.
 	2. Select "Custom Browser Docks".
 	3. type a name (G4ScoreBoard) in the "Dock Name" box.
@@ -37,10 +42,11 @@ in OBS: [code]
 	   (ex "c:\users\yourname\desktop\g4scoreboard\browser_source.html")
 	9. Set Width to 1920 and Height to 1080. 
 	10. click OK. 
-	[/code]
+```
 --------------------------------------------------------------
 
 Notes on use:  (in no particular order, my brain is all over the place right now)
+```
 	1. The race info and wager info boxes will disappear if text box is left blank when updating match info.
 	2. The shot clock will auto display in the stream starting at 10s remaining.
 	3. Once a player strokes the ball click Stop Clock and then start a new 30s timer for incoming player.
@@ -48,12 +54,11 @@ Notes on use:  (in no particular order, my brain is all over the place right now
 	5. Players get 1 30s extension per rack. if accidently clicked you can use the P1/P2 ext reset buttons. 
 	6. When a player score is recorded the shot clock will stop and the player extensions are reset. 
 	7. Clock will display in the control_panel in obs when Shot clock is started. 
-	
+```	
 ---------------------------------------------------------------
 
-if you need a specific color for the background (such as green) open the "browser_source.html" 
-with a text editor and remove the comment tags[/*] [*/] from above and below the [background: #00FF00;] statement. 
-(see below)
+if you need a specific color for the background (such as green) open the "browser_source.html" <br>
+with a text editor and remove the comment tags indicated below. 
 
      browser_source.html
 	
@@ -76,7 +81,7 @@ with a text editor and remove the comment tags[/*] [*/] from above and below the
 --------------------------------------------------------------
 
 if you are not familiar with the use of a shot clock in pool:
-
+```
 a shot clock is used in most professional tournaments where the game is 9 ball 
 and sometimes 10 ball. shot clock play is as follows:
 	1. first shot after break is a 60s shot. 
@@ -84,7 +89,7 @@ and sometimes 10 ball. shot clock play is as follows:
 	   if he chooses to give it back to the original shooter that shot it is a 30s clock. 
 	3. all shots thereafter are 30s shots.
 	4. each player/team gets 1 30s extension per rack. 
-	   
+```	   
 
 
 ---------------------------------------------------------------

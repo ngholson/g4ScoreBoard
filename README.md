@@ -6,7 +6,7 @@ https://g4billiards.com http://www.g4creations.com
 
 this is a purely javascript/html/css driven scoreboard system for OBS Studio
 
-free to use and modify for non-commercial use as long as this copyright statment remains intact. 
+free to use and modify for non-commercial use as long as all copyright statments remain intact. 
 for a commercial license please contact norman@g4creations.com
 
 Salotto logo is the copyright of Salotto and is used with their permission.

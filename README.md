@@ -91,8 +91,8 @@ with a text editor and remove the comment tags indicated below.
 
 if you are not familiar with the use of a shot clock in pool:
 ```
-a shot clock is used in most professional tournaments where the game is 9 ball 
-and sometimes 10 ball. shot clock play is as follows:
+a shot clock is used in most professional tournaments where the game is 9 ball and sometimes 10 ball. shot clock play is as follows:
+
 	1. first shot after break is a 60s shot. 
 	2. if player elects to "push" the incoming player gets 60s. 
 	   if he chooses to give it back to the original shooter that shot it is a 30s clock. 

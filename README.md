@@ -23,7 +23,8 @@ Zip contents:
    
 browser_source.html   
 control_panel.html
-readme.txt
+README.md
+LICENSE
 
 ```
 --------------------------------------------------------------

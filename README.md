@@ -99,7 +99,8 @@ A shot clock is used in most professional 9 ball tournaments. shot clock play is
 
 	1. first shot after break is a 60s shot. 
 	2. if player elects to "push" the incoming player gets 60s. 
-	   if he chooses to give it back to the original shooter that shot it is a 30s shot. 
+	   if player chooses to give it back to the original shooter, 
+	   then that shot it is a 30s shot. 
 	3. all shots thereafter are 30s shots.
 	4. each player/team gets 1 30s extension per rack. 
 ```	   

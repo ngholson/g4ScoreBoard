@@ -14,7 +14,7 @@ for more information about Salotto please visit https://salotto.app
 ```
 -------------------------------------------------------------
 
-Extract zip file to the folder of your choice.<br>
+## Extract zip file to the folder of your choice.<br>
 
 ```
 Zip contents:
@@ -36,7 +36,7 @@ LICENSE
 ```
 --------------------------------------------------------------
 
-in OBS: 
+## Configure OBS: 
 ```
 1. click on the Docks Menu from the top menu bar.
 2. Select "Custom Browser Docks".
@@ -53,7 +53,7 @@ in OBS:
 ```
 --------------------------------------------------------------
 
-Notes on use:  (in no particular order, my brain is all over the place right now)
+## Notes on use:  (in no particular order, my brain is all over the place right now)
 ```
 1. The race info and wager info boxes will disappear if text box is left blank when updating match info.
 2. The shot clock will auto display in the stream starting at 10s remaining.
@@ -66,7 +66,8 @@ Notes on use:  (in no particular order, my brain is all over the place right now
 ```	
 ---------------------------------------------------------------
 
-if you need a specific color for the background (such as green) open the "browser_source.html" <br>
+## Special background colors
+If you need a specific color for the background (such as green) open the "browser_source.html" <br>
 with a text editor and remove the comment tags indicated below. 
 
      browser_source.html
@@ -88,9 +89,10 @@ with a text editor and remove the comment tags indicated below.
 
 --------------------------------------------------------------
 
-if you are not familiar with the use of a shot clock in pool:
+## Shot Clock
+If you are not familiar with the use of a shot clock in pool.
 ```
-a shot clock is used in most professional 9 ball tournaments. shot clock play is as follows:
+A shot clock is used in most professional 9 ball tournaments. shot clock play is as follows:
 
 	1. first shot after break is a 60s shot. 
 	2. if player elects to "push" the incoming player gets 60s. 

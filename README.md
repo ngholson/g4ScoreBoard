@@ -1,12 +1,17 @@
 # g4ScoreBoard
 g4ScoreBoard for OBS Pool/Billiard Streamers. 
+```
+G4ScoreBoard addon for OBS version 1.5. Copyright 2022 Norman Gholson IV
+https://g4billiards.com http://www.g4creations.com
 
-G4ScoreBoard v1.5
-copyright 2022 Norman Gholson IV
+this is a purely javascript/html/css driven scoreboard system for OBS Studio
 
+free to use and modify for non-commercial use as long as this copyright statment remains intact. 
+for a commercial license please contact norman@g4creations.com
 
-8/28/2022 - COMING SOON! ADD YOUR OWN CUSTOM LOGO!! 
-
+Salotto logo is the copyright of Salotto and is used with their permission.
+for more information about Salotto please visit https://salotto.app
+```
 -------------------------------------------------------------
 
 Extract zip file to the folder of your choice.<br>

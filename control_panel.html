@@ -224,6 +224,25 @@ for more information about Salotto please visit https://salotto.app
 			const bcw = new BroadcastChannel('wager');
 			const bcp1c = new BroadcastChannel('p1_color');
 			const bcp2c = new BroadcastChannel('p2_color');
+			const bcr = new BroadcastChannel('recv'); // return channel from browser_source testing for timer
+			var tev;
+			
+			bcr.onmessage = (event) => {
+//				if (event.data == tev) {
+//					var ntev = event.data --- 1;
+//					document.getElementById("clockLocalDisplay").innerHTML = ntev + "s";
+//					tev = ntev;
+//					console.log("dup Detected- tev:"+tev);
+//					} else {
+					document.getElementById("clockLocalDisplay").innerHTML = event.data + "s";
+//					tev = event.data;
+//					console.log("tev:"+tev);
+
+					
+			}
+			
+
+
 
 			function playerColorChange(player) {
 			if (player == 1) {
@@ -321,7 +340,7 @@ for more information about Salotto please visit https://salotto.app
                 if (distance > 60000) {
                       seconds = seconds + 60;
                     } 
-	                    document.getElementById("clockLocalDisplay").innerHTML = seconds + "s";
+	                  //  document.getElementById("clockLocalDisplay").innerHTML = seconds + "s";
 						document.getElementById("clockLocalDisplay").style.background = "lightgreen";
 						
 

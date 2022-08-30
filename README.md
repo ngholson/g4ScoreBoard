@@ -6,8 +6,6 @@ https://g4billiards.com http://www.g4creations.com
 
 this is a purely javascript/html/css driven pool scoreboard system for OBS Studio
 
-free to use and modify as long as all copyright statments remain intact. 
-
 Salotto logo is the copyright of Salotto and is used with their permission.
 for more information about Salotto please visit https://salotto.app
 ```

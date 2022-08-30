@@ -18,10 +18,10 @@ for more information about Salotto please visit https://salotto.app
             
          <style>
             body{
-				/*
-				background: #00FF00;
-				*/
-				-moz-transform: scale(1.75, 1.75);
+		/*
+		background: #00FF00;
+		*/
+		-moz-transform: scale(1.75, 1.75);
                 zoom: 1.75;
                 zoom: 175%;
                 font-family:tahoma;
@@ -135,16 +135,16 @@ for more information about Salotto please visit https://salotto.app
             /* blink code */
 			
             @keyframes blinking {
-				0% {
-				background-color: #ffffff;
-				}
-				100% {
-				background-color: lightgreen;
-				}
+		0% {
+		background-color: #ffffff;
+		}
+		100% {
+		background-color: lightgreen;
+		}
             }
             .winBlink {
                 animation: blinking .15s 3;
-			}
+		}
 			
               /* end of blink code */
             
@@ -267,6 +267,8 @@ for more information about Salotto please visit https://salotto.app
 			const bcw = new BroadcastChannel('wager');
 			const bcp1c = new BroadcastChannel('p1_color');
 			const bcp2c = new BroadcastChannel('p2_color');
+			const bcr = new BroadcastChannel('recv'); // send back to control_panel channel from browser_source testing for timer
+
 
 			bcClockDisplay.onmessage = (event) => {
 				console.log("event.data: " + event.data);
@@ -413,6 +415,7 @@ for more information about Salotto please visit https://salotto.app
 						document.getElementById("shotClockVis").classList.add("startTimer");
 						}
 				
+				var tev;
 			    countDownTime = new Date().getTime() + shottime;
                 shotClockxr = setInterval(function() {
                 var now = new Date().getTime();
@@ -462,11 +465,23 @@ for more information about Salotto please visit https://salotto.app
                         setTimeout("stopClock()", 2000)
 
                     }
+					if (seconds == tev) {
+						var ntev = seconds --- 1;
+						document.getElementById("shotClock").innerHTML = ntev + "s";
+						tev = ntev;
+						console.log("dup Detected- tev:"+tev);
+						bcr.postMessage(tev);
+						} else {
+							document.getElementById("shotClock").innerHTML = seconds + "s";
+							tev = seconds;
+							console.log("tev:"+tev);
+							bcr.postMessage(tev);
+						}
+						
                  }, 1000);
                 
 				}
-			  
-            
+
 
 			 function showClock(){
                 document.getElementById("shotClock").classList.replace("fadeOutElm","fadeInElm");

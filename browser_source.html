@@ -18,10 +18,10 @@ for more information about Salotto please visit https://salotto.app
             
          <style>
             body{
-		/*
-		background: #00FF00;
-		*/
-		-moz-transform: scale(1.75, 1.75);
+				/*
+				background: #00FF00;
+				*/
+				-moz-transform: scale(1.75, 1.75);
                 zoom: 1.75;
                 zoom: 175%;
                 font-family:tahoma;
@@ -135,16 +135,16 @@ for more information about Salotto please visit https://salotto.app
             /* blink code */
 			
             @keyframes blinking {
-		0% {
-		background-color: #ffffff;
-		}
-		100% {
-		background-color: lightgreen;
-		}
+				0% {
+				background-color: #ffffff;
+				}
+				100% {
+				background-color: lightgreen;
+				}
             }
             .winBlink {
                 animation: blinking .15s 3;
-		}
+			}
 			
               /* end of blink code */
             
@@ -176,7 +176,6 @@ for more information about Salotto please visit https://salotto.app
                width:50px;
                height:50px;
             }
-		 
             #raceInfo {
                 background-image: linear-gradient(to right, grey, white);
 				position:fixed;
@@ -435,6 +434,7 @@ for more information about Salotto please visit https://salotto.app
 						}
 					if (distance < 26000) {
                     	document.getElementById("shotClockVis").style.background = "#5aa500";
+						document.getElementById("shotClockVis").style.opacity = "0.7";
                         }
                         
 					if (distance < 21000) {
@@ -450,13 +450,16 @@ for more information about Salotto please visit https://salotto.app
                     if (distance < 11000) {
                         document.getElementById("shotClock").style.background = "tomato";
 						document.getElementById("shotClockVis").style.background = "#d12f00";
-                        showClock();
-                    }
+						document.getElementById("shotClockVis").style.opacity = "1";          
+					}
+					if (distance < 11000 && distance > 9700) {	
+					   showClock();
+					}
+                    
                     if (distance < 6000 && distance > 999) {
                         document.getElementById("shotClock").classList.add("shotRed");
                         document.getElementById("shotClock").style.background = "red";
 						document.getElementById("shotClockVis").style.background = "red";
-          
                     }
                     if (distance < 1000) {
                         clearInterval(shotClockxr);

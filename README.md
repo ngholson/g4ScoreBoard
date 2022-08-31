@@ -106,6 +106,11 @@ A shot clock is used in most professional 9 ball tournaments. shot clock play is
 
 ## COMING SOON! ADD YOUR OWN CUSTOM LOGO!! 
 ```
+UPDATE: so despite my best efforts at this time the solution below is  
+	the best i can do withot requiring additional software to be 
+	installed by the user. I will be changing the text label in the 
+	control_panel to display 'Show Custom Logo'
+
 Until I get all of the code for that completed there is a work around. 
 i have included "template.psd" for photoshop users, everyone else can use 
 whatever photo editor you wish just make sure the image size is 

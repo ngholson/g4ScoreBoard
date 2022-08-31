@@ -104,7 +104,7 @@ A shot clock is used in most professional 9 ball tournaments. shot clock play is
 
 ---------------------------------------------------------------
 
-##Add your own Logo 
+## Add your own Logo 
 ```
 To add your own logo like the G4Billiards logo that comes preinstalled,
 i have included "template.psd" for photoshop users, everyone else can use 

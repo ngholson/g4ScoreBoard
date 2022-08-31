@@ -1,4 +1,4 @@
-# g4ScoreBoard v1.5
+# g4ScoreBoard v1.5.1
 g4ScoreBoard for OBS Pool/Billiard Streamers. 
 ```
 G4ScoreBoard addon for OBS version 1.5. Copyright 2022 Norman Gholson IV

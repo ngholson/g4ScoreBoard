@@ -104,22 +104,17 @@ A shot clock is used in most professional 9 ball tournaments. shot clock play is
 
 ---------------------------------------------------------------
 
-## COMING SOON! ADD YOUR OWN CUSTOM LOGO!! 
+Add your own Logo 
 ```
-UPDATE: so despite my best efforts at this time the solution below is  
-	the best i can do withot requiring additional software to be 
-	installed by the user. I will be changing the text label in the 
-	control_panel to display 'Show Custom Logo'
-
-Until I get all of the code for that completed there is a work around. 
+To add your own logo like the G4Billiards logo that comes preinstalled,
 i have included "template.psd" for photoshop users, everyone else can use 
 whatever photo editor you wish just make sure the image size is 
 2267 x 653 (weirdly specific i know,i didn't plan it that way it just 
 happened that way) 
 
-rename the existing "g4logo.png" file in the "images" folder to anything else
+rename or delete the existing "g4logo.png" file in the "images" folder 
 then save your new image as "g4logo.png". 
 
-after that you can use the "Show G4Billiards Logo" checkbox to display your 
+after that you can use the "Show Custom Logo" checkbox to display your 
 logo in the scoreboard. 
 ```

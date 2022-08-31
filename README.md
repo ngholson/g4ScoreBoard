@@ -113,8 +113,8 @@ whatever photo editor you wish just make sure the image size is
 2267 x 653 (weirdly specific i know,i didn't plan it that way it just 
 happened that way) 
 
-rename or delete the existing "g4logo.png" file in the "images" folder 
-then save your new image as "g4logo.png". 
+rename or delete the existing "logo.png" file in the "images" folder 
+then save your new image as "logo.png". 
 
 after that you can use the "Show Custom Logo" checkbox to display your 
 logo in the scoreboard. 

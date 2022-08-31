@@ -212,10 +212,12 @@ for more information about Salotto please visit https://salotto.app
 		</center>
 	</div>
         <script>
-			document.getElementById("verNum").innerHTML = versionNum;
-			var p1ScoreValue = 0;
-			var p2ScoreValue = 0;
-            const bcp1s = new BroadcastChannel('player1Score');
+	document.getElementById("logoName").innerHTML = cLogoName;
+	document.getElementById("verNum").innerHTML = versionNum;
+	var p1ScoreValue = 0;
+	var p2ScoreValue = 0;
+
+	    const bcp1s = new BroadcastChannel('player1Score');
             const bcp2s = new BroadcastChannel('player2Score');
             const bcp1n = new BroadcastChannel('player1Name');
             const bcp2n = new BroadcastChannel('player2Name');

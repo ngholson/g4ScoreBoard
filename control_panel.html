@@ -15,13 +15,13 @@ for more information about Salotto please visit https://salotto.app
 
 <html>
     <head>
-     
+     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	 <script>
 	 //---------------------------------------------------------------------------------------------
 	 
-	 var versionNum = "1.5";
-	 var logoName = "Custom";
-	 	 
+	 var versionNum = "1.5.1";
+	 var cLogoName = "Custom";
+	 
 	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 
@@ -138,6 +138,16 @@ for more information about Salotto please visit https://salotto.app
 		color:#000;
 		font-weight:bolder;
 	}
+	
+	#footer {
+	width:90%;
+	left:5%;
+	border: none;
+	background: none;
+	position: absolute;
+	bottom: 5px;
+	text-align:center;
+	}
 	</style>
 	</head>
 	
@@ -206,18 +216,26 @@ for more information about Salotto please visit https://salotto.app
 		
 		
 		
-		<span>Use Clock:<span> <input type="checkbox" id="useClockSetting" onchange="clockSetting()" checked><br><span>Show Salotto Logo:<span> <input type="checkbox" id="useSalottoSetting" onchange="salottoSetting()" checked>
-		<br><span>Show <text id="logoName"></text> Logo:<span> <input type="checkbox" id="customLogo" onchange="customLogoSetting()" checked>
-		<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:absolute; top:8px; right:50%;">g4ScoreB</text><text style="font-size:7pt; color:#818181; position:absolute; top:8px; left:50%;">oard v<text id="verNum"></text></text>
-		</center>
-	</div>
-        <script>
-	document.getElementById("logoName").innerHTML = cLogoName;
-	document.getElementById("verNum").innerHTML = versionNum;
-	var p1ScoreValue = 0;
-	var p2ScoreValue = 0;
+			<span>Use Clock:<span> <input type="checkbox" id="useClockSetting" onchange="clockSetting()" checked><br><span>Show Salotto Logo:<span> <input type="checkbox" id="useSalottoSetting" onchange="salottoSetting()" checked>
+			<br><span>Show <text id="logoName"></text> Logo:<span> <input type="checkbox" id="customLogo" onchange="customLogoSetting()" checked>
+			<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:absolute; top:8px; right:50%;">g4ScoreB</text><text style="font-size:7pt; color:#818181; position:absolute; top:8px; left:50%;">oard v<text id="verNum"></text></text>
+		
+ 		
+	</center>
 
-	    const bcp1s = new BroadcastChannel('player1Score');
+	</div>
+	
+        <script>
+			document.getElementById("logoName").innerHTML = cLogoName;
+
+
+
+
+
+			document.getElementById("verNum").innerHTML = versionNum;
+			var p1ScoreValue = 0;
+			var p2ScoreValue = 0;
+            const bcp1s = new BroadcastChannel('player1Score');
             const bcp2s = new BroadcastChannel('player2Score');
             const bcp1n = new BroadcastChannel('player1Name');
             const bcp2n = new BroadcastChannel('player2Name');
@@ -227,7 +245,7 @@ for more information about Salotto please visit https://salotto.app
 			const bcw = new BroadcastChannel('wager');
 			const bcp1c = new BroadcastChannel('p1_color');
 			const bcp2c = new BroadcastChannel('p2_color');
-			const bcr = new BroadcastChannel('recv'); // return channel from browser_source testing for timer
+			const bcr = new BroadcastChannel('recv'); // return channel from browser_source 
 			var tev;
 			
 			bcr.onmessage = (event) => {
@@ -246,7 +264,7 @@ for more information about Salotto please visit https://salotto.app
 						document.getElementById("shotClockShow").innerHTML = "Hide Clock";
 
 						}
-                    if (tev < 6 && tev > 0) {
+                    if (tev < 6 && tev > 0) {    //tev > 0   this prevents both sounds from playing at 0.
 						document.getElementById("clockLocalDisplay").style.background = "red";
 						document.getElementById("clockLocalDisplay").style.color = "white";
                         warningBeep.loop = false;
@@ -265,10 +283,8 @@ for more information about Salotto please visit https://salotto.app
 
 			function playerColorChange(player) {
 			if (player == 1) {
-				console.log("p"+player+"color: "+document.getElementById("p"+player+"colorDiv").value);
 				bcp1c.postMessage(document.getElementById("p"+player+"colorDiv").value);
 				} else {
-					console.log("p"+player+"color: "+document.getElementById("p"+player+"colorDiv").value);
 					bcp2c.postMessage(document.getElementById("p"+player+"colorDiv").value);
 					}
 			}

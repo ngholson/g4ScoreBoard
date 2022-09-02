@@ -19,6 +19,7 @@ Zip contents:
 [images]
    |-salotto.png
    |-g4logo.png
+   |-logo.png
    |_template.psd
 
 [sound]

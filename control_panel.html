@@ -345,7 +345,14 @@ for more information about Salotto please visit https://salotto.app
 			var p1ScoreValue;
 			var p2ScoreValue;
 			
-							
+			if (localStorage.getItem('p1colorSet') !== null) {
+				document.getElementById('p1colorDiv').style.background = localStorage.getItem('p1colorSet');
+			}
+			
+			if (localStorage.getItem('p2colorSet') !== null) {
+				document.getElementById('p2colorDiv').style.background = localStorage.getItem('p2colorSet');
+			}
+			
 			if (localStorage.getItem('p1ScoreCtrlPanel') > 0 || localStorage.getItem('p1ScoreCtrlPanel') == "" ) {
 				p1ScoreValue = localStorage.getItem('p1ScoreCtrlPanel');
 				bcp1s.postMessage(p1ScoreValue);

@@ -1,6 +1,6 @@
 <!-- 
 
-G4ScoreBoard addon for OBS version 1.5. Copyright 2022 Norman Gholson IV
+G4ScoreBoard addon for OBS version 1.5.7 Copyright 2022 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
 
 this is a purely javascript/html/css driven scoreboard system for OBS Studio
@@ -242,12 +242,12 @@ for more information about Salotto please visit https://salotto.app
         </style>
     </head>
     <body>
-		<div id="raceInfo">&nbsp;</div><div id="wagerInfo">&nbsp;</div>
+		<div class="noShow" id="raceInfo">&nbsp;</div><div class="noShow" id="wagerInfo">&nbsp;</div>
 
         <div id="scoreBoardDiv"  class="fadeInElm">
 		<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
-        <img class="" id="salottoLogo" height="20px" src="./images/salotto.png">
-        <img class="" id="g4Logo" height="20px" src="./images/logo.png">
+        <img class="noShow" id="salottoLogo" height="20px" src="./images/salotto.png">
+        <img class="noShow" id="g4Logo" height="20px" src="./images/logo.png">
 
         <div class="" id="p1ExtIcon">Ex</div>            
         <div class="" id="p2ExtIcon">Ex</div>            
@@ -268,6 +268,58 @@ for more information about Salotto please visit https://salotto.app
         </table>
         </div>
         <script>
+			if (localStorage.getItem("customImage") !== null) {
+				document.getElementById("g4Logo").src = localStorage.getItem("customImage");
+			}
+			
+			if  (localStorage.getItem("p1ScoreCtrlPanel") !== null) {
+			document.getElementById("player1Score").innerHTML = localStorage.getItem("p1ScoreCtrlPanel");
+			} else {
+			document.getElementById("player1Score").innerHTML = 0;
+			}
+
+			if  (localStorage.getItem("p2ScoreCtrlPanel") !== null) {
+			document.getElementById("player2Score").innerHTML = localStorage.getItem("p2ScoreCtrlPanel");
+			} else {
+			document.getElementById("player2Score").innerHTML = 0;
+			}
+
+			if (localStorage.getItem("wagerInfo") !== ""){
+				document.getElementById("wagerInfo").classList.remove("noShow");
+				}
+			
+			if (localStorage.getItem("raceInfo") !== ""){
+				document.getElementById("raceInfo").classList.remove("noShow");
+				}
+				
+			document.getElementById("player1Name").innerHTML = localStorage.getItem("p1NameCtrlPanel");
+			document.getElementById("raceInfo").innerHTML = localStorage.getItem("raceInfo");
+			document.getElementById("player2Name").innerHTML = localStorage.getItem("p2NameCtrlPanel");			
+			document.getElementById("wagerInfo").innerHTML = localStorage.getItem("wagerInfo");			
+			document.getElementById("raceInfo").innerHTML = localStorage.getItem("raceInfo");			
+
+			
+			if (localStorage.getItem("useCustomLogo") == "yes") {
+				document.getElementById("g4Logo").classList.remove("noShow");			
+			}
+			if (localStorage.getItem("useSalotto") == "yes") {
+				document.getElementById("salottoLogo").classList.remove("noShow");			
+			}
+			if (localStorage.getItem("useClock") !== "yes") {
+				document.getElementById("p1ExtIcon").classList.add("noShow");	
+				document.getElementById("p2ExtIcon").classList.add("noShow");				
+			}
+			
+			if (localStorage.getItem('p1colorSet') !== "") {
+				document.getElementById("player1Name").style.background = "linear-gradient(to left, white , "+localStorage.getItem('p1colorSet');
+				console.log("p1color: "+localStorage.getItem('p1colorSet'));
+			}
+			if (localStorage.getItem('p2colorSet') !== "") {
+				document.getElementById("player2Name").style.background = "linear-gradient(to right, white , "+localStorage.getItem('p2colorSet');
+				console.log("p2color: "+localStorage.getItem('p2colorSet'));
+			}
+			
+			
 			
             var elem = document.documentElement;
             var countDownTime;
@@ -340,6 +392,10 @@ for more information about Salotto please visit https://salotto.app
 				if (event.data =="showcustomLogo") {
 						customShow();
 					}
+					
+				if (event.data =="postLogo") {
+						postLogo();
+					}
 													
 			}
 			
@@ -383,9 +439,11 @@ for more information about Salotto please visit https://salotto.app
 				if (!event.data == 0) {
                document.getElementById("player1Score").innerHTML = event.data;
                document.getElementById("player1Score").classList.add("winBlink");
+			   
                setTimeout("clearWinBlink()",1000);
 				} else {
 				document.getElementById("player1Score").innerHTML = event.data;
+				
 				}
 
                
@@ -397,9 +455,11 @@ for more information about Salotto please visit https://salotto.app
 				if (!event.data == 0) {
                document.getElementById("player2Score").innerHTML = event.data;
                document.getElementById("player2Score").classList.add("winBlink");
+			   
                setTimeout("clearWinBlink()",1000);
 			   } else {
 			   document.getElementById("player2Score").innerHTML = event.data;
+			
 			   }
                
             }
@@ -424,6 +484,12 @@ for more information about Salotto please visit https://salotto.app
                
            }
 		   
+		    function postLogo() {
+			if (localStorage.getItem("customImage") !== "") {
+				document.getElementById("g4Logo").src = localStorage.getItem("customImage");
+			
+			}
+			}
 			function clearWinBlink() {
                 document.getElementById("player1Score").classList.remove("winBlink");
                 document.getElementById("player2Score").classList.remove("winBlink");
@@ -435,9 +501,8 @@ for more information about Salotto please visit https://salotto.app
 				if (shottime == 61000) {
 					document.getElementById("shotClockVis").classList.add("start60");
 					} else {
-						document.getElementById("shotClockVis").classList.add("startTimer");
-						}
-				
+					document.getElementById("shotClockVis").classList.add("startTimer");
+					}
 				var tev;
 			    countDownTime = new Date().getTime() + shottime;
                 shotClockxr = setInterval(function() {

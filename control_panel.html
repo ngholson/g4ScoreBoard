@@ -1,6 +1,6 @@
 <!-- 
 
-G4ScoreBoard addon for OBS version 1.5. Copyright 2022 Norman Gholson IV
+G4ScoreBoard addon for OBS version 1.5.7 Copyright 2022 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
 
 this is a purely javascript/html/css driven scoreboard system for OBS Studio
@@ -19,7 +19,7 @@ for more information about Salotto please visit https://salotto.app
 	 <script>
 	 //---------------------------------------------------------------------------------------------
 	 
-	 var versionNum = "1.5.1";
+	 var versionNum = "1.5.7";
 	 var cLogoName = "Custom";
 	 
 	 //---------------------------------------------------------------------------------------------
@@ -33,8 +33,9 @@ for more information about Salotto please visit https://salotto.app
 		display: flex;
 		}
 	span {
+		cursor: default;
 		color:lightgrey;
-		font-size:10pt;
+		font-size:8pt;
 		}
 	div {
 
@@ -45,24 +46,26 @@ for more information about Salotto please visit https://salotto.app
 		border-radius: 5px;
 		min-width:50px;
 		display: flex;
-		justify-content: center; /* align horizontal */
+		 justify-content: center; /* align horizontal */
 		align-items: center; /* align vertical */
 		font-size:9pt;
 		}
+		
 	#mainDiv {
 		margin: auto;
 		background: #1f1e1f;
-		min-height: 30px;
+		min-height: 95%;
 		border: 0px solid #000;
 		border-radius: 0px;
 		min-width:50px;
 		display: flex;
 		justify-content: center; /* align horizontal */
-		align-items: center; /* align vertical */
-		font-size:9pt;
+		align-items: top; /* align vertical */
+		font-size:8pt;
 		padding:20px;
 		padding-right:60px;
 		padding-left:60px;
+		padding-top:2px;
 	
 		}
 	
@@ -75,6 +78,7 @@ for more information about Salotto please visit https://salotto.app
 		padding-left:10px;
 		padding-right:10px;
 		margin-right:20px;
+		font-size:8pt;
 		}
 		
 	#sendP2Score, #sendP2ScoreSub, #shotClock60, #clockLocalDisplay, #p2extensionBtn, #p2ExtReset {
@@ -86,9 +90,11 @@ for more information about Salotto please visit https://salotto.app
 		padding-left:10px;
 		padding-right:10px;
 		margin-left:20px;
+		font-size:8pt;
 		}
 			
 	#p1colorDiv {
+		
 		cursor: pointer;
 		min-width:75px;
 		position:absolute;
@@ -100,7 +106,7 @@ for more information about Salotto please visit https://salotto.app
 		border-radius:5px;
 		margin-right:24px;
 		font-family:tahoma;
-		font-size:9pt;
+		font-size:8pt;
 		color: lightgrey;
 	}
 	
@@ -116,7 +122,7 @@ for more information about Salotto please visit https://salotto.app
 		border-radius:5px;
 		margin-left:24px;
 		font-family:tahoma;
-		font-size:9pt;
+		font-size:8pt;
 		color: lightgrey;
 	}
 	
@@ -124,11 +130,13 @@ for more information about Salotto please visit https://salotto.app
 	#stopClockDiv, #resetBtn, #sendPNames {
 			cursor: pointer;
 			width:253px;
+			font-size:9pt;
+
 		}
 	.hover {
 	}
 	.hover:hover {
-		background-color:grey
+		background:grey
 		}
 	
 	.noShow{
@@ -148,6 +156,71 @@ for more information about Salotto please visit https://salotto.app
 	bottom: 5px;
 	text-align:center;
 	}
+	#FileUpload {
+    display: none;
+
+	}
+	#btnFile {
+	font-size:8pt;
+	background: #4c4c4c;
+	color: lightgrey;
+	border: none;
+	padding:0px;
+	cursor: pointer;
+
+
+	}
+	
+	#settingsBox1 {
+	position:relative;
+	min-width:85px;
+	max-width:85px;
+	position:absolute;
+	right:50%;
+	padding:10px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:13px;
+	margin-right:20px;
+	
+	}
+	#settingsBox2 {
+	position:relative;
+	cursor: pointer;
+
+	min-width:85px;
+	max-width:85px;
+	position:absolute;
+	left:50%;
+	padding-left:10px;
+	padding-right:10px;
+	margin-left:20px;
+	}	
+	
+	#settingsBox3 {
+	cursor: arrow;
+	min-width:85px;
+	max-width:85px;
+	position:relative;
+	left:50%;
+	padding:3px;
+	padding-left:10px;
+	padding-right:10px;
+	margin-right:109px;
+	margin-bottom:3px;
+	font-size:7pt;
+	}	
+	
+	text {
+	cursor: default;
+	}
+	
+	input.smallSize {
+	height: 11px;
+	width: 11px;
+	color:red;
+	}
+	
 	</style>
 	</head>
 	
@@ -156,10 +229,10 @@ for more information about Salotto please visit https://salotto.app
        
         <div id="mainDiv">
          <center>
-	    <span>Player/Team 1 Name:</span>&nbsp;<input style="width: 120px; background:lightgrey" type="text" id="p1Name" placeholder="Player 1"><br>
-        <span>Player/Team 2 Name:</span>&nbsp;<input style="width: 120px; background:lightgrey" type="text" id="p2Name" placeholder="Player 2"><br>
-		<span><text style="font-size:4px">&nbsp;</text>Game and Race Info:</span>&nbsp;<input style="width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br>
-		<span><text style="font-size:11px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:</span>&nbsp;<input style="width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:2pt">&nbsp;</p><div class="hover" id="sendPNames" onclick="postNames()">Update Info</div>
+	    <span>Player/Team 1 Name:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p1Name" placeholder="Player 1"><br>
+        <span>Player/Team 2 Name:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p2Name" placeholder="Player 2"><br>
+		<span><text style="font-size:4px">&nbsp;</text>Game and Race Info:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br>
+		<span><text style="font-size:10px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:&nbsp;</span><input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:2pt">&nbsp;</p><div class="hover" id="sendPNames" onclick="postNames()">Update Info</div>
 		<p style="font-size:1.5pt">&nbsp;</p>
 		<select style="text-align:justify" name="p1Colors" id="p1colorDiv" onchange="playerColorChange(1)">
 			<option value="none" default>P1 Color</option>
@@ -214,27 +287,37 @@ for more information about Salotto please visit https://salotto.app
 		<div class="hover" id="p1ExtReset" onclick="resetExt('p1')">P1 Ext Reset</div>
 		<div class="hover" id="p2ExtReset" onclick="resetExt('p2')">P2 Ext Reset</div><p style="font-size:9pt">&nbsp;</p>
 		
+		<div id="settingsBox1">
+			<span>Use Clock:<span> <input type="checkbox" class="smallSize" id="useClockSetting" onchange="clockSetting()" ><br><span>Salotto Logo:<span><input type="checkbox" class="smallSize" id="useSalottoSetting" onchange="salottoSetting()">
+			<br><span><text id="logoName"></text>Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
+		</div>
+		<div id="settingsBox3">
+		<text>Best Results:<br>2267px x 653px<br>Max size: 2.4MB</text>
+		</div>
+		<div id="settingsBox2">
+			<input type="file" id="FileUpload" onchange="logoPost(this)" accept="image/png, image/jpeg" />
+			<input type="button" id="btnFile" value="Upload Custom Logo" /> <br>
+		
+			<script type="text/javascript">
+				
+				document.getElementById('btnFile').onclick = function() { 
+					document.getElementById('FileUpload').click();
+					};
+			</script>
+			
+
+		</div>	
 		
 		
-			<span>Use Clock:<span> <input type="checkbox" id="useClockSetting" onchange="clockSetting()" checked><br><span>Show Salotto Logo:<span> <input type="checkbox" id="useSalottoSetting" onchange="salottoSetting()" checked>
-			<br><span>Show <text id="logoName"></text> Logo:<span> <input type="checkbox" id="customLogo" onchange="customLogoSetting()" checked>
-			<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:absolute; top:8px; right:50%;">g4ScoreB</text><text style="font-size:7pt; color:#818181; position:absolute; top:8px; left:50%;">oard v<text id="verNum"></text></text>
-		
+			<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:absolute; top:4px; right:50%;">g4ScoreB</text><text style="font-size:7pt; color:#818181; position:absolute; top:4px; left:50%;">oard v<text id="verNum"></text></text>
+			
  		
 	</center>
 
 	</div>
 	
         <script>
-			document.getElementById("logoName").innerHTML = cLogoName;
-
-
-
-
-
-			document.getElementById("verNum").innerHTML = versionNum;
-			var p1ScoreValue = 0;
-			var p2ScoreValue = 0;
+			
             const bcp1s = new BroadcastChannel('player1Score');
             const bcp2s = new BroadcastChannel('player2Score');
             const bcp1n = new BroadcastChannel('player1Name');
@@ -246,7 +329,64 @@ for more information about Salotto please visit https://salotto.app
 			const bcp1c = new BroadcastChannel('p1_color');
 			const bcp2c = new BroadcastChannel('p2_color');
 			const bcr = new BroadcastChannel('recv'); // return channel from browser_source 
+			
 			var tev;
+		
+			document.getElementById("logoName").innerHTML = cLogoName;
+			document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
+			document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");
+			document.getElementById("raceInfoTxt").value = localStorage.getItem("raceInfo");
+			document.getElementById("wagerInfoTxt").value = localStorage.getItem("wagerInfo");
+			
+			postNames();
+			
+			document.getElementById("verNum").innerHTML = versionNum;
+			
+			var p1ScoreValue;
+			var p2ScoreValue;
+			
+							
+			if (localStorage.getItem('p1ScoreCtrlPanel') > 0 || localStorage.getItem('p1ScoreCtrlPanel') == "" ) {
+				p1ScoreValue = localStorage.getItem('p1ScoreCtrlPanel');
+				bcp1s.postMessage(p1ScoreValue);
+				} else {
+				p1ScoreValue = 0;
+				bcp1s.postMessage(p1ScoreValue);
+				}
+			if (localStorage.getItem('p2ScoreCtrlPanel') > 0 || localStorage.getItem('p2ScoreCtrlPanel') == "" ) {
+				p2ScoreValue = localStorage.getItem('p2ScoreCtrlPanel');
+				bcp2s.postMessage(p2ScoreValue);
+				} else {
+				p2ScoreValue = 0;
+				bcp2s.postMessage(p2ScoreValue);
+				}
+			
+			if (localStorage.getItem("useSalotto") == "yes") {
+					console.log("salotto = TRUE");
+					document.getElementById("useSalottoSetting").checked = true;
+					salottoSetting();
+						} 	else {
+						salottoSetting()
+						}
+			
+			if (localStorage.getItem("useCustomLogo") == "yes") {
+					console.log("customLogo = TRUE");
+					document.getElementById("customLogo").checked = true;
+					customLogoSetting();
+						} 	else {
+						customLogoSetting()
+						}			
+			
+			if (localStorage.getItem("useClock") == "yes") {
+					console.log("Clock = TRUE");
+					document.getElementById("useClockSetting").checked = true;
+					clockSetting();
+						} 	else {
+						document.getElementById("useSalottoSetting").checked = false;
+						document.getElementById("useSalottoSetting").removeAttribute("checked");
+						clockSetting()
+						}			
+			
 			
 			bcr.onmessage = (event) => {
 					document.getElementById("clockLocalDisplay").style.background = "lightGreen";
@@ -279,18 +419,53 @@ for more information about Salotto please visit https://salotto.app
 			}
 			
 
+		
+		
+		
+
+		
+			function logoPost(input) {
+				
+				if (input.files && input.files[0]) {
+				const imgPath = document.getElementById('FileUpload').files[0];
+				const reader = new FileReader();
+					reader.readAsDataURL(input.files[0]);
+					reader.addEventListener("load", function () {
+					// convert image file to base64 string and save to localStorage
+					localStorage.setItem("customImage", reader.result);
+
+					}, false);
+				setTimeout(logoOther, 50);
+			}
+			}
+			function logoOther() {
+				bcClockDisplay.postMessage('postLogo');
+			}
+
+
+
+
+
 
 
 			function playerColorChange(player) {
+			var cvalue  = document.getElementById("p"+player+"colorDiv").value;
 			if (player == 1) {
 				bcp1c.postMessage(document.getElementById("p"+player+"colorDiv").value);
+				document.getElementById("p1colorDiv").style.background = document.getElementById("p"+player+"colorDiv").value;
+				if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p1colorDiv").style.color= "#000";} else { document.getElementById("p1colorDiv").style.color= "lightgrey";};
+				localStorage.setItem("p1colorSet", document.getElementById("p"+player+"colorDiv").value);
 				} else {
 					bcp2c.postMessage(document.getElementById("p"+player+"colorDiv").value);
-					}
+					document.getElementById("p2colorDiv").style.background = document.getElementById("p"+player+"colorDiv").value;
+					if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p2colorDiv").style.color= "#000";} else { document.getElementById("p2colorDiv").style.color= "lightgrey";};
+					localStorage.setItem("p2colorSet", document.getElementById("p"+player+"colorDiv").value);
+				}
 			}
 
 			function clockSetting() {
 				if (!document.getElementById("useClockSetting").checked) {
+						localStorage.setItem("useClock", "no");
 						bcClockDisplay.postMessage("noClock");
 						document.getElementById("shotClock30").classList.add("noShow");
 						document.getElementById("shotClock60").classList.add("noShow");
@@ -303,6 +478,7 @@ for more information about Salotto please visit https://salotto.app
 						document.getElementById("resetBtn").innerHTML = "Reset Scores";
 
 					} else if (document.getElementById("useClockSetting").checked) {
+						localStorage.setItem("useClock", "yes");
 						bcClockDisplay.postMessage("useClock");
 						document.getElementById("shotClock30").classList.remove("noShow");
 						document.getElementById("shotClock60").classList.remove("noShow");
@@ -333,20 +509,29 @@ for more information about Salotto please visit https://salotto.app
 				bcp2n.postMessage(document.getElementById("p2Name").value);
 				bcri.postMessage(document.getElementById("raceInfoTxt").value);
 				bcw.postMessage(document.getElementById("wagerInfoTxt").value);
-				if (!p1Name.value == "") {document.getElementById("p1extensionBtn").innerHTML = p1Name.value+"'s<br>Extension";} else {document.getElementById("p1extensionBtn").innerHTML = "P1 Extension";}
+				if (!p1Name.value == "") {document.getElementById("p1ExtReset").innerHTML = "Reset<br>"+p1Name.value+"'s Ext";} else {document.getElementById("p1ExtReset").innerHTML = "P1 Ext Reset";}
+				if (!p2Name.value == "") {document.getElementById("p2ExtReset").innerHTML = "Reset<br>"+p2Name.value+"'s Ext";} else {document.getElementById("p2ExtReset").innerHTML = "P2 Ext Reset";}
 				if (!p2Name.value == "") {document.getElementById("p2extensionBtn").innerHTML = p2Name.value+"'s<br>Extension";} else {document.getElementById("p2extensionBtn").innerHTML = "P2 Extension";}
+				if (!p1Name.value == "") {document.getElementById("p1extensionBtn").innerHTML = p1Name.value+"'s<br>Extension";} else {document.getElementById("p1extensionBtn").innerHTML = "P1 Extension";}
+				localStorage.setItem("p1NameCtrlPanel", p1Name.value);
+				localStorage.setItem("p2NameCtrlPanel", p2Name.value);
+				localStorage.setItem("raceInfo", raceInfoTxt.value);
+				localStorage.setItem("wagerInfo", wagerInfoTxt.value);
+				
 			}
 			            
             function postP1Score(opt1) {
 				if (opt1 == "add") {
 					p1ScoreValue = p1ScoreValue +++ 1;
 					bcp1s.postMessage(p1ScoreValue);
+					localStorage.setItem("p1ScoreCtrlPanel", p1ScoreValue);
 					stopClock();
 					} else {
 						if (p1ScoreValue > 0) {
 							p1ScoreValue = p1ScoreValue --- 1;
 							bcp1s.postMessage(p1ScoreValue);
-							} 
+							localStorage.setItem("p1ScoreCtrlPanel", p1ScoreValue);
+					} 
 				}
 				resetExt('p1');
 				resetExt('p2');
@@ -389,11 +574,13 @@ for more information about Salotto please visit https://salotto.app
 				if (opt2 == "add") {
 					p2ScoreValue = p2ScoreValue +++ 1;
 					bcp2s.postMessage(p2ScoreValue);
+					localStorage.setItem("p2ScoreCtrlPanel", p2ScoreValue);
 					stopClock();
 					} else {
 						if (p2ScoreValue > 0) {
 							p2ScoreValue = p2ScoreValue --- 1;
 							bcp2s.postMessage(p2ScoreValue);
+							localStorage.setItem("p2ScoreCtrlPanel", p2ScoreValue);
 							} 
 				}
 				resetExt('p1');
@@ -403,6 +590,8 @@ for more information about Salotto please visit https://salotto.app
 			function resetScore() {
 				p1ScoreValue = 0;
 				p2ScoreValue = 0;
+				localStorage.setItem("p1ScoreCtrlPanel", 0);
+				localStorage.setItem("p2ScoreCtrlPanel", 0);
 				bcp1s.postMessage(p1ScoreValue);   
 				bcp2s.postMessage(p2ScoreValue);   
 				resetExt('p1');
@@ -429,16 +618,20 @@ for more information about Salotto please visit https://salotto.app
 			function salottoSetting() {
 				if (!document.getElementById("useSalottoSetting").checked) {
 				bcClockDisplay.postMessage("hidesalotto");
+				localStorage.setItem("useSalotto", "no");
 				} else {
 				bcClockDisplay.postMessage("showsalotto");
+				localStorage.setItem("useSalotto", "yes");
 				}
 			}
 			
 			function customLogoSetting() {
 				if (!document.getElementById("customLogo").checked) {
 				bcClockDisplay.postMessage("hidecustomLogo");
+				localStorage.setItem("useCustomLogo", "no");
 				} else {
 				bcClockDisplay.postMessage("showcustomLogo");
+				localStorage.setItem("useCustomLogo", "yes");
 				}
 			}
 				

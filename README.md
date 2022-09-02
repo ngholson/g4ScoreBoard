@@ -1,7 +1,7 @@
-# g4ScoreBoard v1.5.1
+# g4ScoreBoard v1.5.7
 g4ScoreBoard for OBS Pool/Billiard Streamers. 
 ```
-G4ScoreBoard addon for OBS version 1.5.1 Copyright 2022 Norman Gholson IV
+G4ScoreBoard addon for OBS version 1.5.7 Copyright 2022 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
 
 this is a purely javascript/html/css driven pool scoreboard system for OBS Studio
@@ -107,15 +107,8 @@ A shot clock is used in most professional 9 ball tournaments. shot clock play is
 
 ## Add your own Logo 
 ```
-To add your own logo like the G4Billiards logo that comes preinstalled,
-i have included "template.psd" for photoshop users, everyone else can use 
-whatever photo editor you wish just make sure the image size is 
-2267 x 653 (weirdly specific i know,i didn't plan it that way it just 
-happened that way) 
+Simply click on the "Upload Custom Logo" button and choose your image.
+For best results image size should be 2267 x 653
+Max file size 2.4 MB 
 
-rename or delete the existing "logo.png" file in the "images" folder 
-then save your new image as "logo.png". 
-
-after that you can use the "Show Custom Logo" checkbox to display your 
-logo in the scoreboard. 
 ```

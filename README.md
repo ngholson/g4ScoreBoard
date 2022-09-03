@@ -20,6 +20,8 @@ Zip contents:
    |-salotto.png
    |-g4logo.png
    |-logo.png
+   |-8_ball_game.png <-example of other custom logo use
+   |-9_ball_game.png <-example of other custom logo use
    |_template.psd
 
 [sound]

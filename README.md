@@ -1,7 +1,7 @@
-# g4ScoreBoard v1.5.8
+# g4ScoreBoard v1.5.9
 g4ScoreBoard for OBS Pool/Billiard Streamers. 
 ```
-G4ScoreBoard addon for OBS version 1.5.8 Copyright 2022 Norman Gholson IV
+G4ScoreBoard addon for OBS version 1.5.9 Copyright 2022 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
 
 this is a purely javascript/html/css driven pool scoreboard system for OBS Studio

@@ -524,6 +524,9 @@ for more information about Salotto please visit https://salotto.app
 						document.getElementById("p1ExtReset").classList.add("noShow");
 						document.getElementById("p2ExtReset").classList.add("noShow");
 						document.getElementById("resetBtn").innerHTML = "Reset Scores";
+						if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
+						document.getElementById("allCheck").checked = false;
+				}
 
 					} else if (document.getElementById("useClockSetting").checked) {
 						localStorage.setItem("useClock", "yes");
@@ -670,6 +673,9 @@ for more information about Salotto please visit https://salotto.app
 				if (!document.getElementById("useSalottoSetting").checked) {
 				bcClockDisplay.postMessage("hidesalotto");
 				localStorage.setItem("useSalotto", "no");
+				if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
+				document.getElementById("allCheck").checked = false;
+				}
 				} else {
 				bcClockDisplay.postMessage("showsalotto");
 				localStorage.setItem("useSalotto", "yes");
@@ -680,6 +686,9 @@ for more information about Salotto please visit https://salotto.app
 				if (!document.getElementById("customLogo").checked) {
 				bcClockDisplay.postMessage("hidecustomLogo");
 				localStorage.setItem("useCustomLogo", "no");
+				if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
+				document.getElementById("allCheck").checked = false;
+				}
 				} else {
 				bcClockDisplay.postMessage("showcustomLogo");
 				localStorage.setItem("useCustomLogo", "yes");

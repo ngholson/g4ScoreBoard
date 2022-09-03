@@ -1,6 +1,6 @@
 <!-- 
 
-G4ScoreBoard addon for OBS version 1.5.8 Copyright 2022 Norman Gholson IV
+G4ScoreBoard addon for OBS version 1.5.9 Copyright 2022 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
 
 this is a purely javascript/html/css driven scoreboard system for OBS Studio
@@ -67,7 +67,7 @@ for more information about Salotto please visit https://salotto.app
 			
             #player1Name, #player2Name, #shotClock {
                 background: rgba(255,255,255,1);
-                font-size:15pt;
+                font-size:10pt;
                 font-weight:bold;                
                 text-align: center;
                 vertical-align: middle
@@ -89,10 +89,10 @@ for more information about Salotto please visit https://salotto.app
             #p1ExtIcon{
                 position:absolute;
                 left:32px;
-                top:39.5px;
+                top:31px;
                 background:green;
                 border: solid 1px #000;
-                border-radius:10px 0px 0px 10px;
+                border-radius:9px 0px 0px 9px;
                 color:#fff;
                 font-size:9pt;
                 padding:6px;
@@ -100,10 +100,10 @@ for more information about Salotto please visit https://salotto.app
             #p2ExtIcon {
                 position:absolute;
                 right:32px;
-                top:39.5px;
+                top:31px;
                 background:green;
                 border: solid 1px #000;
-                border-radius:0px 10px 10px 0px;
+                border-radius:0px 9px 9px 0px;
                 color:#fff;
                 font-size:9pt;
                 padding:6px;
@@ -165,14 +165,14 @@ for more information about Salotto please visit https://salotto.app
             
             #salottoLogo {
                 position:absolute;
-                top: 44px;
-                left: 338px;
+                top: 35.5px;
+                right: 590px;
                 z-index:9;
             }
 			 #g4Logo {
                 position:absolute;
-                top: 43px;
-                right: 338px;
+                top: 35.5px;
+                left: 590px;
                 z-index:9;
             }
            #player1Image {
@@ -246,11 +246,11 @@ for more information about Salotto please visit https://salotto.app
 
         <div id="scoreBoardDiv"  class="fadeInElm">
 		<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
-        <img class="noShow" id="salottoLogo" height="20px" src="./images/salotto.png">
-        <img class="noShow" id="g4Logo" height="20px" src="./images/logo.png">
+        <img class="fadeOutElm" id="salottoLogo" height="20px" src="./images/salotto.png">
+        <img class="fadeOutElm" id="g4Logo" height="20px" src="./images/logo.png">
 
-        <div class="" id="p1ExtIcon">Ex</div>            
-        <div class="" id="p2ExtIcon">Ex</div>            
+        <div class="fadeInElm" id="p1ExtIcon">Ex</div>            
+        <div class="fadeInElm" id="p2ExtIcon">Ex</div>            
         <table id="scoreBoard">
              <tr>
                 <td class="noShow"></td>
@@ -300,14 +300,14 @@ for more information about Salotto please visit https://salotto.app
 
 			
 			if (localStorage.getItem("useCustomLogo") == "yes") {
-				document.getElementById("g4Logo").classList.remove("noShow");			
+				document.getElementById("g4Logo").classList.replace("fadeOutElm","fadeInElm");			
 			}
 			if (localStorage.getItem("useSalotto") == "yes") {
-				document.getElementById("salottoLogo").classList.remove("noShow");			
+				document.getElementById("salottoLogo").classList.replace("fadeOutElm","fadeInElm");		
 			}
 			if (localStorage.getItem("useClock") !== "yes") {
-				document.getElementById("p1ExtIcon").classList.add("noShow");	
-				document.getElementById("p2ExtIcon").classList.add("noShow");				
+				document.getElementById("p1ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
+				document.getElementById("p2ExtIcon").classList.replace("fadeInElm","fadeOutElm");			
 			}
 			
 			if (localStorage.getItem('p1colorSet') !== "") {
@@ -324,7 +324,7 @@ for more information about Salotto please visit https://salotto.app
             var elem = document.documentElement;
             var countDownTime;
             var shotClockxr = null;
-            const bcp1s = new BroadcastChannel('player1Score');
+            const bcp1s = new BroadcastChannel('player1Score');  // i know there is a better way to do all of this but i don't know how yet....
             const bcp2s = new BroadcastChannel('player2Score');
             const bcp1n = new BroadcastChannel('player1Name');
             const bcp2n = new BroadcastChannel('player2Name');
@@ -334,7 +334,7 @@ for more information about Salotto please visit https://salotto.app
 			const bcw = new BroadcastChannel('wager');
 			const bcp1c = new BroadcastChannel('p1_color');
 			const bcp2c = new BroadcastChannel('p2_color');
-			const bcr = new BroadcastChannel('recv'); // send back to control_panel channel from browser_source testing for timer
+			const bcr = new BroadcastChannel('recv'); // browser_source -> control_panel channel 
 
 
 			bcClockDisplay.onmessage = (event) => {
@@ -352,13 +352,13 @@ for more information about Salotto please visit https://salotto.app
 					}  
 
 				if (event.data == "noClock") {
-						document.getElementById("p1ExtIcon").classList.add("noShow");
-						document.getElementById("p2ExtIcon").classList.add("noShow");
+						document.getElementById("p1ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
+						document.getElementById("p2ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
 					}  
 
 				if (event.data == "useClock") {
-						document.getElementById("p1ExtIcon").classList.remove("noShow");
-						document.getElementById("p2ExtIcon").classList.remove("noShow");
+						document.getElementById("p1ExtIcon").classList.replace("fadeOutElm","fadeInElm");	
+						document.getElementById("p2ExtIcon").classList.replace("fadeOutElm","fadeInElm");	
 					} 
 
 				if (event.data == "p1extension") {
@@ -468,6 +468,8 @@ for more information about Salotto please visit https://salotto.app
 				console.log("event.data: " + event.data);
 				if (!event.data == ""){
 					document.getElementById("player1Name").innerHTML = event.data;
+					
+					
 						} else {
 							document.getElementById("player1Name").innerHTML = "Player 1";
 						}
@@ -623,20 +625,20 @@ for more information about Salotto please visit https://salotto.app
 				}
 				
 			function salottoShow() {
-				document.getElementById("salottoLogo").classList.remove("noShow")
+				document.getElementById("salottoLogo").classList.replace("fadeOutElm","fadeInElm");	
 			
 			}
 			function salottoHide() {
-				document.getElementById("salottoLogo").classList.add("noShow")
+				document.getElementById("salottoLogo").classList.replace("fadeInElm","fadeOutElm");
 			
 			}
 			
 			function customShow() {
-				document.getElementById("g4Logo").classList.remove("noShow")
+				document.getElementById("g4Logo").classList.replace("fadeOutElm","fadeInElm");
 			
 			}
 			function customHide() {
-				document.getElementById("g4Logo").classList.add("noShow")
+				document.getElementById("g4Logo").classList.replace("fadeInElm","fadeOutElm");
 			
 			}
 			

@@ -1,6 +1,6 @@
 <!-- 
 
-G4ScoreBoard addon for OBS version 1.5.8 Copyright 2022 Norman Gholson IV
+G4ScoreBoard addon for OBS version 1.5.9 Copyright 2022 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
 
 this is a purely javascript/html/css driven scoreboard system for OBS Studio
@@ -19,7 +19,7 @@ for more information about Salotto please visit https://salotto.app
 	 <script>
 	 //---------------------------------------------------------------------------------------------
 	 
-	 var versionNum = "1.5.8";
+	 var versionNum = "1.5.9";
 	 var cLogoName = "Custom";
 	 
 	 //---------------------------------------------------------------------------------------------
@@ -42,6 +42,7 @@ for more information about Salotto please visit https://salotto.app
 		background: #4c4c4c;
 		color:lightgrey;
 		min-height: 30px;
+
 		border: 1px solid #000;
 		border-radius: 5px;
 		min-width:50px;
@@ -221,6 +222,14 @@ for more information about Salotto please visit https://salotto.app
 	color:red;
 	}
 	
+	#swapBtn {
+		cursor:pointer;
+		position:relative;
+		padding:2px;
+		width:10%;
+		min-width:30px;
+		min-height:15px;
+	}
 	</style>
 	</head>
 	
@@ -232,10 +241,10 @@ for more information about Salotto please visit https://salotto.app
 	    <span>Player/Team 1 Name:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p1Name" placeholder="Player 1"><br>
         <span>Player/Team 2 Name:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p2Name" placeholder="Player 2"><br>
 		<span><text style="font-size:4px">&nbsp;</text>Game and Race Info:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br>
-		<span><text style="font-size:10px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:&nbsp;</span><input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:2pt">&nbsp;</p><div class="hover" id="sendPNames" onclick="postNames()">Update Info</div>
+		<span><text style="font-size:9.5px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:&nbsp;</span><input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:2pt">&nbsp;</p><div class="hover" id="sendPNames" onclick="postNames()">Update Info</div>
 		<p style="font-size:1.5pt">&nbsp;</p>
 		<select style="text-align:justify" name="p1Colors" id="p1colorDiv" onchange="playerColorChange(1)">
-			<option value="none" default>P1 Color</option>
+			<option value="" default>P1 Color</option>
             <option value="grey">Grey</option>
 			<option value="steelblue">SteelBlue</option>
             <option value="cadetblue">CadetBlue</option>
@@ -253,7 +262,7 @@ for more information about Salotto please visit https://salotto.app
         </select>
 		
 		<select style="text-align:justify" name="p2Colors" id="p2colorDiv" onchange="playerColorChange(2)">
-            <option value="none" default>P2 Color</option>
+            <option value="" default>P2 Color</option>
             <option value="grey">Grey</option>
 			<option value="steelblue">SteelBlue</option>
             <option value="cadetblue">CadetBlue</option>
@@ -268,7 +277,7 @@ for more information about Salotto please visit https://salotto.app
             <option value="lightseagreen">SeaGreen</option>
 			<option value="purple">Purple</option>
             
-        </select><p style="font-size:7pt">&nbsp;</p>
+        </select><div class="hover" onclick="swapColors()" id="swapBtn">Swap</div>
 		<hr>
         <div class="hover" id="sendP1Score" onclick="postP1Score('add')">P1 +1 Score</div>
         <div class="hover" id="sendP2Score" onclick="postP2Score('add')">P2 +1 Score</div>
@@ -292,7 +301,7 @@ for more information about Salotto please visit https://salotto.app
 			<br><span><text id="logoName"></text>Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
 		</div>
 		<div id="settingsBox3">
-		<text>Best Results:<br>2267px x 653px<br>Max size: 2.4MB</text>
+		<text>Logo Image Upload<br>Max size: 2.4MB</text>
 		</div>
 		<div id="settingsBox2">
 			<input type="file" id="FileUpload" onchange="logoPost(this)" accept="image/png, image/jpeg" />
@@ -307,6 +316,7 @@ for more information about Salotto please visit https://salotto.app
 			
 
 		</div>	
+		
 		
 		
 			<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:absolute; top:4px; right:50%;">g4ScoreB</text><text style="font-size:7pt; color:#818181; position:absolute; top:4px; left:50%;">oard v<text id="verNum"></text></text>
@@ -331,7 +341,7 @@ for more information about Salotto please visit https://salotto.app
 			const bcr = new BroadcastChannel('recv'); // return channel from browser_source 
 			
 			var tev;
-		
+			//document.getElementById("swapBtn").style.left = ((window.innerWidth/2)-16);
 			document.getElementById("logoName").innerHTML = cLogoName;
 			document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
 			document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");
@@ -346,11 +356,18 @@ for more information about Salotto please visit https://salotto.app
 			var p2ScoreValue;
 			
 			if (localStorage.getItem('p1colorSet') !== null) {
+				var cvalue = localStorage.getItem('p1colorSet');
 				document.getElementById('p1colorDiv').style.background = localStorage.getItem('p1colorSet');
+				document.getElementsByTagName("select")[0].options[0].value = cvalue;
+				if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p1colorDiv").style.color= "#000";} else { document.getElementById("p1colorDiv").style.color= "lightgrey";};
+
 			}
 			
 			if (localStorage.getItem('p2colorSet') !== null) {
+				var cvalue = localStorage.getItem('p2colorSet');
 				document.getElementById('p2colorDiv').style.background = localStorage.getItem('p2colorSet');
+				if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p2colorDiv").style.color= "#000";} else { document.getElementById("p2colorDiv").style.color= "lightgrey";};
+
 			}
 			
 			if (localStorage.getItem('p1ScoreCtrlPanel') > 0 || localStorage.getItem('p1ScoreCtrlPanel') == "" ) {
@@ -400,6 +417,9 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("clockLocalDisplay").innerHTML = event.data + "s";
 					tev =  event.data;
 					console.log(tev);
+					if (tev > 5) {
+						document.getElementById("clockLocalDisplay").style.color = "black";
+					}
 					if (tev < 16) {
 						document.getElementById("clockLocalDisplay").style.background = "yellow";
 						}
@@ -443,8 +463,9 @@ for more information about Salotto please visit https://salotto.app
 
 					}, false);
 				setTimeout(logoOther, 50);
+				}
 			}
-			}
+			
 			function logoOther() {
 				bcClockDisplay.postMessage('postLogo');
 			}
@@ -452,7 +473,16 @@ for more information about Salotto please visit https://salotto.app
 
 
 
-
+			function swapColors() {
+				var p1original = localStorage.getItem('p1colorSet');
+				var p2original = localStorage.getItem('p2colorSet');
+				setTimeout( function()  { document.getElementById("p1colorDiv").value = p2original; document.getElementById("p2colorDiv").value = p1original; bcp1c.postMessage(p2original); bcp2c.postMessage(p1original); 
+				document.getElementById("p2colorDiv").style.background = p1original; document.getElementById("p1colorDiv").style.background = p2original; localStorage.setItem('p1colorSet', p2original); localStorage.setItem('p2colorSet', p1original);
+				document.getElementsByTagName("select")[0].options[0].value = p2original; document.getElementsByTagName("select")[1].options[0].value = p1original;	c1value = p1original; c2value = p2original;
+				if (c1value == "orange"  || c1value == "khaki"  || c1value == "tomato" || c1value == "red" || c1value == "orangered" || c1value == "orange" || c1value == "lightgreen" || c1value == "lightseagreen")  { document.getElementById("p2colorDiv").style.color= "#000";} else { document.getElementById("p2colorDiv").style.color= "lightgrey";};
+				if (c2value == "orange"  || c2value == "khaki"  || c2value == "tomato" || c2value == "red" || c2value == "orangered" || c2value == "orange" || c2value == "lightgreen" || c2value == "lightseagreen")  { document.getElementById("p1colorDiv").style.color= "#000";} else { document.getElementById("p1colorDiv").style.color= "lightgrey";};
+				} , 100);
+			}
 
 
 			function playerColorChange(player) {
@@ -462,11 +492,13 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("p1colorDiv").style.background = document.getElementById("p"+player+"colorDiv").value;
 				if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p1colorDiv").style.color= "#000";} else { document.getElementById("p1colorDiv").style.color= "lightgrey";};
 				localStorage.setItem("p1colorSet", document.getElementById("p"+player+"colorDiv").value);
+				document.getElementsByTagName("select")[0].options[0].value = cvalue;
 				} else {
 					bcp2c.postMessage(document.getElementById("p"+player+"colorDiv").value);
 					document.getElementById("p2colorDiv").style.background = document.getElementById("p"+player+"colorDiv").value;
 					if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p2colorDiv").style.color= "#000";} else { document.getElementById("p2colorDiv").style.color= "lightgrey";};
 					localStorage.setItem("p2colorSet", document.getElementById("p"+player+"colorDiv").value);
+					document.getElementsByTagName("select")[1].options[0].value = cvalue;
 				}
 			}
 
@@ -512,18 +544,19 @@ for more information about Salotto please visit https://salotto.app
 					
 
             function postNames() {
-                bcp1n.postMessage(document.getElementById("p1Name").value);    
-				bcp2n.postMessage(document.getElementById("p2Name").value);
+                bcp1n.postMessage(document.getElementById("p1Name").value.substring(0, 29));    
+				bcp2n.postMessage(document.getElementById("p2Name").value.substring(0, 29));
 				bcri.postMessage(document.getElementById("raceInfoTxt").value);
 				bcw.postMessage(document.getElementById("wagerInfoTxt").value);
-				if (!p1Name.value == "") {document.getElementById("p1ExtReset").innerHTML = "Reset<br>"+p1Name.value+"'s Ext";} else {document.getElementById("p1ExtReset").innerHTML = "P1 Ext Reset";}
-				if (!p2Name.value == "") {document.getElementById("p2ExtReset").innerHTML = "Reset<br>"+p2Name.value+"'s Ext";} else {document.getElementById("p2ExtReset").innerHTML = "P2 Ext Reset";}
-				if (!p2Name.value == "") {document.getElementById("p2extensionBtn").innerHTML = p2Name.value+"'s<br>Extension";} else {document.getElementById("p2extensionBtn").innerHTML = "P2 Extension";}
-				if (!p1Name.value == "") {document.getElementById("p1extensionBtn").innerHTML = p1Name.value+"'s<br>Extension";} else {document.getElementById("p1extensionBtn").innerHTML = "P1 Extension";}
+				if (!p1Name.value == "") {document.getElementById("p1ExtReset").innerHTML = "Reset<br>"+document.getElementById("p1Name").value.split(" ")[0]+"'s Ext";} else {document.getElementById("p1ExtReset").innerHTML = "P1 Ext Reset";}
+				if (!p2Name.value == "") {document.getElementById("p2ExtReset").innerHTML = "Reset<br>"+document.getElementById("p2Name").value.split(" ")[0]+"'s Ext";} else {document.getElementById("p2ExtReset").innerHTML = "P2 Ext Reset";}
+				if (!p2Name.value == "") {document.getElementById("p2extensionBtn").innerHTML = document.getElementById("p2Name").value.split(" ")[0]+"'s<br>Extension";} else {document.getElementById("p2extensionBtn").innerHTML = "P2 Extension";}
+				if (!p1Name.value == "") {document.getElementById("p1extensionBtn").innerHTML = document.getElementById("p1Name").value.split(" ")[0]+"'s<br>Extension";} else {document.getElementById("p1extensionBtn").innerHTML = "P1 Extension";}
 				localStorage.setItem("p1NameCtrlPanel", p1Name.value);
 				localStorage.setItem("p2NameCtrlPanel", p2Name.value);
 				localStorage.setItem("raceInfo", raceInfoTxt.value);
 				localStorage.setItem("wagerInfo", wagerInfoTxt.value);
+
 				
 			}
 			            

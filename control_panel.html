@@ -178,10 +178,11 @@ for more information about Salotto please visit https://salotto.app
 	max-width:85px;
 	position:absolute;
 	right:50%;
-	padding:10px;
+	
+	padding-top:2px;
 	padding-left:10px;
 	padding-right:10px;
-	padding-bottom:13px;
+	padding-bottom:2px;
 	margin-right:20px;
 	
 	}
@@ -297,7 +298,7 @@ for more information about Salotto please visit https://salotto.app
 		<div class="hover" id="p2ExtReset" onclick="resetExt('p2')">P2 Ext Reset</div><p style="font-size:9pt">&nbsp;</p>
 		
 		<div id="settingsBox1">
-			<span>Use Clock:<span> <input type="checkbox" class="smallSize" id="useClockSetting" onchange="clockSetting()" ><br><span>Salotto Logo:<span><input type="checkbox" class="smallSize" id="useSalottoSetting" onchange="salottoSetting()">
+			<span>All <input type="checkbox" class="smallSize" id="allCheck" onchange="allCheck()" checked><br><span>Use Clock:<span> <input type="checkbox" class="smallSize" id="useClockSetting" onchange="clockSetting()" ><br><span>Salotto Logo:<span><input type="checkbox" class="smallSize" id="useSalottoSetting" onchange="salottoSetting()">
 			<br><span><text id="logoName"></text>Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
 		</div>
 		<div id="settingsBox3">
@@ -354,6 +355,14 @@ for more information about Salotto please visit https://salotto.app
 			
 			var p1ScoreValue;
 			var p2ScoreValue;
+			
+			if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
+				document.getElementById("allCheck").checked = false;
+				}
+			
+			
+			
+			
 			
 			if (localStorage.getItem('p1colorSet') !== null) {
 				var cvalue = localStorage.getItem('p1colorSet');
@@ -677,6 +686,26 @@ for more information about Salotto please visit https://salotto.app
 				}
 			}
 				
+			function allCheck() {
+				if (!document.getElementById("allCheck").checked) {
+				document.getElementById("useClockSetting").checked =  true; 
+				document.getElementById("useSalottoSetting").checked =  true; 
+				document.getElementById("customLogo").checked =  true; 
+				document.getElementById("useClockSetting").click(); 
+				document.getElementById("useSalottoSetting").click(); 
+				document.getElementById("customLogo").click(); 
+				} 
+				else { console.log("checked"); 
+				document.getElementById("useClockSetting").checked =  false; 
+				document.getElementById("useSalottoSetting").checked =  false; 
+				document.getElementById("customLogo").checked =  false; 
+				document.getElementById("useClockSetting").click(); 
+				document.getElementById("useSalottoSetting").click(); 
+				document.getElementById("customLogo").click(); 
+				}				
+					
+			}			
+			
         </script>
   
 	</body>

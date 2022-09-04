@@ -129,4 +129,5 @@ Max file size 2.4 MB
 ```
 2022SEPT04 - Hotkey support added to daily build
 	     to use install the included g4ScoreBoard_hotkeys.lua script into OBS.
+	     You will find the hotkeys in the hotkey list with the prefix 'G4'
 ```

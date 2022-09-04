@@ -119,3 +119,10 @@ For best results image size should be 2267 x 653
 Max file size 2.4 MB 
 
 ```
+
+---------------------------------------------------------------
+## Latest Update
+```
+2022SEPT04 - Hotkey support added.
+
+```

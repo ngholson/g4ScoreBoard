@@ -14,13 +14,13 @@ for more information about Salotto please visit https://salotto.app
 
 <html>
     <head>
+	 <script src="./common/js/jquery.js"></script>
+	 <script src="hotkeys.js"></script>
      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 
 	 var versionNum = "1.5.9";
 	 var cLogoName = "Custom";
-	 
 	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 
@@ -339,6 +339,30 @@ for more information about Salotto please visit https://salotto.app
 	</div>
 	
         <script>
+			var hotkeyP1ScoreUp;
+			var hotkeyP1ScoreDown;
+			var hotkeyP2ScoreUp;
+			var hotkeyP2ScoreDown;
+			var hotkeyScoreReset;
+			var hotkeyP1Extension;
+			var hotkeyP2Extension;
+			var hotkey30Clock;
+			var hotkey60Clock;
+			var hotkeyStopClock;
+			var hotkeySwap;
+
+			
+			var hotkeyP1ScoreUpOld = hotkeyP1ScoreUp;
+			var hotkeyP2ScoreUpOld = hotkeyP2ScoreUp;
+			var hotkeyP1ScoreDownOld = hotkeyP1ScoreDown;
+			var hotkeyP2ScoreDownOld = hotkeyP2ScoreDown;
+			var hotkeyScoreResetOld = hotkeyScoreReset;
+			var hotkeyP1ExtensionOld = hotkeyP1Extension;
+			var hotkeyP2ExtensionOld = hotkeyP2Extension;
+			var hotkey30ClockOld = hotkey30Clock;
+			var hotkey60ClockOld = hotkey60Clock;
+			var hotkeyStopClockOld = hotkeyStopClock;
+			var hotkeySwapOld = hotkeySwap;
 			
             const bcp1s = new BroadcastChannel('player1Score');
             const bcp2s = new BroadcastChannel('player2Score');
@@ -604,7 +628,6 @@ for more information about Salotto please visit https://salotto.app
             
 			var warningBeep = new Audio("./sound/beep2.mp3");
             var foulSound = new Audio("./sound/buzz.mp3");
-            var elem = document.documentElement;
            
 			
 			function shotClock(timex) {
@@ -722,6 +745,94 @@ for more information about Salotto please visit https://salotto.app
 				}				
 					
 			}			
+			
+			
+			
+			
+			
+
+			////////////////////
+
+			//Reload the hotjeys.js file updated by the LUA script
+			function updateHotkeys() {
+			    src = 'hotkeys.js';
+			    $('script[src="' + src + '"]').remove();
+			    var head= document.getElementsByTagName('head')[0];
+		    	var script= document.createElement('script');
+		    	script.src= src;
+		    	head.appendChild(script);
+			}
+
+			//Toggle the switches if a hotkey is pressed
+			function checkHotkeys (){
+			
+				if (hotkeyP1ScoreUp != hotkeyP1ScoreUpOld){
+					postP1Score('add');
+		            hotkeyP1ScoreUpOld = hotkeyP1ScoreUp;
+				}
+				if (hotkeyP2ScoreUp != hotkeyP2ScoreUpOld){
+					postP2Score('add');					
+					hotkeyP2ScoreUpOld = hotkeyP2ScoreUp;
+				}
+				if (hotkeyP1ScoreDown != hotkeyP1ScoreDownOld){
+					postP1Score('sub');
+		            hotkeyP1ScoreDownhOld = hotkeyP1ScoreDown;
+				}
+				if (hotkeyP2ScoreDown != hotkeyP2ScoreDownOld){
+					postP2Score('sub');
+		            hotkeyP2ScoreDownhOld = hotkeyP2ScoreDown;
+				}
+				if (hotkeyScoreReset != hotkeyScoreResetOld){
+					resetScore();
+		            hotkeyScoreResetOld = hotkeyScoreReset;
+				}
+				if (hotkeyP1Extension != hotkeyP1ExtensionOld){
+					add30('p1');
+		            hotkeyP1ExtensionOld = hotkeyP1Extension;
+				}
+				if (hotkeyP2Extension != hotkeyP2ExtensionOld){
+					add30('p2');
+		            hotkeyP2ExtensionOld = hotkeyP2Extension;
+				}
+				if (hotkey30Clock != hotkey30ClockOld){
+					shotClock(31000);
+					hotkey30ClockOld = hotkey30Clock;
+				}
+				if (hotkey60Clock != hotkey60ClockOld){
+					shotClock(61000);
+					hotkey60ClockOld = hotkey60Clock;
+				}
+				if (hotkeyStopClock != hotkeyStopClockOld){
+					stopClock();
+		            hotkeyStopClockOld = hotkeyStopClock;
+				}
+				if (hotkeySwap != hotkeySwapOld){
+					swapColors();
+		            hotkeySwapOld = hotkeySwap;
+				}
+			}
+
+			
+			
+			
+			
+			function refreshData() {
+			    x = 0.05; // Refresh time multiplier
+				checkHotkeys();
+				updateHotkeys();
+				setTimeout(refreshData, x*1000);
+			}
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			refreshData();
 			
         </script>
   

@@ -746,12 +746,8 @@ for more information about Salotto please visit https://salotto.app
 					
 			}			
 			
-			
-			
-			
-			
 
-			////////////////////
+			//////////////////// HotKey scripts
 
 			//Reload the hotjeys.js file updated by the LUA script
 			function updateHotkeys() {
@@ -776,11 +772,11 @@ for more information about Salotto please visit https://salotto.app
 				}
 				if (hotkeyP1ScoreDown != hotkeyP1ScoreDownOld){
 					postP1Score('sub');
-		            hotkeyP1ScoreDownhOld = hotkeyP1ScoreDown;
+		            hotkeyP1ScoreDownOld = hotkeyP1ScoreDown;
 				}
 				if (hotkeyP2ScoreDown != hotkeyP2ScoreDownOld){
 					postP2Score('sub');
-		            hotkeyP2ScoreDownhOld = hotkeyP2ScoreDown;
+		            hotkeyP2ScoreDownOld = hotkeyP2ScoreDown;
 				}
 				if (hotkeyScoreReset != hotkeyScoreResetOld){
 					resetScore();
@@ -811,10 +807,6 @@ for more information about Salotto please visit https://salotto.app
 		            hotkeySwapOld = hotkeySwap;
 				}
 			}
-
-			
-			
-			
 			
 			function refreshData() {
 			    x = 0.05; // Refresh time multiplier
@@ -822,17 +814,10 @@ for more information about Salotto please visit https://salotto.app
 				updateHotkeys();
 				setTimeout(refreshData, x*1000);
 			}
-
-			
-			
-			
-			
-			
-			
-			
-			
-			
+	
 			refreshData();
+			
+			//////////////////// end of HotKey scripts
 			
         </script>
   

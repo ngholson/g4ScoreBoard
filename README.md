@@ -25,25 +25,26 @@ for more information about Salotto please visit https://salotto.app
 
 ```
 Zip contents:
-
-[images]
-   |-salotto.png
-   |-g4logo.png
-   |-logo.png
-   |-8_ball_game.png <-example of other custom logo use
-   |-9_ball_game.png <-example of other custom logo use
-   |_template.psd
-
-[sound]
-   |-beep2.mp3
-   |_buzz.mp3
-   
-g4ScoreBoard_hotkeys.lua
-hotkeys.js   
-browser_source.html   
-control_panel.html
-README.md
-LICENSE
+{g4ScoreBoard-main.zip}
+|
+|-[images]
+|    |-salotto.png
+|    |-g4logo.png
+|    |-logo.png
+|    |-8_ball_game.png <-example of other custom logo use
+|    |-9_ball_game.png <-example of other custom logo use
+|    |_template.psd
+|
+|-[sound]
+|    |-beep2.mp3
+|    |_buzz.mp3
+|   
+|-g4ScoreBoard_hotkeys.lua
+|-hotkeys.js   
+|-browser_source.html   
+|-control_panel.html
+|-README.md
+|_LICENSE
 
 ```
 --------------------------------------------------------------

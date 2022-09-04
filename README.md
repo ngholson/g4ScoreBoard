@@ -125,6 +125,6 @@ Max file size 2.4 MB
 ---------------------------------------------------------------
 ## What's New
 ```
-2022SEPT04 - Hotkey support added.
+2022SEPT04 - Hotkey support added to daily build
 
 ```

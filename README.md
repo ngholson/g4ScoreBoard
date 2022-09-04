@@ -112,7 +112,7 @@ A shot clock is used in most professional 9 ball tournaments. shot clock play is
 
 ---------------------------------------------------------------
 
-## Add your own Logo - NEW v1.5.7!!
+## Add your own Logo
 ```
 Simply click on the "Upload Custom Logo" button and choose your image.
 For best results image size should be 2267 x 653

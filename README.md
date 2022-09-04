@@ -4,7 +4,7 @@ g4ScoreBoard for OBS Pool/Billiard Streamers.
 Download latest most recent build: [Here](https://github.com/ngholson/g4ScoreBoard/archive/refs/tags/v1.5.9.zip)<br>
 See [Releases Page](https://github.com/ngholson/g4ScoreBoard/releases) for most recent official release.
 
-[Whats New](https://github.com/ngholson/g4ScoreBoard/blob/main/README.md#latest-update)
+[What's New](https://github.com/ngholson/g4ScoreBoard/blob/main/README.md#whats-new)
 
 ```
 G4ScoreBoard addon for OBS Copyright 2022 Norman Gholson IV

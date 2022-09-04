@@ -1,6 +1,5 @@
 <div align="center">
 <img src ="https://g4billiards.com/coinflip/images/9ball_clipart_stylized_100.png">
-</div>
 # g4ScoreBoard
 g4ScoreBoard for OBS Pool/Billiard Streamers. 
 
@@ -9,6 +8,7 @@ g4ScoreBoard for OBS Pool/Billiard Streamers.
 Download latest build: [Here](https://github.com/ngholson/g4ScoreBoard/archive/refs/tags/v1.5.9.zip)<br>
 See [Releases Page](https://github.com/ngholson/g4ScoreBoard/releases) for most recent official release.
 
+</div>
 
 ```
 G4ScoreBoard addon for OBS Copyright 2022 Norman Gholson IV

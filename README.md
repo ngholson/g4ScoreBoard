@@ -1,6 +1,6 @@
 <div align="center">
 <img src ="https://g4billiards.com/coinflip/images/9ball_clipart_stylized_100.png"><br>
-g4ScoreBoard<BR>
+g4ScoreBoard<hR>
 g4ScoreBoard for OBS Pool/Billiard Streamers. 
 
 [What's New](https://github.com/ngholson/g4ScoreBoard/blob/main/README.md#whats-new)

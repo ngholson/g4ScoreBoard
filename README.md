@@ -123,7 +123,7 @@ Max file size 2.4 MB
 ```
 
 ---------------------------------------------------------------
-## Latest Update
+## What's New
 ```
 2022SEPT04 - Hotkey support added.
 

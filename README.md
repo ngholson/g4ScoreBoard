@@ -1,5 +1,5 @@
 <div align="center">
-<img src ="https://g4billiards.com/coinflip/images/9ball_clipart_stylized_100.png">
+<img src ="https://g4billiards.com/coinflip/images/9ball_clipart_stylized_100.png"><br>
 # g4ScoreBoard
 g4ScoreBoard for OBS Pool/Billiard Streamers. 
 

@@ -34,6 +34,8 @@ Zip contents:
    |-beep2.mp3
    |_buzz.mp3
    
+g4ScoreBoard_hotkeys.lua
+hotkeys.js   
 browser_source.html   
 control_panel.html
 README.md
@@ -126,5 +128,5 @@ Max file size 2.4 MB
 ## What's New
 ```
 2022SEPT04 - Hotkey support added to daily build
-
+	     to use install the included g4ScoreBoard_hotkeys.lua script into OBS.
 ```

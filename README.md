@@ -65,7 +65,16 @@ Zip contents:
 8. Input the full path to "browser_source.html" in the URL box.
    (example: "c:\users\yourname\desktop\g4scoreboard\browser_source.html")
 9. Set Width to 1920 and Height to 1080. 
-10. click OK. 
+10. click OK.
+
+To install Hotkeys:
+1. Click on "Tools" from the top menu in OBS.
+2. Select "Scripts" from the menu.
+3. Click the "+" in the lower left.
+4. Navigate to and select the "g4ScoreBoard_hotkeys.lua" file that came with this download.
+5. Click Open.  
+6. Open the "Settings" in OBS and navigate to the "Hotkeys" section.
+7. The scoreboard hotkeys all have the "G4" prefix for easy identification.
 ```
 --------------------------------------------------------------
 

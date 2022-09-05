@@ -21,11 +21,17 @@ for more information about Salotto please visit https://salotto.app
 	 </script>
 	 
     <style>
+	.obs28 {
+		background: #3c404b;
+	}
+		
 	body{
 		font-family:tahoma;
 		background:#2b2e38;
-		margin:auto;
-		display: flex;
+		margin-left:auto;
+		margin-right:auto;
+		margin-bottom:auto;
+		margin-top:1px;
 		}
 	span {
 		cursor: default;
@@ -33,10 +39,9 @@ for more information about Salotto please visit https://salotto.app
 		font-size:8pt;
 		}
 	div {
-
+		background:#4c4c4c;
 		color:lightgrey;
 		min-height: 30px;
-
 		border: 1px solid #000;
 		border-radius: 5px;
 		min-width:50px;
@@ -47,13 +52,17 @@ for more information about Salotto please visit https://salotto.app
 		}
 		
 	#mainDiv {
-		margin: auto;
+		margin-top: none;
+		margin-right: auto;
+		margin-left: auto;
+		margin-bottom: auto;
+		display: flex;
+
 		background: #1f1e1f;
 		min-height: 95%;
 		border: 0px solid #000;
 		border-radius: 0px;
 		min-width:50px;
-		display: flex;
 		justify-content: center; /* align horizontal */
 		align-items: top; /* align vertical */
 		font-size:8pt;
@@ -131,8 +140,8 @@ for more information about Salotto please visit https://salotto.app
 	.hover {
 	}
 	.hover:hover {
-		background:grey
-		}
+		background:#4f535e;
+	}
 	
 	.noShow{
         visibility:hidden;
@@ -346,7 +355,7 @@ for more information about Salotto please visit https://salotto.app
 		
 		
 		</center>
-		<text id="obsThemeLabel">Theme:</text>
+		<text id="obsThemeLabel">theme:</text>
 		<select style="text-align:justify" name="Theme" id="obsTheme" onchange="obsThemeChange()">
             <option value="27" default>27</option>
             <option value="28">28</option>
@@ -679,7 +688,7 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("clockLocalDisplay").style.color = "black";
 				document.getElementById("shotClock30").style.color = "lightGrey";
 				document.getElementById("shotClock60").style.color = "lightGrey";
-				if (localStorage.getItem("obsTheme") == "28") { document.getElementById("stopClockDiv").style.background = "#3c404b"; } else {
+				if (localStorage.getItem("obsTheme") == "28") { document.getElementById("stopClockDiv").classList.add("obs28"); } else {
 				document.getElementById("stopClockDiv").style.background = "#4c4c4c"; }
 			}
 			
@@ -725,7 +734,7 @@ for more information about Salotto please visit https://salotto.app
 			function resetExt(player) {
 				bcClockDisplay.postMessage(player +"ExtReset");
 				document.getElementById(player+"extensionBtn").setAttribute("onclick", "add30('"+player+"')");
-				if (localStorage.getItem("obsTheme") == "28") { document.getElementById(player+"extensionBtn").style.background = "#3c404b"; } else {
+				if (localStorage.getItem("obsTheme") == "28") { document.getElementById(player+"extensionBtn").classList.add("obs28"); } else {
 				document.getElementById(player+"extensionBtn").style.background = "#4c4c4c"; }
 				document.getElementById(player+"extensionBtn").style.color = "lightGrey";
 				
@@ -854,48 +863,49 @@ for more information about Salotto please visit https://salotto.app
 				if (document.getElementById("obsTheme").value ==  "28") {
 					localStorage.setItem("obsTheme", "28");
 					document.getElementById("mainDiv").style.background = "#2b2e38";
-					document.getElementById("sendPNames").style.background = "#3c404b";
-					document.getElementById("swapBtn").style.background = "#3c404b";
-					document.getElementById("sendP1Score").style.background = "#3c404b";
-					document.getElementById("sendP1ScoreSub").style.background = "#3c404b";
-					document.getElementById("sendP2Score").style.background = "#3c404b";
-					document.getElementById("sendP2ScoreSub").style.background = "#3c404b";
-					document.getElementById("shotClock30").style.background = "#3c404b";
-					document.getElementById("shotClock60").style.background = "#3c404b";
-					document.getElementById("p1extensionBtn").style.background = "#3c404b";
-					document.getElementById("p2extensionBtn").style.background = "#3c404b";
-					document.getElementById("stopClockDiv").style.background = "#3c404b";
-					document.getElementById("resetBtn").style.background = "#3c404b";
-					document.getElementById("p1ExtReset").style.background = "#3c404b";
-					document.getElementById("p2ExtReset").style.background = "#3c404b";
-					document.getElementById("settingsBox1").style.background = "#3c404b";
-					document.getElementById("settingsBox2").style.background = "#3c404b";
-					document.getElementById("settingsBox3").style.background = "#3c404b";
-					document.getElementById("obsThemeLabel").style.background = "#3c404b";
-					document.getElementById("shotClockShow").style.background = "#3c404b";
+					document.getElementById("sendPNames").classList.add("obs28");
+					document.getElementById("swapBtn").classList.add("obs28");
+					document.getElementById("sendP1Score").classList.add("obs28");
+					document.getElementById("sendP1ScoreSub").classList.add("obs28");
+					document.getElementById("sendP2Score").classList.add("obs28");
+					document.getElementById("sendP2ScoreSub").classList.add("obs28");
+					document.getElementById("shotClock30").classList.add("obs28");
+					document.getElementById("shotClock60").classList.add("obs28");
+					document.getElementById("p1extensionBtn").classList.add("obs28");
+					document.getElementById("p2extensionBtn").classList.add("obs28");
+					document.getElementById("stopClockDiv").classList.add("obs28");
+					document.getElementById("resetBtn").classList.add("obs28");
+					document.getElementById("p1ExtReset").classList.add("obs28");
+					document.getElementById("p2ExtReset").classList.add("obs28");
+					document.getElementById("settingsBox1").classList.add("obs28");
+					document.getElementById("settingsBox2").classList.add("obs28");
+					document.getElementById("settingsBox3").classList.add("obs28");
+					document.getElementById("obsThemeLabel").classList.add("obs28");
+					document.getElementById("shotClockShow").classList.add("obs28");
 
 					} else  { 
 					localStorage.setItem("obsTheme",  "27");
 					document.getElementById("mainDiv").style.background ="#1f1e1f"; 
-					document.getElementById("sendPNames").style.background = "#4c4c4c";
-					document.getElementById("swapBtn").style.background = "#4c4c4c";
-					document.getElementById("sendP1Score").style.background = "#4c4c4c";
-					document.getElementById("sendP1ScoreSub").style.background = "#4c4c4c";
-					document.getElementById("sendP2Score").style.background = "#4c4c4c";
-					document.getElementById("sendP2ScoreSub").style.background = "#4c4c4c";
-					document.getElementById("shotClock30").style.background = "#4c4c4c";
-					document.getElementById("shotClock60").style.background = "#4c4c4c";
-					document.getElementById("p1extensionBtn").style.background = "#4c4c4c";
-					document.getElementById("p2extensionBtn").style.background = "#4c4c4c";
-					document.getElementById("stopClockDiv").style.background = "#4c4c4c";
-					document.getElementById("resetBtn").style.background = "#4c4c4c";
-					document.getElementById("p1ExtReset").style.background = "#4c4c4c";
-					document.getElementById("p2ExtReset").style.background = "#4c4c4c";
-					document.getElementById("settingsBox1").style.background = "#4c4c4c";
-					document.getElementById("settingsBox2").style.background = "#4c4c4c";
-					document.getElementById("settingsBox3").style.background = "#4c4c4c";
-					document.getElementById("obsThemeLabel").style.background = "#4c4c4c";
-					document.getElementById("shotClockShow").style.background = "#4c4c4c";
+					document.getElementById("sendPNames").classList.remove ("obs28");
+					document.getElementById("swapBtn").classList.remove ("obs28");
+					document.getElementById("sendP1Score").classList.remove ("obs28");
+
+					document.getElementById("sendP1ScoreSub").classList.remove ("obs28");
+					document.getElementById("sendP2Score").classList.remove ("obs28");
+					document.getElementById("sendP2ScoreSub").classList.remove ("obs28");
+					document.getElementById("shotClock30").classList.remove ("obs28");
+					document.getElementById("shotClock60").classList.remove ("obs28");
+					document.getElementById("p1extensionBtn").classList.remove ("obs28");
+					document.getElementById("p2extensionBtn").classList.remove ("obs28");
+					document.getElementById("stopClockDiv").classList.remove ("obs28");
+					document.getElementById("resetBtn").classList.remove ("obs28");
+					document.getElementById("p1ExtReset").classList.remove ("obs28");
+					document.getElementById("p2ExtReset").classList.remove ("obs28");
+					document.getElementById("settingsBox1").classList.remove ("obs28");
+					document.getElementById("settingsBox2").classList.remove ("obs28");
+					document.getElementById("settingsBox3").classList.remove ("obs28");
+					document.getElementById("obsThemeLabel").classList.remove ("obs28");
+					document.getElementById("shotClockShow").classList.remove ("obs28");
 
 					}		
 			}

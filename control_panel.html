@@ -23,7 +23,7 @@ for more information about Salotto please visit https://salotto.app
     <style>
 	body{
 		font-family:tahoma;
-		background:#3a393a;
+		background:#2b2e38;
 		margin:auto;
 		display: flex;
 		}
@@ -34,7 +34,6 @@ for more information about Salotto please visit https://salotto.app
 		}
 	div {
 
-		background: #4c4c4c;
 		color:lightgrey;
 		min-height: 30px;
 
@@ -233,11 +232,29 @@ for more information about Salotto please visit https://salotto.app
 	}
 	hr{
 		border-top: 1px solid yellow;
-		border-bottom: 0px solid lime;
+		border-bottom: 0px;
 
 	}
 	
-	
+	#obsTheme {
+		position:fixed;
+		font-size: 8pt;
+		cursor: pointer;
+		background:#4c4c4c;
+		border-radius:5px;
+		font-family:tahoma;
+		font-size:8pt;
+		color: lightgrey;
+		bottom:4px;
+	}
+	#obsThemeLabel {
+		position:fixed;
+		font-size: 8pt;
+		font-family:tahoma;
+		font-size:8pt;
+		color: lightgrey;
+		bottom:22px;
+	}
 	</style>
 	</head>
 	
@@ -327,8 +344,13 @@ for more information about Salotto please visit https://salotto.app
 
 		</div>	
 		
-		</center>
 		
+		</center>
+		<text id="obsThemeLabel">Theme:</text>
+		<select style="text-align:justify" name="Theme" id="obsTheme" onchange="obsThemeChange()">
+            <option value="27" default>27</option>
+            <option value="28">28</option>
+		 </select>
 	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; ">g4ScoreBoard v<text id="verNum"></text></text>
 
  		
@@ -657,7 +679,8 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("clockLocalDisplay").style.color = "black";
 				document.getElementById("shotClock30").style.color = "lightGrey";
 				document.getElementById("shotClock60").style.color = "lightGrey";
-				document.getElementById("stopClockDiv").style.background = "#4c4c4c";
+				if (localStorage.getItem("obsTheme") == "28") { document.getElementById("stopClockDiv").style.background = "#3c404b"; } else {
+				document.getElementById("stopClockDiv").style.background = "#4c4c4c"; }
 			}
 			
 			
@@ -702,8 +725,10 @@ for more information about Salotto please visit https://salotto.app
 			function resetExt(player) {
 				bcClockDisplay.postMessage(player +"ExtReset");
 				document.getElementById(player+"extensionBtn").setAttribute("onclick", "add30('"+player+"')");
-				document.getElementById(player+"extensionBtn").style.background = "#4c4c4c";
-				document.getElementById(player+"extensionBtn").style.color = "lightGrey"
+				if (localStorage.getItem("obsTheme") == "28") { document.getElementById(player+"extensionBtn").style.background = "#3c404b"; } else {
+				document.getElementById(player+"extensionBtn").style.background = "#4c4c4c"; }
+				document.getElementById(player+"extensionBtn").style.color = "lightGrey";
+				
 			}
 
 			function salottoSetting() {
@@ -823,7 +848,63 @@ for more information about Salotto please visit https://salotto.app
 			
 			//////////////////// end of HotKey scripts
 			
-        </script>
+			
+			function obsThemeChange() {
+				
+				if (document.getElementById("obsTheme").value ==  "28") {
+					localStorage.setItem("obsTheme", "28");
+					document.getElementById("mainDiv").style.background = "#2b2e38";
+					document.getElementById("sendPNames").style.background = "#3c404b";
+					document.getElementById("swapBtn").style.background = "#3c404b";
+					document.getElementById("sendP1Score").style.background = "#3c404b";
+					document.getElementById("sendP1ScoreSub").style.background = "#3c404b";
+					document.getElementById("sendP2Score").style.background = "#3c404b";
+					document.getElementById("sendP2ScoreSub").style.background = "#3c404b";
+					document.getElementById("shotClock30").style.background = "#3c404b";
+					document.getElementById("shotClock60").style.background = "#3c404b";
+					document.getElementById("p1extensionBtn").style.background = "#3c404b";
+					document.getElementById("p2extensionBtn").style.background = "#3c404b";
+					document.getElementById("stopClockDiv").style.background = "#3c404b";
+					document.getElementById("resetBtn").style.background = "#3c404b";
+					document.getElementById("p1ExtReset").style.background = "#3c404b";
+					document.getElementById("p2ExtReset").style.background = "#3c404b";
+					document.getElementById("settingsBox1").style.background = "#3c404b";
+					document.getElementById("settingsBox2").style.background = "#3c404b";
+					document.getElementById("settingsBox3").style.background = "#3c404b";
+					document.getElementById("obsThemeLabel").style.background = "#3c404b";
+					document.getElementById("shotClockShow").style.background = "#3c404b";
+
+					} else  { 
+					localStorage.setItem("obsTheme",  "27");
+					document.getElementById("mainDiv").style.background ="#1f1e1f"; 
+					document.getElementById("sendPNames").style.background = "#4c4c4c";
+					document.getElementById("swapBtn").style.background = "#4c4c4c";
+					document.getElementById("sendP1Score").style.background = "#4c4c4c";
+					document.getElementById("sendP1ScoreSub").style.background = "#4c4c4c";
+					document.getElementById("sendP2Score").style.background = "#4c4c4c";
+					document.getElementById("sendP2ScoreSub").style.background = "#4c4c4c";
+					document.getElementById("shotClock30").style.background = "#4c4c4c";
+					document.getElementById("shotClock60").style.background = "#4c4c4c";
+					document.getElementById("p1extensionBtn").style.background = "#4c4c4c";
+					document.getElementById("p2extensionBtn").style.background = "#4c4c4c";
+					document.getElementById("stopClockDiv").style.background = "#4c4c4c";
+					document.getElementById("resetBtn").style.background = "#4c4c4c";
+					document.getElementById("p1ExtReset").style.background = "#4c4c4c";
+					document.getElementById("p2ExtReset").style.background = "#4c4c4c";
+					document.getElementById("settingsBox1").style.background = "#4c4c4c";
+					document.getElementById("settingsBox2").style.background = "#4c4c4c";
+					document.getElementById("settingsBox3").style.background = "#4c4c4c";
+					document.getElementById("obsThemeLabel").style.background = "#4c4c4c";
+					document.getElementById("shotClockShow").style.background = "#4c4c4c";
+
+					}		
+			}
+			
+			
+			if (localStorage.getItem("obsTheme") == "28") { document.getElementById("obsTheme").value = "28"; }
+			obsThemeChange();
+        
+		</script>
   
 	</body>
 </html>

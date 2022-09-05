@@ -58,7 +58,6 @@ for more information about Salotto please visit https://salotto.app
 		margin-left: auto;
 		margin-bottom: auto;
 		display: flex;
-
 		background: #1f1e1f;
 		min-height: 95%;
 		border: 0px solid #000;
@@ -256,6 +255,7 @@ for more information about Salotto please visit https://salotto.app
 		font-size:8pt;
 		color: lightgrey;
 		bottom:4px;
+		border:0px;
 	}
 	#obsThemeLabel {
 		position:fixed;
@@ -863,6 +863,7 @@ for more information about Salotto please visit https://salotto.app
 				
 				if (document.getElementById("obsTheme").value ==  "28") {
 					localStorage.setItem("obsTheme", "28");
+					document.getElementsByTagName("body")[0].style.background = "#2b2e38";
 					document.getElementById("mainDiv").style.background = "#2b2e38";
 					document.getElementById("sendPNames").classList.add("obs28");
 					document.getElementById("swapBtn").classList.add("obs28");
@@ -886,11 +887,11 @@ for more information about Salotto please visit https://salotto.app
 
 					} else  { 
 					localStorage.setItem("obsTheme",  "27");
+					document.getElementsByTagName("body")[0].style.background = "#1f1e1f";
 					document.getElementById("mainDiv").style.background ="#1f1e1f"; 
 					document.getElementById("sendPNames").classList.remove ("obs28");
 					document.getElementById("swapBtn").classList.remove ("obs28");
 					document.getElementById("sendP1Score").classList.remove ("obs28");
-
 					document.getElementById("sendP1ScoreSub").classList.remove ("obs28");
 					document.getElementById("sendP2Score").classList.remove ("obs28");
 					document.getElementById("sendP2ScoreSub").classList.remove ("obs28");

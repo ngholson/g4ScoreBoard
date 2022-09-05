@@ -32,8 +32,8 @@ Zip contents:
 {g4ScoreBoard-main.zip}
 |
 |-[common]
-|    |_[js]
-|        |_jquery.js
+|    |-[js]
+|        |-jquery.js
 |
 |-[images]
 |    |-salotto.png
@@ -41,18 +41,18 @@ Zip contents:
 |    |-logo.png
 |    |-8_ball_game.png <-example of other custom logo use
 |    |-9_ball_game.png <-example of other custom logo use
-|    |_template.psd
+|    |-template.psd
 |
 |-[sound]
 |    |-beep2.mp3
-|    |_buzz.mp3
+|    |-buzz.mp3
 |   
 |-g4ScoreBoard_hotkeys.lua
 |-hotkeys.js   
 |-browser_source.html   
 |-control_panel.html
 |-README.md
-|_LICENSE
+|-LICENSE
 
 ```
 --------------------------------------------------------------

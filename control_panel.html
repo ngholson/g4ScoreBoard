@@ -1,15 +1,11 @@
+
 <!-- 
-
-G4ScoreBoard addon for OBS version 1.5.9 Copyright 2022 Norman Gholson IV
+G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
-
 this is a purely javascript/html/css driven scoreboard system for OBS Studio
-
 free to use and modify and use as long as this copyright statment remains intact. 
-
 Salotto logo is the copyright of Salotto and is used with their permission.
 for more information about Salotto please visit https://salotto.app
-
 -->
 
 <html>
@@ -19,7 +15,7 @@ for more information about Salotto please visit https://salotto.app
      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.5.9";
+	 var versionNum = "1.6.0";
 	 var cLogoName = "Custom";
 	 //---------------------------------------------------------------------------------------------
 	 </script>
@@ -590,6 +586,12 @@ for more information about Salotto please visit https://salotto.app
 					
 
             function postNames() {
+				if (raceInfoTxt.value == " "){
+					raceInfoTxt.value = "&nbsp;";
+					}
+				if (wagerInfoTxt.value == " "){
+					wagerInfoTxt.value = "&nbsp;";
+					}	
                 bcp1n.postMessage(document.getElementById("p1Name").value.substring(0, 29));    
 				bcp2n.postMessage(document.getElementById("p2Name").value.substring(0, 29));
 				bcri.postMessage(document.getElementById("raceInfoTxt").value);

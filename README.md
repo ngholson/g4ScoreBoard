@@ -1,7 +1,7 @@
 <div align="center">
 <img src ="https://g4billiards.com/coinflip/images/9ball_clipart_stylized_100.png"><br>
 g4ScoreBoard<hR>
-g4ScoreBoard for OBS Pool/Billiard Streamers.<br>
+g4ScoreBoard for OBS.<br>
 A professional billiard scoreboard solution for professional streamers.<br>
 Packed with features for the serious player.<br>
 Includes a shot clock inspired by the clock used during the Mosconi Cup and European Open.<br><br>

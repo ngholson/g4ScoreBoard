@@ -52,8 +52,13 @@ Zip contents:
 ```
 --------------------------------------------------------------
 
-## Configure OBS: 
+## Installation:
 ```
+Extract the downloaded file to the directory of your choosing, 
+just make sure you know where to find it again. 
+
+OBS Configuration:
+	
 1. click on the Docks Menu from the top menu bar.
 2. Select "Custom Browser Docks".
 3. type a name (G4ScoreBoard) in the "Dock Name" box.
@@ -67,7 +72,9 @@ Zip contents:
 9. Set Width to 1920 and Height to 1080. 
 10. click OK.
 
+	
 To install Hotkeys:
+	
 1. Click on "Tools" from the top menu in OBS.
 2. Select "Scripts" from the menu.
 3. Click the "+" in the lower left.

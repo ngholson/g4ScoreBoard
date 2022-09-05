@@ -31,6 +31,10 @@ for more information about Salotto please visit https://salotto.app
 Zip contents:
 {g4ScoreBoard-main.zip}
 |
+|-[common]
+|    |_[js]
+|        |_jquery.js
+|
 |-[images]
 |    |-salotto.png
 |    |-g4logo.png

@@ -48,7 +48,6 @@ Zip contents:
 |    |-buzz.mp3
 |   
 |-g4ScoreBoard_hotkeys.lua
-|-hotkeys.js   
 |-browser_source.html   
 |-control_panel.html
 |-README.md

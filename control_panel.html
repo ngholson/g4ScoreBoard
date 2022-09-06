@@ -15,12 +15,15 @@ for more information about Salotto please visit https://salotto.app
      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0-daily.220905-28";
+	 var versionNum = "1.6.0-28";
  	 var cLogoName = "G4";  // 6 character limit. it will auto trim to 6 characters.
 	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 
     <style>
+	.maroon {
+		background: maroon;
+	}
 	.obs28 {
 		background: #3c404b;
 		border:0px;
@@ -359,8 +362,8 @@ for more information about Salotto please visit https://salotto.app
 		</center>
 		<text id="obsThemeLabel">theme:&nbsp;</text>
 		<select style="text-align:justify" name="Theme" id="obsTheme" onchange="obsThemeChange()">
-            <option value="27" default>27</option>
-            <option value="28">28</option>
+            <option value="27" default>dark</option>
+            <option value="28">yami</option>
 		 </select>
 	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; ">g4ScoreBoard v<text id="verNum"></text></text>
 
@@ -673,8 +676,10 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("shotClock60").setAttribute("onclick", "");
 				document.getElementById("shotClock30").style.color = "dimgrey";
 				document.getElementById("shotClock60").style.color = "dimgrey";
-				document.getElementById("stopClockDiv").style.background = "maroon";
+				document.getElementById("stopClockDiv").classList.add("obs28");
+				document.getElementById("stopClockDiv").classList.replace("obs28", "maroon");
 			    document.getElementById("clockLocalDisplay").classList.remove("noShow");
+				if (localStorage.getItem("obsTheme") != "28") { document.getElementById("clockLocalDisplay").style.background = "#4c4c4c";document.getElementById("stopClockDiv").classList.remove("obs28");}
 						
 			}
 			
@@ -690,8 +695,9 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("clockLocalDisplay").style.color = "black";
 				document.getElementById("shotClock30").style.color = "lightGrey";
 				document.getElementById("shotClock60").style.color = "lightGrey";
-				if (localStorage.getItem("obsTheme") == "28") { document.getElementById("stopClockDiv").classList.add("obs28"); } else {
-				document.getElementById("stopClockDiv").style.background = "#4c4c4c"; }
+				document.getElementById("stopClockDiv").classList.replace("maroon", "obs28"); 
+				if (localStorage.getItem("obsTheme") != "28") { document.getElementById("clockLocalDisplay").style.background = "#4c4c4c"; document.getElementById("stopClockDiv").classList.remove("obs28");}
+
 			}
 			
 			
@@ -736,7 +742,7 @@ for more information about Salotto please visit https://salotto.app
 			function resetExt(player) {
 				bcClockDisplay.postMessage(player +"ExtReset");
 				document.getElementById(player+"extensionBtn").setAttribute("onclick", "add30('"+player+"')");
-				if (localStorage.getItem("obsTheme") == "28") { document.getElementById(player+"extensionBtn").classList.add("obs28"); } else {
+				if (localStorage.getItem("obsTheme") == "28") { document.getElementById(player+"extensionBtn").style.background="#3c404b"; } else {
 				document.getElementById(player+"extensionBtn").style.background = "#4c4c4c"; }
 				document.getElementById(player+"extensionBtn").style.color = "lightGrey";
 				
@@ -890,6 +896,10 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("settingsBox3").classList.add("obs28");
 					document.getElementById("obsThemeLabel").classList.add("obs28");
 					document.getElementById("shotClockShow").classList.add("obs28");
+					
+					document.getElementById("p1extensionBtn").style.background="#3c404b";  // experimental
+					document.getElementById("p2extensionBtn").style.background="#3c404b";
+					
 
 					} else  { 
 					localStorage.setItem("obsTheme",  "27");
@@ -911,8 +921,13 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("p2extensionBtn").classList.remove ("obs28");
 					document.getElementById("stopClockDiv").classList.remove ("obs28");
 					document.getElementById("resetBtn").classList.remove ("obs28");
+					
+					document.getElementById("p1extensionBtn").style.background="#4c4c4c";  // experimental
+					document.getElementById("p2extensionBtn").style.background="#4c4c4c";
+					
 					document.getElementById("p1ExtReset").classList.remove ("obs28");
 					document.getElementById("p2ExtReset").classList.remove ("obs28");
+
 					document.getElementById("settingsBox1").classList.remove ("obs28");
 					document.getElementById("settingsBox2").classList.remove ("obs28");
 					document.getElementById("settingsBox3").classList.remove ("obs28");

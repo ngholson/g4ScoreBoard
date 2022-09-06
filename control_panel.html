@@ -15,7 +15,7 @@ for more information about Salotto please visit https://salotto.app
      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0-daily.220905-1";
+	 var versionNum = "1.6.0-daily.220905-28";
  	 var cLogoName = "G4";  // 6 character limit. it will auto trim to 6 characters.
 	 //---------------------------------------------------------------------------------------------
 	 </script>
@@ -43,7 +43,7 @@ for more information about Salotto please visit https://salotto.app
 		background:#4c4c4c;
 		color:lightgrey;
 		min-height: 30px;
-		border: 1px solid #000;
+		border: 0px solid #000;
 		border-radius: 5px;
 		min-width:50px;
 		display: flex;
@@ -242,7 +242,6 @@ for more information about Salotto please visit https://salotto.app
 	hr{
 		border-top: 1px solid yellow;
 		border-bottom: 0px;
-
 	}
 	
 	#obsTheme {
@@ -254,16 +253,18 @@ for more information about Salotto please visit https://salotto.app
 		font-family:tahoma;
 		font-size:8pt;
 		color: lightgrey;
-		bottom:4px;
+		top:18px;
 		border:0px;
+		left:50%;
 	}
 	#obsThemeLabel {
 		position:fixed;
 		font-size: 8pt;
+		right:50%;
 		font-family:tahoma;
 		font-size:8pt;
 		color: lightgrey;
-		bottom:22px;
+		top:18px;
 	}
 	</style>
 	</head>
@@ -340,7 +341,7 @@ for more information about Salotto please visit https://salotto.app
 		<div id="settingsBox3">
 		<text>Logo Image Upload<br>Max size: 2.4MB</text>
 		</div><p style="font-size:1px">&nbsp;</p>
-		<div id="settingsBox2">
+		<div class="hover" id="settingsBox2">
 			<input type="file" id="FileUpload" onchange="logoPost(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			<input type="button" id="btnFile" value="Upload Custom Logo" /> <br>
 		
@@ -356,7 +357,7 @@ for more information about Salotto please visit https://salotto.app
 		
 		
 		</center>
-		<text id="obsThemeLabel">theme:</text>
+		<text id="obsThemeLabel">theme:&nbsp;</text>
 		<select style="text-align:justify" name="Theme" id="obsTheme" onchange="obsThemeChange()">
             <option value="27" default>27</option>
             <option value="28">28</option>
@@ -858,12 +859,17 @@ for more information about Salotto please visit https://salotto.app
 			
 			//////////////////// end of HotKey scripts
 			
+
 			
 			function obsThemeChange() {
 				
 				if (document.getElementById("obsTheme").value ==  "28") {
 					localStorage.setItem("obsTheme", "28");
 					document.getElementsByTagName("body")[0].style.background = "#2b2e38";
+					document.getElementsByTagName("hr")[0].style.borderTop = "1px solid steelblue";
+					document.getElementsByTagName("hr")[1].style.borderTop = "1px solid steelblue";
+					document.getElementsByTagName("hr")[2].style.borderTop = "1px solid steelblue";
+					document.getElementById("swapBtn").style.border = "1px solid steelblue";
 					document.getElementById("mainDiv").style.background = "#2b2e38";
 					document.getElementById("sendPNames").classList.add("obs28");
 					document.getElementById("swapBtn").classList.add("obs28");
@@ -888,6 +894,10 @@ for more information about Salotto please visit https://salotto.app
 					} else  { 
 					localStorage.setItem("obsTheme",  "27");
 					document.getElementsByTagName("body")[0].style.background = "#1f1e1f";
+					document.getElementsByTagName("hr")[0].style.borderTop = "1px solid yellow";
+					document.getElementsByTagName("hr")[1].style.borderTop = "1px solid yellow";
+					document.getElementsByTagName("hr")[2].style.borderTop = "1px solid yellow";
+					document.getElementById("swapBtn").style.border = "1px solid yellow";
 					document.getElementById("mainDiv").style.background ="#1f1e1f"; 
 					document.getElementById("sendPNames").classList.remove ("obs28");
 					document.getElementById("swapBtn").classList.remove ("obs28");

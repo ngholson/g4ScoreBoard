@@ -79,24 +79,24 @@ for more information about Salotto please visit https://salotto.app
 	#sendP1Score, #sendP1ScoreSub, #shotClock30, #shotClockShow, #p1extensionBtn, #p1ExtReset {
 		cursor: pointer;
 		min-width:85px;
-		max-width:85px;
+		width:125px;
 		position:absolute;
 		right:50%;
 		padding-left:10px;
 		padding-right:10px;
-		margin-right:20px;
+		margin-right:2px;
 		font-size:8pt;
 		}
 		
 	#sendP2Score, #sendP2ScoreSub, #shotClock60, #clockLocalDisplay, #p2extensionBtn, #p2ExtReset {
 		cursor: pointer;
 		min-width:85px;
-		max-width:85px;
+		width:125px;
 		position:absolute;
 		left:50%;
 		padding-left:10px;
 		padding-right:10px;
-		margin-left:20px;
+		margin-left:2px;
 		font-size:8pt;
 		}
 			
@@ -136,7 +136,7 @@ for more information about Salotto please visit https://salotto.app
 	
 	#stopClockDiv, #resetBtn, #sendPNames {
 			cursor: pointer;
-			width:253px;
+			width:294px;
 			font-size:9pt;
 
 		}
@@ -165,8 +165,8 @@ for more information about Salotto please visit https://salotto.app
 	}
 	#FileUpload {
     display: none;
-
 	}
+
 	#btnFile {
 	font-size:8pt;
 	background: #4c4c4c;
@@ -174,47 +174,39 @@ for more information about Salotto please visit https://salotto.app
 	border: none;
 	padding:0px;
 	cursor: pointer;
-
-
 	}
 	
 	#settingsBox1 {
-	position:relative;
 	min-width:85px;
-	max-width:85px;
+	width:125px;
 	position:absolute;
 	right:50%;
-	
-	padding-top:2px;
 	padding-left:10px;
 	padding-right:10px;
 	padding-bottom:2px;
-	margin-right:20px;
-	
+	margin-right:2px;
 	}
+	
 	#settingsBox2 {
-	position:relative;
 	cursor: pointer;
-
+	font-size:8pt;
 	min-width:85px;
-	max-width:85px;
+	width: 145px;
 	position:absolute;
 	left:50%;
-	padding-left:10px;
-	padding-right:10px;
-	margin-left:20px;
+	margin-left:2px;
+	padding-bottom:2.5px;
+	padding-top:2.5px;
 	}	
 	
 	#settingsBox3 {
 	cursor: arrow;
 	min-width:85px;
-	max-width:85px;
-	position:relative;
+	width:145px;
+	position:static;
 	left:50%;
-	padding:3px;
-	padding-left:10px;
-	padding-right:10px;
-	margin-right:109px;
+	margin-left:150px;
+	
 	margin-bottom:3px;
 	font-size:7pt;
 	}	
@@ -245,6 +237,7 @@ for more information about Salotto please visit https://salotto.app
 	hr{
 		border-top: 1px solid yellow;
 		border-bottom: 0px;
+		width:290px;
 	}
 	
 	#obsTheme {
@@ -344,13 +337,13 @@ for more information about Salotto please visit https://salotto.app
 		<div id="settingsBox3">
 		<text>Logo Image Upload<br>Max size: 2.4MB</text>
 		</div><p style="font-size:1px">&nbsp;</p>
-		<div class="hover" id="settingsBox2">
+		<div class="hover" id="settingsBox2">Upload Custom Logo
 			<input type="file" id="FileUpload" onchange="logoPost(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
-			<input type="button" id="btnFile" value="Upload Custom Logo" /> <br>
+			<br>
 		
 			<script type="text/javascript">
 				
-				document.getElementById('btnFile').onclick = function() { 
+				document.getElementById('settingsBox2').onclick = function() { 
 					document.getElementById('FileUpload').click();
 					};
 			</script>
@@ -727,6 +720,8 @@ for more information about Salotto please visit https://salotto.app
 			}
 			
 			function resetScore() {
+
+				if (confirm("Click OK to confirm")) {
 				p1ScoreValue = 0;
 				p2ScoreValue = 0;
 				localStorage.setItem("p1ScoreCtrlPanel", 0);
@@ -734,7 +729,9 @@ for more information about Salotto please visit https://salotto.app
 				bcp1s.postMessage(p1ScoreValue);   
 				bcp2s.postMessage(p2ScoreValue);   
 				resetExt('p1');
-				resetExt('p2');
+				resetExt('p2');		
+				} else { }
+				
 			}	
 
 

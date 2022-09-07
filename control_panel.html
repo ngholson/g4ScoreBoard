@@ -15,8 +15,8 @@ for more information about Salotto please visit https://salotto.app
      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0-28b";
- 	 var cLogoName = "CUSTOM";  // 6 character limit. it will auto trim to 6 characters.
+	 var versionNum = "1.6.0-28-daily-20220906";
+ 	 var cLogoName = "Custom";  // 6 character limit. it will auto trim to 6 characters.
 	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 
@@ -616,9 +616,11 @@ for more information about Salotto please visit https://salotto.app
 				if (opt3 == "show") {
 					document.getElementById("shotClockShow").innerHTML = "Hide Clock";
 					document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('hide')");
+					document.getElementById("shotClockShow").style.border = "1px solid lime";
 				} else if (opt3 == "hide") {
 					document.getElementById("shotClockShow").innerHTML = "Show Clock";
 					document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('show')");
+					document.getElementById("shotClockShow").style.border = "none";
 				}
 			}
 					
@@ -672,30 +674,36 @@ for more information about Salotto please visit https://salotto.app
 			
 			function shotClock(timex) {
 				bcShotClockStart.postMessage(timex);
+				if  (timex  == 31000) { document.getElementById("shotClock30").style.border = "1px solid lime"; } else { document.getElementById("shotClock60").style.border = "1px solid lime"; };
+
+
 				document.getElementById("shotClock30").setAttribute("onclick", "");
 				document.getElementById("shotClock60").setAttribute("onclick", "");
 				document.getElementById("shotClock30").style.color = "dimgrey";
 				document.getElementById("shotClock60").style.color = "dimgrey";
 				document.getElementById("stopClockDiv").classList.add("obs28");
 				document.getElementById("stopClockDiv").classList.replace("obs28", "maroon");
+				document.getElementById("stopClockDiv").classList.remove("hover");
 			    document.getElementById("clockLocalDisplay").classList.remove("noShow");
 				if (localStorage.getItem("obsTheme") != "28") { document.getElementById("clockLocalDisplay").style.background = "#4c4c4c";document.getElementById("stopClockDiv").classList.remove("obs28");}
-						
+				
 			}
 			
 			function stopClock() {
 				bcClockDisplay.postMessage('stopClock');
+				document.getElementById("shotClock30").style.border = "none";
+				document.getElementById("shotClock60").style.border = "none";
 				document.getElementById("clockLocalDisplay").style.background = "lightgreen";
 				document.getElementById("shotClock30").setAttribute("onclick", "shotClock(31000)");
 				document.getElementById("shotClock60").setAttribute("onclick", "shotClock(61000)");
 				document.getElementById("clockLocalDisplay").innerHTML = "";
 				document.getElementById("clockLocalDisplay").classList.add("noShow");
-				document.getElementById("shotClockShow").innerHTML = "Show Clock";
-				document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('show')");
+				clockDisplay("hide");
 				document.getElementById("clockLocalDisplay").style.color = "black";
 				document.getElementById("shotClock30").style.color = "lightGrey";
 				document.getElementById("shotClock60").style.color = "lightGrey";
 				document.getElementById("stopClockDiv").classList.replace("maroon", "obs28"); 
+				document.getElementById("stopClockDiv").classList.add("hover");
 				if (localStorage.getItem("obsTheme") != "28") { document.getElementById("clockLocalDisplay").style.background = "#4c4c4c"; document.getElementById("stopClockDiv").classList.remove("obs28");}
 
 			}
@@ -733,17 +741,15 @@ for more information about Salotto please visit https://salotto.app
 			function add30(player) { 
 					bcClockDisplay.postMessage(player +"extension");
 					document.getElementById(player+"extensionBtn").setAttribute("onclick", "");
-					document.getElementById(player+"extensionBtn").style.background = "maroon";
-					document.getElementById(player+"extensionBtn").style.color = "dimgrey"
-					document.getElementById("shotClockShow").innerHTML = "Show Clock";
-					document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('show')");
+					document.getElementById(player+"extensionBtn").style.color = "dimgrey";
+					document.getElementById(player+"extensionBtn").style.border = "1px solid red";
+					clockDisplay("hide");
 			}
 
 			function resetExt(player) {
 				bcClockDisplay.postMessage(player +"ExtReset");
 				document.getElementById(player+"extensionBtn").setAttribute("onclick", "add30('"+player+"')");
-				if (localStorage.getItem("obsTheme") == "28") { document.getElementById(player+"extensionBtn").style.background="#3c404b"; } else {
-				document.getElementById(player+"extensionBtn").style.background = "#4c4c4c"; }
+				document.getElementById(player+"extensionBtn").style.border = "none";
 				document.getElementById(player+"extensionBtn").style.color = "lightGrey";
 				
 			}
@@ -897,8 +903,7 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("obsThemeLabel").classList.add("obs28");
 					document.getElementById("shotClockShow").classList.add("obs28");
 					
-					document.getElementById("p1extensionBtn").style.background="#3c404b";  // experimental
-					document.getElementById("p2extensionBtn").style.background="#3c404b";
+				
 					
 
 					} else  { 
@@ -922,8 +927,6 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("stopClockDiv").classList.remove ("obs28");
 					document.getElementById("resetBtn").classList.remove ("obs28");
 					
-					document.getElementById("p1extensionBtn").style.background="#4c4c4c";  // experimental
-					document.getElementById("p2extensionBtn").style.background="#4c4c4c";
 					
 					document.getElementById("p1ExtReset").classList.remove ("obs28");
 					document.getElementById("p2ExtReset").classList.remove ("obs28");

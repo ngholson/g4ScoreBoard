@@ -16,7 +16,7 @@ for more information about Salotto please visit https://salotto.app
 	 <script>
 	 //---------------------------------------------------------------------------------------------
 	 var versionNum = "1.6.0-28-daily-20220906";
- 	 var cLogoName = "Custom";  // 6 character limit. it will auto trim to 6 characters.
+ 	 var cLogoName = "G4Billiards";  // 13 character limit. it will auto trim to 13 characters.
 	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 
@@ -179,6 +179,19 @@ for more information about Salotto please visit https://salotto.app
 	cursor: pointer;
 	}
 	
+	
+	#topPlayerGameInfo {
+	min-width:85px;
+	width:295px;
+	height:78px;
+	position:relative;
+	top:33px;
+	display:block;
+	font-size:8pt;
+	padding-top:5px;
+	
+	}
+	
 	#settingsBox1 {
 	min-width:85px;
 	width:125px;
@@ -265,6 +278,10 @@ for more information about Salotto please visit https://salotto.app
 		color: lightgrey;
 		top:18px;
 	}
+	input {
+		border-radius:3px;
+		border:0px;
+	}
 	</style>
 	</head>
 	
@@ -272,11 +289,13 @@ for more information about Salotto please visit https://salotto.app
     <body>
        
         <div id="mainDiv">
-         <center>
-	    <span>Player/Team 1 Name:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p1Name" placeholder="Player 1"><br>
-        <span>Player/Team 2 Name:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p2Name" placeholder="Player 2"><br>
-		<span><text style="font-size:4px">&nbsp;</text>Game and Race Info:</span>&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br>
-		<span><text style="font-size:8.5px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:&nbsp;</span><input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:5px" /p><div class="hover" id="sendPNames" onclick="postNames()">Update Info</div>
+         <center><div id="topPlayerGameInfo" class="obs28"><p style="font-size:1px">&nbsp;</p>
+	    Player/Team 1 Name:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p1Name" placeholder="Player 1"><br><p style="font-size:1px">&nbsp;</p>
+        Player/Team 2 Name:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p2Name" placeholder="Player 2"><br><p style="font-size:1px">&nbsp;</p>
+		<text style="font-size:4px">&nbsp;</text>Game and Race Info:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br><p style="font-size:1px">&nbsp;</p>
+		<text style="font-size:8.5px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:5px" /p></div>
+		<p style="font-size:12px">&nbsp;</p>
+		<div class="hover" id="sendPNames" onclick="postNames()">Update Info</div>
 		<p style="font-size:1.5pt">&nbsp;</p>
 		<select style="text-align:justify" name="p1Colors" id="p1colorDiv" onchange="playerColorChange(1)">
 			<option value="" default>P1 Color</option>
@@ -408,7 +427,7 @@ for more information about Salotto please visit https://salotto.app
 			
 			var tev;
 			//document.getElementById("swapBtn").style.left = ((window.innerWidth/2)-16);
-			document.getElementById("logoName").innerHTML = cLogoName.substring(0, 6);
+			document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
 			document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
 			document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");
 			document.getElementById("raceInfoTxt").value = localStorage.getItem("raceInfo");
@@ -926,6 +945,8 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("settingsBox3").classList.add("obs28");
 					document.getElementById("obsThemeLabel").classList.add("obs28");
 					document.getElementById("shotClockShow").classList.add("obs28");
+					document.getElementById("topPlayerGameInfo").classList.add("obs28");
+
 					
 				
 					
@@ -950,7 +971,7 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("p2extensionBtn").classList.remove ("obs28");
 					document.getElementById("stopClockDiv").classList.remove ("obs28");
 					document.getElementById("resetBtn").classList.remove ("obs28");
-					
+					document.getElementById("topPlayerGameInfo").classList.remove("obs28");
 					
 					document.getElementById("p1ExtReset").classList.remove ("obs28");
 					document.getElementById("p2ExtReset").classList.remove ("obs28");

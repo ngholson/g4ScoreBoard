@@ -9,10 +9,10 @@ Includes a shot clock inspired by the clock used during the Mosconi Cup and Euro
 
 ---> [What's New](https://github.com/ngholson/g4ScoreBoard/blob/main/README.md#whats-new) <---
 
-Download latest build: [Here](https://github.com/ngholson/g4ScoreBoard/archive/refs/heads/main.zip)<i>  (recommended)</i><br> 
+Download latest build: [Here](https://github.com/ngholson/g4ScoreBoard/archive/refs/heads/main.zip)<br> 
 [ScoreBoard Installation Instructions](https://github.com/ngholson/g4ScoreBoard/wiki/Installation)<br>
 [Hotkey Installation Instructions](https://github.com/ngholson/g4ScoreBoard/wiki/Hotkey-Installation)<br>
-See [Releases Page](https://github.com/ngholson/g4ScoreBoard/releases) for most recent official release.
+See [Releases Page](https://github.com/ngholson/g4ScoreBoard/releases) for most recent daily release.
 
 </div>
 

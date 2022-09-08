@@ -240,7 +240,7 @@ for more information about Salotto please visit https://salotto.app
 	#swapBtn {
 		cursor:pointer;
 		position:relative;
-		border: 1px solid gold;
+		border: 1px solid #997300;
 
 		padding-bottom:2px;
 		width:10%;
@@ -251,7 +251,7 @@ for more information about Salotto please visit https://salotto.app
 		 
 	}
 	hr{
-		border-top: 1px solid yellow;
+		border-top: 1px solid #997300;
 		border-bottom: 0px;
 		width:290px;
 	}
@@ -528,6 +528,8 @@ for more information about Salotto please visit https://salotto.app
 					if (tev == 10) {
 						document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('hide')");
 						document.getElementById("shotClockShow").innerHTML = "Hide Clock";
+						document.getElementById("shotClockShow").style.border = "1px solid lime";
+
 
 						}
                     if (tev < 6 && tev > 0) {    //tev > 0   this prevents both sounds from playing at 0.
@@ -702,9 +704,10 @@ for more information about Salotto please visit https://salotto.app
 			
 			var warningBeep = new Audio("./sound/beep2.mp3");
             var foulSound = new Audio("./sound/buzz.mp3");
-           
+            var timerIsRunning;
 			
 			function shotClock(timex) {
+				timerIsRunning = true;
 				bcShotClockStart.postMessage(timex);
 				if  (timex  == 31000) { document.getElementById("shotClock30").style.border = "1px solid lime"; } else { document.getElementById("shotClock60").style.border = "1px solid lime"; };
 
@@ -724,6 +727,7 @@ for more information about Salotto please visit https://salotto.app
 			
 			function stopClock() {
 				bcClockDisplay.postMessage('stopClock');
+				timerIsRunning = false;
 				document.getElementById("shotClock30").style.border = "none";
 				document.getElementById("shotClock60").style.border = "none";
 				document.getElementById("clockLocalDisplay").style.background = "green";
@@ -946,18 +950,14 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("obsThemeLabel").classList.add("obs28");
 					document.getElementById("shotClockShow").classList.add("obs28");
 					document.getElementById("topPlayerGameInfo").classList.add("obs28");
-
 					
-				
-					
-
 					} else  { 
 					localStorage.setItem("obsTheme",  "27");
 					document.getElementsByTagName("body")[0].style.background = "#1f1e1f";
-					document.getElementsByTagName("hr")[0].style.borderTop = "1px solid yellow";
-					document.getElementsByTagName("hr")[1].style.borderTop = "1px solid yellow";
-					document.getElementsByTagName("hr")[2].style.borderTop = "1px solid yellow";
-					document.getElementById("swapBtn").style.border = "1px solid yellow";
+					document.getElementsByTagName("hr")[0].style.borderTop = "1px solid #997300";
+					document.getElementsByTagName("hr")[1].style.borderTop = "1px solid #997300";
+					document.getElementsByTagName("hr")[2].style.borderTop = "1px solid #997300";
+					document.getElementById("swapBtn").style.border = "1px solid #997300";
 					document.getElementById("mainDiv").style.background ="#1f1e1f"; 
 					document.getElementById("sendPNames").classList.remove ("obs28");
 					document.getElementById("swapBtn").classList.remove ("obs28");
@@ -972,16 +972,13 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("stopClockDiv").classList.remove ("obs28");
 					document.getElementById("resetBtn").classList.remove ("obs28");
 					document.getElementById("topPlayerGameInfo").classList.remove("obs28");
-					
 					document.getElementById("p1ExtReset").classList.remove ("obs28");
 					document.getElementById("p2ExtReset").classList.remove ("obs28");
-
 					document.getElementById("settingsBox1").classList.remove ("obs28");
 					document.getElementById("settingsBox2").classList.remove ("obs28");
 					document.getElementById("settingsBox3").classList.remove ("obs28");
 					document.getElementById("obsThemeLabel").classList.remove ("obs28");
 					document.getElementById("shotClockShow").classList.remove ("obs28");
-
 					}		
 			}
 			
@@ -993,18 +990,6 @@ for more information about Salotto please visit https://salotto.app
 			}
 
 
-
-
-
-
-
-
-
-
-
-
-
-		
 			if (localStorage.getItem("obsTheme") == "28") { document.getElementById("obsTheme").value = "28"; }
 			obsThemeChange();
 			if (localStorage.getItem("clogoNameStored") != null) { document.getElementById("logoName").innerHTML = localStorage.getItem("clogoNameStored"); }

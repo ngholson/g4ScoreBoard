@@ -9,18 +9,18 @@ for more information about Salotto please visit https://salotto.app
 -->
 
 <html>
-<head>
-     <script>
-     //---------------------------------------------------------------------------------------------
-     var versionNum = "1.6.0-28-daily-20220907";
-     var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
-     //---------------------------------------------------------------------------------------------
-     </script>
-	    
-<script src="./common/js/jquery.js"></script>
-<script src="hotkeys.js"></script>
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">	 
-    	<style>
+    <head>
+	 <script>
+	 //---------------------------------------------------------------------------------------------
+	 var versionNum = "1.6.0-28-daily-20220907";
+ 	 var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
+	 //---------------------------------------------------------------------------------------------
+	 </script>
+	 
+	 <script src="./common/js/jquery.js"></script>
+	 <script src="hotkeys.js"></script>
+     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"> 
+    <style>
 	.maroon {
 		background: maroon;
 		}
@@ -340,13 +340,13 @@ for more information about Salotto please visit https://salotto.app
 		<p style="font-size:9.25pt">&nbsp;</p>
 		<div class="hover" id="sendP1ScoreSub" onclick="postP1Score('sub')">P1 -1 Score</div>
         <div class="hover" id="sendP2ScoreSub" onclick="postP2Score('sub')">P2 -1 Score</div>
-		<p style="font-size:12pt">&nbsp;</p><hr>
+		<p style="font-size:11.25pt">&nbsp;</p><hr>
 		<div class="hover" id="shotClock30" onclick="shotClock(31000)">30s Shot Clock</div>
 		<div class="hover" id="shotClock60" onclick="shotClock(61000)">60s Shot Clock</div><p style="font-size:9.25pt">&nbsp;</p>
 		<div class="hover" id="shotClockShow" onclick="clockDisplay('show')">Show Clock</div>
 		<div class="noShow" id="clockLocalDisplay" onclick=""></div><p style="font-size:11pt">&nbsp;</p>
 		<div class="hover" id="p1extensionBtn" onclick="add30('p1')">P1 Extension</div>
-		<div class="hover" id="p2extensionBtn" onclick="add30('p2')">P2 Extension</div><p style="font-size:12pt">&nbsp;</p>
+		<div class="hover" id="p2extensionBtn" onclick="add30('p2')">P2 Extension</div><p style="font-size:11.5pt">&nbsp;</p>
 		<div class="hover" id="stopClockDiv" onclick="stopClock()">Stop Clock</div>
 		<HR><div class="hover" id="resetBtn" onclick="resetScore()">Reset Scores and Extensions</div><p style="font-size:1.5pt">&nbsp;</p>
 		<div class="hover" id="p1ExtReset" onclick="resetExt('p1')">P1 Ext Reset</div>
@@ -354,7 +354,7 @@ for more information about Salotto please visit https://salotto.app
 		
 		<div id="settingsBox1">
 			<span>All <input type="checkbox" class="smallSize" id="allCheck" onchange="allCheck()" checked><br><span>Use Clock:<span> <input type="checkbox" class="smallSize" id="useClockSetting" onchange="clockSetting()" ><br><span>Salotto Logo:<span><input type="checkbox" class="smallSize" id="useSalottoSetting" onchange="salottoSetting()">
-			<br><span><text id="logoName"></text>&nbsp;Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
+			<br><span><text onclick="cLogoNameChange()" id="logoName"></text>&nbsp;Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
 		</div>
 		<div id="settingsBox3">
 		<text>Logo Image Upload<br>Max size: 2.4MB</text>
@@ -985,10 +985,29 @@ for more information about Salotto please visit https://salotto.app
 					}		
 			}
 			
+			function cLogoNameChange() {
+				cLogoName = prompt("What name do you want displayed here?");
+				localStorage.setItem("clogoNameStored", cLogoName);
+				document.getElementById("logoName").innerHTML = cLogoName;
 			
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 			if (localStorage.getItem("obsTheme") == "28") { document.getElementById("obsTheme").value = "28"; }
 			obsThemeChange();
-        
+			if (localStorage.getItem("clogoNameStored") != null) { document.getElementById("logoName").innerHTML = localStorage.getItem("clogoNameStored"); }
 		</script>
   
 	</body>

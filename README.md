@@ -157,6 +157,9 @@ Max file size 2.4 MB
 ---------------------------------------------------------------
 ## What\'s New
 ```
+2022SEPT07 - Added option to change "Custom Logo" text from the UI. 
+	     to change "Custom Logo" text click on the text to open dialog box to change. 
+	     
 2022SEPT05 - Added OBS v28 Theme option.
 	   - removed hotkeys.js. lua script creates this file.
 	   - hotkey support added to release  1.6.0 and 1.6.0-28

@@ -158,6 +158,7 @@ Max file size 2.4 MB
 ## What\'s New
 ```
 2022SEPT08 - Behing the scences changes. some script optimization etc.
+	     added validation the custom logo text option. Preventing a null or blank input.
 		
 2022SEPT07 - Added option to change "Custom Logo" text from the UI. 
 	     to change "Custom Logo" text click on the text to open dialog box to change. 

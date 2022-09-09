@@ -12,6 +12,7 @@ Includes a shot clock inspired by the clock used during the Mosconi Cup and Euro
 Download latest Daily Release [Here](https://github.com/ngholson/g4ScoreBoard/releases)<br> 
 [ScoreBoard Installation Instructions](https://github.com/ngholson/g4ScoreBoard/wiki/Installation)<br>
 [Hotkey Installation Instructions](https://github.com/ngholson/g4ScoreBoard/wiki/Hotkey-Installation)<br>
+View the full Wiki [Here](https://github.com/ngholson/g4ScoreBoard/wiki)<br>
 
 
 </div>

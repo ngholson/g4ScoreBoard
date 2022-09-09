@@ -158,6 +158,10 @@ Max file size 2.4 MB
 ---------------------------------------------------------------
 ## What\'s New
 ```
+2022SEPT09 - Uploaded shot_clock_display.html to the package. This is an experimental display\
+	     option to show the players locally the shot time, requires additional monitor or other casting option. 
+	     still working out the kinks and best practices for usage. 
+	     
 2022SEPT08 - Behind the scenes changes. some script optimization etc.
 	     added validation to the custom logo text option. Preventing a null or blank input.
 		

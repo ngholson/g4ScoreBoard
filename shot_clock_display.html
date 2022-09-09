@@ -1,0 +1,58 @@
+<!-- 
+	shot_clock_display.html
+	local display for players on 2nd monitor.  
+	
+	G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
+	https://g4billiards.com http://www.g4creations.com
+
+	this is a purely javascript/html/css driven scoreboard system for OBS Studio
+
+	free to use and modify and use as long as this copyright statment remains intact. 
+
+	Salotto logo is the copyright of Salotto and is used with their permission.
+	for more information about Salotto please visit https://salotto.app
+-->
+
+	<html>
+		<head>
+
+		<style>
+			body {
+			background:;
+			font-size:600pt;
+			font-family:tahoma;
+			font-weight:bolder;
+			text-align:center;
+			}
+		</style>
+		</head>
+		<script>
+			const bcr = new BroadcastChannel('recv'); // messages from browser_source 
+			const bcClockDisplay = new BroadcastChannel('clockDisplay');
+			
+			bcClockDisplay.onmessage = (event) => {
+				if(event.data == "stopClock"){
+				document.getElementsByTagName("body")[0].style.background = "darkgreen";
+				document.getElementById("clockTime").innerHTML = " ";
+				}
+			}
+
+			bcr.onmessage = (event) => {
+				document.getElementsByTagName("body")[0].style.background = "darkgreen";
+				document.getElementsByTagName("body")[0].innerHTML = event.data;
+				if (event.data < 21) { document.getElementsByTagName("body")[0].style.background = "orange"; } ;
+				if (event.data < 16) { document.getElementsByTagName("body")[0].style.background = "yellow"; } ;
+				if (event.data < 11) { document.getElementsByTagName("body")[0].style.background = "tomato"; } ;
+				if (event.data < 6) { document.getElementsByTagName("body")[0].style.background = "red"; } ;
+				if (event.data = 0) { setTimeout("resetClock()",2000);};
+			}
+		
+			function resetClock() {
+				document.getElementsByTagName("body")[0].style.background = "darkgreen";
+				document.getElementsByTagName("body")[0].innerHTML = " ";
+			}
+		</script>
+		<body>
+		</body>
+	
+	</html>

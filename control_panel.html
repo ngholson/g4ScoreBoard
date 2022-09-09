@@ -12,7 +12,7 @@ for more information about Salotto please visit https://salotto.app
     <head>
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0-28-daily-20220908";
+	 var versionNum = "1.6.0-28-daily-20220909";
  	 var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
 	 //---------------------------------------------------------------------------------------------
 	 </script>
@@ -431,19 +431,11 @@ for more information about Salotto please visit https://salotto.app
 			const bcr = new BroadcastChannel('recv'); // return channel from browser_source 
 			
 			var tev;
-			//document.getElementById("swapBtn").style.left = ((window.innerWidth/2)-16);
-			document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
-			document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
-			document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");
-			document.getElementById("raceInfoTxt").value = localStorage.getItem("raceInfo");
-			document.getElementById("wagerInfoTxt").value = localStorage.getItem("wagerInfo");
-			
-			postNames();
-			
-			document.getElementById("verNum").innerHTML = versionNum;
-			
 			var p1ScoreValue;
 			var p2ScoreValue;
+			var warningBeep = new Audio("./sound/beep2.mp3");
+            var foulSound = new Audio("./sound/buzz.mp3");
+            var timerIsRunning;
 			
 			if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
 				document.getElementById("allCheck").checked = false;
@@ -709,9 +701,7 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById('settingsBox2').style.border = "none";
 			}
 			
-			var warningBeep = new Audio("./sound/beep2.mp3");
-            var foulSound = new Audio("./sound/buzz.mp3");
-            var timerIsRunning;
+			
 			
 			function shotClock(timex) {
 				timerIsRunning = true;
@@ -920,7 +910,6 @@ for more information about Salotto please visit https://salotto.app
 				setTimeout(refreshData, x*1000);
 			}
 	
-			refreshData();
 			
 			//////////////////// end of HotKey scripts
 			
@@ -1047,22 +1036,28 @@ for more information about Salotto please visit https://salotto.app
 					}
 			}
 			
-			
-			
-			
-			
 			function cLogoNameChange() {
 				cLogoName = prompt("What name do you want displayed here?");
 				if (cLogoName != null && cLogoName != "") {
-				localStorage.setItem("clogoNameStored", cLogoName);
-				document.getElementById("logoName").innerHTML = cLogoName;
+				localStorage.setItem("clogoNameStored", cLogoName.substring(0, 13));
+				document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
 				}
 			}
 
 
+			
 			if (localStorage.getItem("obsTheme") == "28") { document.getElementById("obsTheme").value = "28"; }
+			if (localStorage.getItem("clogoNameStored") != null) { document.getElementById("logoName").innerHTML = localStorage.getItem("clogoNameStored"); }	
+			document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
+			document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
+			document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");
+			document.getElementById("raceInfoTxt").value = localStorage.getItem("raceInfo");
+			document.getElementById("wagerInfoTxt").value = localStorage.getItem("wagerInfo");
+			document.getElementById("verNum").innerHTML = versionNum;			
+			postNames();
+			refreshData();
 			startThemeCheck();
-			if (localStorage.getItem("clogoNameStored") != null) { document.getElementById("logoName").innerHTML = localStorage.getItem("clogoNameStored"); }
+		
 		</script>
   
 	</body>

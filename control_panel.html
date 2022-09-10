@@ -114,6 +114,7 @@ for more information about Salotto please visit https://salotto.app
 	left:50%;
 	padding-left:0px;
 	padding-right:0px;
+	padding-bottom:2px;
 	width: 47px;
 	}
 	#logoSsImg1 {
@@ -654,7 +655,7 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("l1Img").src = localStorage.getItem("customLogo1");
 
 					}, false);
-				setTimeout(slideOther, 50);
+				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
 
 				}
 			}
@@ -670,7 +671,7 @@ for more information about Salotto please visit https://salotto.app
 					localStorage.setItem("customLogo2", reader.result);
 					document.getElementById("l2Img").src = localStorage.getItem("customLogo2");
 					}, false);
-				setTimeout(slideOther, 50);
+				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
 
 				}
 			}
@@ -686,7 +687,7 @@ for more information about Salotto please visit https://salotto.app
 					localStorage.setItem("customLogo3", reader.result);
 					document.getElementById("l3Img").src = localStorage.getItem("customLogo3");
 					}, false);
-				setTimeout(slideOther, 50);
+				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
 
 				}
 			}

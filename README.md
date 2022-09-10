@@ -176,7 +176,7 @@ Max file size 2.4 MB
 	     
 2022SEPT05 - Added OBS v28 Theme option.
 	   - removed hotkeys.js. lua script creates this file.
-	   - hotkey support added to release  1.6.0 and 1.6.0-28
+	   - hotkey support added to release  1.6.0 and 1.6.0-28 (and all subsequent versions)
 
 2022SEPT04 - Hotkey support added to daily build
 	     to use, install the included g4ScoreBoard_hotkeys.lua script into OBS.

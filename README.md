@@ -160,7 +160,7 @@ Max file size 2.4 MB
 ---------------------------------------------------------------
 ## What\'s New
 ```
-2022SPET10 - Added Sponsor logos.
+2022SEPT10 - Added Sponsor logos.
 	     You now have the option to have up to 3 sponsor logos or the Custom Logo display in the stream. 
 	     These logos will cycle every 20 seconds
 	     

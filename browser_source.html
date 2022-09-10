@@ -238,6 +238,32 @@ for more information about Salotto please visit https://salotto.app
 				transition-timing-function: linear;
 			}
 			
+			.mySlides {
+			position:fixed;
+			display: none;
+			bottom: 13px;
+            left: 645px;
+			}
+
+
+			/* Slideshow container */
+			.slideshow-container {
+			position: relative;
+			margin: auto;
+			}
+
+
+			/* Fading animation */
+			.fade {
+			animation-name: fade;
+			animation-duration: 1.5s;
+			}
+
+			@keyframes fade {
+			from {opacity: .4} 
+			to {opacity: 1}
+			}
+
         </style>
     </head>
     <body>
@@ -265,8 +291,48 @@ for more information about Salotto please visit https://salotto.app
             </tr>
            
         </table>
-        </div>
+<!-- testing -->
+		<div id="logoSlideshowDiv" class="slideshow-container noShow">
+		<div class="mySlides fade">
+		<img id="customLogo1" src="" style="height:20px">
+ 		</div>
+		<div class="mySlides fade">
+		<img id="customLogo2" src="" style="height:20px">
+		</div>
+		<div class="mySlides fade">
+		<img  id="customLogo3" src="" style="height:20px">
+		</div>
+		</div>
+ <!--testing  -->       
+		</div>
         <script>
+		
+		
+		if (localStorage.getItem("customLogo1") != null) {
+		document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");
+		document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");
+		document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");
+		}
+		
+		let slideIndex = 0;
+		showSlides();
+		
+		function showSlides() {
+		  let i;
+		  let slides = document.getElementsByClassName("mySlides");
+		   for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";  
+		  }
+		  slideIndex++;
+		  if (slideIndex > slides.length) {slideIndex = 1}    
+		   slides[slideIndex-1].style.display = "block";  
+		   setTimeout(showSlides, 20000); // Change image every 20 seconds
+		}
+
+		
+		
+		
+		
 			if (localStorage.getItem("customImage") !== null) {
 				document.getElementById("g4Logo").src = localStorage.getItem("customImage");
 			}
@@ -394,7 +460,17 @@ for more information about Salotto please visit https://salotto.app
 				if (event.data =="postLogo") {
 						postLogo();
 					}
-													
+				if (event.data  =="logoSlideShow-show")  {
+					document.getElementById("logoSlideshowDiv").classList.remove("noShow");
+					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./images/placeholder.png"; };
+					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./images/placeholder.png"; };
+					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./images/placeholder.png"; };
+					
+					}
+				if (event.data =="logoSlideShow-hide") {
+					document.getElementById("logoSlideshowDiv").classList.add("noShow");
+					}
+					
 			}
 			
 			bcp1c.onmessage = (event) => {
@@ -639,8 +715,11 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("g4Logo").classList.replace("fadeInElm","fadeOutElm");
 			
 			}
-			
-			
+					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./images/placeholder.png"; };
+					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./images/placeholder.png"; };
+					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./images/placeholder.png"; };
+					
+			if (localStorage.getItem("slideShow")  == "yes") { document.getElementById("logoSlideshowDiv").classList.remove("noShow"); };
         </script>
     </body>
 </html>

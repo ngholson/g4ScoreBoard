@@ -21,6 +21,42 @@ for more information about Salotto please visit https://salotto.app
 	 <script src="hotkeys.js"></script>
      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"> 
     <style>
+	.slidecontainer {
+	  width: 100%;
+	  position:relative;
+	  bottom:-10px;
+	}
+
+	.slider {
+	  -webkit-appearance: none;
+	  width: 100%;
+	  height: 5px;
+	  border-radius: 5px;
+	  background: #d3d3d3;
+	  outline: none;
+	  opacity: 1;
+	  -webkit-transition: .2s;
+	  transition: opacity .2s;
+	}
+
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 15px;
+	  height: 15px;
+	  border-radius: 50%;
+	  background: #3345a3;
+	  cursor: pointer;
+	}
+
+	.slider::-moz-range-thumb {
+	  width: 15px;
+	  height: 15px;
+	  border-radius: 50%;
+	  background: #3345a3;
+	  cursor: pointer;
+	}
+	
 	.maroon {
 		background: maroon;
 		}
@@ -421,12 +457,15 @@ for more information about Salotto please visit https://salotto.app
 			L1 <span class="tooltiptext"><img id="l1Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
 		<div class="tooltip" id="logoSsImg2"><input type="file" id="FileUploadL2" onchange="logoPostL2(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
-			L2 <span class="tooltiptext"><img id="l2Img" src="" style="height:30px; max-width:70px""></span>
+			L2 <span class="tooltiptext"><img id="l2Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
 		<div class="tooltip" id="logoSsImg3"><input type="file" id="FileUploadL3" onchange="logoPostL3(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
-			L3<span class="tooltiptext"><img id="l3Img" src="" style="height:30px; max-width:70px""></span>
+			L3<span class="tooltiptext"><img id="l3Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
-		
+		<p style="font-size:11px">&nbsp;</p>
+		<div class="slidecontainer">
+			<input type="range" min="0" max="10" value="10" class="slider" id="myRange">
+		</div>
 		</center>
 		<text id="obsThemeLabel">theme:&nbsp;</text>
 		<select class="obs27" name="Theme" id="obsTheme" onchange="obsThemeChange()">
@@ -503,6 +542,7 @@ for more information about Salotto please visit https://salotto.app
 			const bcp1c = new BroadcastChannel('p1_color');
 			const bcp2c = new BroadcastChannel('p2_color');
 			const bcr = new BroadcastChannel('recv'); // return channel from browser_source 
+			const bco = new BroadcastChannel('sbopacity');
 			
 			var tev;
 			var p1ScoreValue;
@@ -510,6 +550,14 @@ for more information about Salotto please visit https://salotto.app
 			var warningBeep = new Audio("./sound/beep2.mp3");
             var foulSound = new Audio("./sound/buzz.mp3");
             var timerIsRunning;
+			
+			var slider = document.getElementById("myRange");
+			var sliderValue;
+			slider.oninput = function() {
+			sliderValue = this.value/10;
+			bco.postMessage(sliderValue);
+			}
+			
 			
 			if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
 				document.getElementById("allCheck").checked = false;

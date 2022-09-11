@@ -16,6 +16,9 @@ for more information about Salotto please visit https://salotto.app
     <head>
       	 <script src="./common/js/jquery.js"></script>
          <style>
+		 
+			
+					 
             body{
 				/*
 				background: #000000; 
@@ -267,7 +270,7 @@ for more information about Salotto please visit https://salotto.app
         </style>
     </head>
     <body>
-		<div class="noShow" id="raceInfo">&nbsp;</div><div class="noShow" id="wagerInfo">&nbsp;</div>
+		<div class="noShow fadeInElm" id="raceInfo">&nbsp;</div><div class="noShow fadeInElm" id="wagerInfo">&nbsp;</div>
 
         <div id="scoreBoardDiv"  class="fadeInElm">
 		<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
@@ -399,7 +402,13 @@ for more information about Salotto please visit https://salotto.app
 			const bcp1c = new BroadcastChannel('p1_color');
 			const bcp2c = new BroadcastChannel('p2_color');
 			const bcr = new BroadcastChannel('recv'); // browser_source -> control_panel channel 
-
+			const bco = new BroadcastChannel('sbopacity');
+			
+			bco.onmessage = (event) => {
+				document.getElementById("scoreBoardDiv").style.opacity  = event.data;
+				document.getElementById("raceInfo").style.opacity  = event.data;
+				document.getElementById("wagerInfo").style.opacity  = event.data;
+			}
 
 			bcClockDisplay.onmessage = (event) => {
 				console.log("event.data: " + event.data);
@@ -488,8 +497,11 @@ for more information about Salotto please visit https://salotto.app
 			console.log("event.data: " + event.data);
 			if (event.data == "") {
 					document.getElementById("raceInfo").classList.add("noShow");
+					document.getElementById("raceInfo").classList.remove("fadeInElm");
+
 					} else {
 						document.getElementById("raceInfo").classList.remove("noShow");
+						document.getElementById("raceInfo").classList.add("fadeInElm");
 						document.getElementById("raceInfo").innerHTML = event.data;
 				}
 			}
@@ -497,8 +509,11 @@ for more information about Salotto please visit https://salotto.app
 			console.log("event.data: " + event.data);
 				if (event.data == "") {
 					document.getElementById("wagerInfo").classList.add("noShow");
+					document.getElementById("wagerInfo").classList.remove("fadeInElm");
 					} else {
 						document.getElementById("wagerInfo").classList.remove("noShow");
+						document.getElementById("wagerInfo").classList.add("fadeInElm");
+
 						document.getElementById("wagerInfo").innerHTML = event.data;
 				}
 			}

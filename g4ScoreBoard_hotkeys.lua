@@ -37,7 +37,6 @@ local hotkeys = {
 
 -- add any custom actions here
 local function onHotKey(action)
-	--obs.timer_remove(rotate)
 	if debug then obs.script_log(obs.LOG_INFO, string.format("Hotkey : %s", action)) end
 
 	if action == "P1_SCR_UP" then

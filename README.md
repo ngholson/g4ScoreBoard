@@ -160,7 +160,7 @@ Max file size 2.4 MB
 ---------------------------------------------------------------
 ## What\'s New
 ```
-2022SEPT11 - Added experimental option opacity slider. see Experimental page for details.
+2022SEPT11 - Added experimental option 'opacity slider'. see Experimental page for details.
 
 2022SEPT10 - Added Sponsor logos.
 	     You now have the option to have up to 3 sponsor logos or the Custom Logo display in your

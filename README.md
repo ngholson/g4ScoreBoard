@@ -113,7 +113,7 @@ To install Hotkeys:
 
 ## Special background colors
 If you need a specific color for the background (such as green) open the "browser_source.html" <br>
-with a text editor and remove the comment tags indicated below. 
+with a text editor and remove the comment tags indicated below.<br>
 (this was specifically requested. OBS should remove the background for you automatically)
 
      browser_source.html

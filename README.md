@@ -146,6 +146,8 @@ A shot clock is used in most professional 9 ball tournaments. shot clock play is
 	   then that shot it is a 30s shot. 
 	3. all shots thereafter are 30s shots.
 	4. each player/team gets 1 30s extension per rack. 
+	   which must be called before time expires.
+									
 ```	   
 
 ---------------------------------------------------------------

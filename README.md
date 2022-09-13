@@ -161,37 +161,3 @@ For best results image size should be 2267 x 653
 Max file size 2.4 MB 
 
 ```
-
----------------------------------------------------------------
-## What\'s New
-```
-2022SEPT13 - Fixed Known Issue, where clock would occasionally start at 0.
-
-2022SEPT11 - Added experimental option 'opacity slider'. see Experimental page for details.
-
-2022SEPT10 - Added Sponsor logos.
-	     You now have the option to have up to 3 sponsor logos or the Custom Logo display in your
-	     stream. These logos will cycle every 20 seconds
-	   - added hotkeys.js back to the main file list to avoid unusual behavior if hotkey script
-	     not installed.
-	     
-2022SEPT09 - Uploaded shot_clock_display.html to the package. This is an experimental display
-	     option to show the players locally the shot time, requires additional monitor or other 
-	     casting option. still working out the kinks and best practices for usage. 
-	     
-2022SEPT08 - Behind the scenes changes. some script optimization etc.
-	     added validation to the custom logo text option. Preventing a null or blank input.
-		
-2022SEPT07 - Added option to change "Custom Logo" text from the UI. 
-	     to change "Custom Logo" text click on the text to open dialog box to change. 
-	     
-2022SEPT05 - Added OBS v28 Theme option.
-	   - removed hotkeys.js. lua script creates this file.
-	   - hotkey support added to release  1.6.0 and 1.6.0-28 (and all subsequent versions)
-
-2022SEPT04 - Hotkey support added to daily build
-	     to use, install the included g4ScoreBoard_hotkeys.lua script into OBS.
-	     (inside OBS click "Tools" from the top menu and select "Scripts" next click the "+"
-	     and locate the g4ScoreBoard_hotkeys.lua file and click open. done.) 
-	     You will find the hotkeys in the hotkey list with the prefix 'G4'
-```

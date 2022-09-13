@@ -7,7 +7,7 @@ Packed with features for the serious player.<br>
 Includes a shot clock inspired by the clock used during the Mosconi Cup and European Open.<br><br>
 <b><i>Docks cleanly into the OBS user interface</i></b><br><br>
 
----> [What's New](https://github.com/ngholson/g4ScoreBoard/blob/main/README.md#whats-new) <---
+---> [What's New](https://github.com/ngholson/g4ScoreBoard/wiki/What's--New) <---
 
 [Live Demo](https://g4billiards.com/g4scoreboard_demo/)
 

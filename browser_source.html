@@ -586,21 +586,21 @@ for more information about Salotto please visit https://salotto.app
                 document.getElementById("player2Score").classList.remove("winBlink");
             }
 			
-			 function shotTimer(shottime){
-                document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
-               	document.getElementById("shotClockVis").style.background = "lime";
+		function shotTimer(shottime){
+			var tev;
+		countDownTime = new Date().getTime() + shottime;
+                shotClockxr = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownTime - now;
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+               		document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
+               		document.getElementById("shotClockVis").style.background = "lime";
 				if (shottime == 61000) {
 					document.getElementById("shotClockVis").classList.add("start60");
 					} else {
 					document.getElementById("shotClockVis").classList.add("startTimer");
 					}
-				var tev;
-			    countDownTime = new Date().getTime() + shottime;
-                shotClockxr = setInterval(function() {
-                var now = new Date().getTime();
-                var distance = countDownTime - now;
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-						
+								
 				if (distance > 60000) {
                       seconds = seconds + 60;
                     } 

@@ -51,10 +51,12 @@ Zip contents:
 |-[sound]
 |    |-beep2.mp3
 |    |-buzz.mp3
-|   
+|
+|-shot_clock_display.html   
 |-g4ScoreBoard_hotkeys.lua
 |-browser_source.html   
 |-control_panel.html
+|-hotkeys.js
 |-README.md
 |-LICENSE
 

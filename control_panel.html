@@ -685,7 +685,8 @@ for more information about Salotto please visit https://salotto.app
 					reader.readAsDataURL(input.files[0]);
 					reader.addEventListener("load", function () {
 					// convert image file to base64 string and save to localStorage
-					localStorage.setItem("customImage", reader.result);
+					try { localStorage.setItem("customImage", reader.result); }
+					catch(err) { alert("the selected image exceedes the maximium file size");}
 
 					}, false);
 				setTimeout(logoOther, 50);
@@ -700,7 +701,8 @@ for more information about Salotto please visit https://salotto.app
 					reader.readAsDataURL(input.files[0]);
 					reader.addEventListener("load", function () {
 					// convert image file to base64 string and save to localStorage
-					localStorage.setItem("customLogo1", reader.result);
+					try {localStorage.setItem("customLogo1", reader.result);}
+					catch(err) { alert("the selected image exceedes the maximium file size");}
 					document.getElementById("l1Img").src = localStorage.getItem("customLogo1");
 
 					}, false);
@@ -717,7 +719,8 @@ for more information about Salotto please visit https://salotto.app
 					reader.readAsDataURL(input.files[0]);
 					reader.addEventListener("load", function () {
 					// convert image file to base64 string and save to localStorage
-					localStorage.setItem("customLogo2", reader.result);
+					try {localStorage.setItem("customLogo2", reader.result);}
+					catch(err) { alert("the selected image exceedes the maximium file size");}
 					document.getElementById("l2Img").src = localStorage.getItem("customLogo2");
 					}, false);
 				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
@@ -733,7 +736,8 @@ for more information about Salotto please visit https://salotto.app
 					reader.readAsDataURL(input.files[0]);
 					reader.addEventListener("load", function () {
 					// convert image file to base64 string and save to localStorage
-					localStorage.setItem("customLogo3", reader.result);
+					try { localStorage.setItem("customLogo3", reader.result); }
+					catch(err) { alert("the selected image exceedes the maximium file size");}
 					document.getElementById("l3Img").src = localStorage.getItem("customLogo3");
 					}, false);
 				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };

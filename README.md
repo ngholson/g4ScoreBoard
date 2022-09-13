@@ -165,6 +165,8 @@ Max file size 2.4 MB
 ---------------------------------------------------------------
 ## What\'s New
 ```
+2022SEPT13 - Fixed Known Issue, where clock would occasionally start at 0.
+
 2022SEPT11 - Added experimental option 'opacity slider'. see Experimental page for details.
 
 2022SEPT10 - Added Sponsor logos.

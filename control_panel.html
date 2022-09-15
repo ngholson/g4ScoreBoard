@@ -12,7 +12,7 @@ for more information about Salotto please visit https://salotto.app
     <head>
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0.daily.20220914";
+	 var versionNum = "1.6.0.daily.20220915";
  	 var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
 	 //---------------------------------------------------------------------------------------------
 	 </script>
@@ -97,7 +97,7 @@ for more information about Salotto please visit https://salotto.app
 		}
 		
 	#mainDiv {
-		margin-top: none;
+		margin-top: 0px;
 		margin-right: auto;
 		margin-left: auto;
 		margin-bottom: auto;
@@ -317,20 +317,40 @@ for more information about Salotto please visit https://salotto.app
 		border-bottom: 0px;
 		width:290px;
 	}
-	
-	#obsTheme {
+	#bsStyle{
+		position:relative;
+		font-size: 8pt;
+		cursor: pointer;
+		border-radius:5px;
+		font-family:tahoma;
+		color: lightgrey;
+		bottom:0px;
+		border:0px;
+		text-align:justify
+		
+	}
+	#obsThemeDiv {
 		position:fixed;
 		font-size: 8pt;
 		cursor: pointer;
 		border-radius:5px;
 		font-family:tahoma;
-		font-size:8pt;
 		color: lightgrey;
-		top:18px;
+		top:10px;
 		border:0px;
 		left:50%;
 		text-align:justify
 	}
+	
+	#obsTheme{
+		font-size: 8pt;
+		cursor: pointer;
+		border-radius:5px;
+		font-family:tahoma;
+		color: lightgrey;
+		text-align:justify
+	}
+	
 	#obsThemeLabel {
 		position:fixed;
 		font-size: 8pt;
@@ -338,7 +358,7 @@ for more information about Salotto please visit https://salotto.app
 		font-family:tahoma;
 		font-size:8pt;
 		color: lightgrey;
-		top:18px;
+		top:10px;
 	}
 	input {
 		border-radius:3px;
@@ -465,14 +485,22 @@ for more information about Salotto please visit https://salotto.app
 		<p style="font-size:11px">&nbsp;</p>
 		<div class="slidecontainer">
 			<input type="range" min="0" max="100" value="100" class="slider" id="myRange">
-		</div>
-
-		</center>
-		<text id="obsThemeLabel">theme:&nbsp;</text>
-		<select class="obs27" name="Theme" id="obsTheme" onchange="obsThemeChange()">
+		</div></center>
+<div id="obsThemeLabel"><text id="StyleChange">size:&nbsp;</text>
+	<select class="obs28" name="bsstyle" id="bsStyle" onchange="bsStyleChange()">
+    <option value="1">small</option>
+    <option value="2" default>medium</option>
+	<option value="3">large</option>
+	</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>	<div id="obsThemeDiv">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<text>theme:&nbsp;</text>
+		<select class="obs28" name="Theme" id="obsTheme" onchange="obsThemeChange()">
             <option value="27" default>dark</option>
             <option value="28">yami</option>
 		 </select>
+		 </div>
+		<!--  -->
+		
 	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; ">g4ScoreBoard v<text id="verNum"></text></text>
 
  		<script type="text/javascript">
@@ -559,6 +587,28 @@ for more information about Salotto please visit https://salotto.app
 			sliderValue = this.value/100;
 			bco.postMessage(sliderValue);
 			}
+
+			
+			function bsStyleChange() {
+				if (document.getElementById("bsStyle").value == 1) {
+				bcClockDisplay.postMessage("style100");
+				localStorage.setItem("b_style", 1);
+
+				}
+				if (document.getElementById("bsStyle").value == 2) {
+				bcClockDisplay.postMessage("style125");
+				localStorage.setItem("b_style", 2);
+
+				}
+				if (document.getElementById("bsStyle").value == 3) {
+				bcClockDisplay.postMessage("style150");
+				localStorage.setItem("b_style", 3);
+
+				}
+			}
+
+
+
 
 			if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
 				document.getElementById("allCheck").checked = false;
@@ -1234,12 +1284,15 @@ for more information about Salotto please visit https://salotto.app
 			}
 
 
-			// onload statements
+			// afterload statements
 			if (localStorage.getItem("customLogo1") != null) {document.getElementById("l1Img").src = localStorage.getItem("customLogo1");} else { document.getElementById("l1Img").src = "./images/placeholder.png"; };
 			if (localStorage.getItem("customLogo2") != null) {document.getElementById("l2Img").src = localStorage.getItem("customLogo2");} else { document.getElementById("l2Img").src = "./images/placeholder.png"; };
 			if (localStorage.getItem("customLogo3") != null) {document.getElementById("l3Img").src = localStorage.getItem("customLogo3");} else { document.getElementById("l3Img").src = "./images/placeholder.png"; };
 			if (localStorage.getItem("slideShow") == "yes") { document.getElementById("logoSlideshowChk").checked = true; logoSlideshow(); };
 			if (localStorage.getItem("obsTheme") == "28") { document.getElementById("obsTheme").value = "28"; }
+			if (localStorage.getItem("b_style") == "1") { document.getElementById("bsStyle").value = "1"; }
+			if (localStorage.getItem("b_style") == "2") { document.getElementById("bsStyle").value = "2"; }
+			if (localStorage.getItem("b_style") == "3") { document.getElementById("bsStyle").value = "3"; }
 			if (localStorage.getItem("clogoNameStored") != null) { document.getElementById("logoName").innerHTML = localStorage.getItem("clogoNameStored"); }	
 			document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
 			document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");

@@ -2,20 +2,28 @@
 <!-- 
 G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
+
 this is a purely javascript/html/css driven scoreboard system for OBS Studio
+
 free to use and modify and use as long as this copyright statment remains intact. 
+
 Salotto logo is the copyright of Salotto and is used with their permission.
 for more information about Salotto please visit https://salotto.app
+
 -->
+
 <html>
     <head>
       	 <script src="./common/js/jquery.js"></script>
          <style>
+		 
+			
+					 
             body{
-		/*
-		background: #000000; 
-		*/
-		-moz-transform: scale(1.75, 1.75);
+				/*
+				background: #000000; 
+				*/
+				-moz-transform: scale(1.75, 1.75);
                 zoom: 1.75;
                 zoom: 175%;
                 font-family:tahoma;
@@ -239,7 +247,10 @@ for more information about Salotto please visit https://salotto.app
 			bottom: 13px;
             left: 645px;
 			}
-
+			
+			.logoSlide {
+			display:none;
+			}
 
 			/* Slideshow container */
 			.slideshow-container {
@@ -287,14 +298,14 @@ for more information about Salotto please visit https://salotto.app
            
         </table>
 <!-- testing -->
-		<div id="logoSlideshowDiv" class="slideshow-container noShow">
-		<div class="mySlides fade">
+		<div id="logoSlideshowDiv" class="slideshow-container fadeOutElm">
+		<div class="mySlides logoSlide fade">
 		<img id="customLogo1" src="" style="height:20px">
  		</div>
-		<div class="mySlides fade">
+		<div class="mySlides logoSlide fade">
 		<img id="customLogo2" src="" style="height:20px">
 		</div>
-		<div class="mySlides fade">
+		<div class="mySlides logoSlide fade">
 		<img  id="customLogo3" src="" style="height:20px">
 		</div>
 		</div>
@@ -314,7 +325,7 @@ for more information about Salotto please visit https://salotto.app
 		
 		function showSlides() {
 		  let i;
-		  let slides = document.getElementsByClassName("mySlides");
+		  let slides = document.getElementsByClassName("logoSlide");
 		   for (i = 0; i < slides.length; i++) {
 			slides[i].style.display = "none";  
 		  }
@@ -462,14 +473,18 @@ for more information about Salotto please visit https://salotto.app
 						postLogo();
 					}
 				if (event.data  =="logoSlideShow-show")  {
-					document.getElementById("logoSlideshowDiv").classList.remove("noShow");
+					customHide(); 
+					
+					document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
+					document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
+					document.getElementById("g4Logo").classList.add("fade");
 					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./images/placeholder.png"; };
 					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./images/placeholder.png"; };
 					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./images/placeholder.png"; };
 					
 					}
 				if (event.data =="logoSlideShow-hide") {
-					document.getElementById("logoSlideshowDiv").classList.add("noShow");
+					document.getElementById("logoSlideshowDiv").classList.replace("fadeInElm", "fadeOutElm");
 					}
 					
 			}
@@ -578,21 +593,21 @@ for more information about Salotto please visit https://salotto.app
                 document.getElementById("player2Score").classList.remove("winBlink");
             }
 			
-		function shotTimer(shottime){
-			var tev;
-		countDownTime = new Date().getTime() + shottime;
-                shotClockxr = setInterval(function() {
-                var now = new Date().getTime();
-                var distance = countDownTime - now;
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-               		document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
-               		document.getElementById("shotClockVis").style.background = "lime";
+			 function shotTimer(shottime){
+                document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
+               	document.getElementById("shotClockVis").style.background = "lime";
 				if (shottime == 61000) {
 					document.getElementById("shotClockVis").classList.add("start60");
 					} else {
 					document.getElementById("shotClockVis").classList.add("startTimer");
 					}
-								
+				var tev;
+			    countDownTime = new Date().getTime() + shottime;
+                shotClockxr = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownTime - now;
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+						
 				if (distance > 60000) {
                       seconds = seconds + 60;
                     } 
@@ -715,18 +730,30 @@ for more information about Salotto please visit https://salotto.app
 			}
 			
 			function customShow() {
+				if (document.getElementById("g4Logo").classList.contains("logoSlide")) {
+					document.getElementById("g4Logo").classList.replace("logoSlide", "fadeOutElm"); }
+				if (document.getElementById("g4Logo").classList.contains("fade")) {
+					document.getElementById("g4Logo").classList.remove("fade"); }
+				document.getElementById("g4Logo").style.display = "block";
 				document.getElementById("g4Logo").classList.replace("fadeOutElm","fadeInElm");
 			
 			}
 			function customHide() {
 				document.getElementById("g4Logo").classList.replace("fadeInElm","fadeOutElm");
+				document.getElementById("g4Logo").style.display = "none";
 			
 			}
 					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./images/placeholder.png"; };
 					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./images/placeholder.png"; };
 					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./images/placeholder.png"; };
 					
-			if (localStorage.getItem("slideShow")  == "yes") { document.getElementById("logoSlideshowDiv").classList.remove("noShow"); };
+			if (localStorage.getItem("slideShow")  == "yes") { 
+				document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
+				document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
+				document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
+				document.getElementById("g4Logo").classList.add("fade");
+				}
+				
         </script>
     </body>
 </html>

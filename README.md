@@ -127,9 +127,9 @@ with a text editor and remove the comment tags indicated below.<br>
 	21 	/*      <----------------------------------------remove this.
 	22	background: #00FF00;	<------ replace with color of choice.
 	23	*/      <----------------------------------------remove this.
-	24 	-moz-transform: scale(1.75, 1.75);
-	25      zoom: 1.75;
-	26      zoom: 175%;
+	24 	-moz-transform: scale(1.50, 1.50);
+	25      zoom: 1.50;
+	26      zoom: 150%;
 	27      font-family:tahoma;
 	28      }
 	29

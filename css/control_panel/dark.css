@@ -1,0 +1,48 @@
+	.blue28 {
+		background: maroon;
+		border:0px;
+		}
+	.obs28 {
+		background: #4c4c4c;
+		border:0px;
+		}
+	#swapBtn {
+		cursor:pointer;
+		position:relative;
+		border: 1px solid #997300;
+		padding-bottom:2px;
+		width:10%;
+		min-width:30px;
+		min-height:15px;
+		font-size:7pt;
+	}
+	#mainDiv {
+		background: #1f1e1f;
+		}
+	
+	hr {
+		border-bottom:0px;
+		border-top: 1px solid #997300;
+		
+		}
+	
+	.hover {
+	}
+	.hover:hover {
+		background:#7a797a;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		

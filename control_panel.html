@@ -10,15 +10,15 @@ for more information about Salotto please visit https://salotto.app
 
 <html>
     <head>
-	<link rel="stylesheet" href="yami.css" />
-	<link rel="stylesheet" href="dark.css" />
-	<link rel="stylesheet" href="acri.css" />
-	<link rel="stylesheet" href="grey.css" />
-	<link rel="stylesheet" href="light.css" />
-	<link rel="stylesheet" href="rachni.css" />		
+	<link rel="stylesheet" href="./css/control_panel/yami.css" />
+	<link rel="stylesheet" href="./css/control_panel/dark.css" />
+	<link rel="stylesheet" href="./css/control_panel/acri.css" />
+	<link rel="stylesheet" href="./css/control_panel/grey.css" />
+	<link rel="stylesheet" href="./css/control_panel/light.css" />
+	<link rel="stylesheet" href="./css/control_panel/rachni.css" />		
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0.daily.20220916";
+	 var versionNum = "1.6.0.daily.20220915";
  	 var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
 	 //---------------------------------------------------------------------------------------------
 	 </script>
@@ -1128,9 +1128,7 @@ for more information about Salotto please visit https://salotto.app
 					document.styleSheets[3].disabled = true;
 					document.styleSheets[4].disabled = true;
 					document.styleSheets[5].disabled = true;
-					
 				}
-				
 				if (document.getElementById("obsTheme").value ==  "27") {
 					localStorage.setItem("obsTheme", "27"); 
 					document.getElementById("obsTheme").value =  "27";
@@ -1152,8 +1150,6 @@ for more information about Salotto please visit https://salotto.app
 					document.styleSheets[3].disabled = true;
 					document.styleSheets[4].disabled = true;
 					document.styleSheets[5].disabled = true;
-
-					
 				}
 				if (document.getElementById("obsTheme").value ==  "grey") {
 					localStorage.setItem("obsTheme", "grey"); 
@@ -1165,7 +1161,6 @@ for more information about Salotto please visit https://salotto.app
 					document.styleSheets[3].disabled = false;
 					document.styleSheets[4].disabled = true;
 					document.styleSheets[5].disabled = true;
-
 				}
 				if (document.getElementById("obsTheme").value ==  "light") {
 					localStorage.setItem("obsTheme", "light"); 
@@ -1177,7 +1172,6 @@ for more information about Salotto please visit https://salotto.app
 					document.styleSheets[3].disabled = true;
 					document.styleSheets[4].disabled = false;
 					document.styleSheets[5].disabled = true;
-
 				}
 				if (document.getElementById("obsTheme").value ==  "rachni") {
 					localStorage.setItem("obsTheme", "rachni"); 
@@ -1189,9 +1183,7 @@ for more information about Salotto please visit https://salotto.app
 					document.styleSheets[3].disabled = true;
 					document.styleSheets[4].disabled = true;
 					document.styleSheets[5].disabled = false;
-
-				}
-
+					}
 			}
 			
 			function startThemeCheck() {
@@ -1205,8 +1197,6 @@ for more information about Salotto please visit https://salotto.app
 						document.styleSheets[3].disabled = true;
 						document.styleSheets[4].disabled = true;
 						document.styleSheets[5].disabled = true;
-
-
 					}
 					if (localStorage.getItem("obsTheme") == "27") {
 						document.getElementById("obsTheme").value =  "27";
@@ -1258,8 +1248,6 @@ for more information about Salotto please visit https://salotto.app
 						document.styleSheets[4].disabled = true;
 						document.styleSheets[5].disabled = false;
 					}
-					
-
 			}
 			
 			function cLogoNameChange() {
@@ -1280,7 +1268,7 @@ for more information about Salotto please visit https://salotto.app
 			if (localStorage.getItem("b_style") == "1") { document.getElementById("bsStyle").value = "1"; }
 			if (localStorage.getItem("b_style") == "2") { document.getElementById("bsStyle").value = "2"; }
 			if (localStorage.getItem("b_style") == "3") { document.getElementById("bsStyle").value = "3"; }
-			if (localStorage.getItem("clogoNameStored") != null) { document.getElementById("logoName").innerHTML = localStorage.getItem("clogoNameStored"); }	
+			if (localStorage.getItem("clogoNameStored") != null) { cLogoName = localStorage.getItem("clogoNameStored"); }	
 			document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
 			document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
 			document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");

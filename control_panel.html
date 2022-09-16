@@ -890,6 +890,8 @@ for more information about Salotto please visit https://salotto.app
 					stopClock();
 					document.getElementById("sendP1Score").style.border ="1px solid lightgreen";
 					setTimeout(rst_scr_btn, 100);
+					resetExt('p1','noflash');
+					resetExt('p2','noflash');
 					} else {
 						if (p1ScoreValue > 0) {
 							p1ScoreValue = p1ScoreValue --- 1;
@@ -899,8 +901,7 @@ for more information about Salotto please visit https://salotto.app
 							setTimeout(rst_scr_btn, 100);
 					} 
 				}
-				resetExt('p1','noflash');
-				resetExt('p2','noflash');
+				
 				
 			}
             function rst_scr_btn() {
@@ -968,6 +969,8 @@ for more information about Salotto please visit https://salotto.app
 					stopClock();
 					document.getElementById("sendP2Score").style.border ="1px solid lightgreen";
 					setTimeout(rst_scr_btn, 100);
+					resetExt('p1','noflash');
+					resetExt('p2','noflash');
 					} else {
 						if (p2ScoreValue > 0) {
 							p2ScoreValue = p2ScoreValue --- 1;
@@ -977,8 +980,7 @@ for more information about Salotto please visit https://salotto.app
 							setTimeout(rst_scr_btn, 100);
 							} 
 				}
-				resetExt('p1','noflash');
-				resetExt('p2','noflash');
+				
 			}
 			
 			function resetScore() {

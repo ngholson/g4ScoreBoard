@@ -316,11 +316,11 @@ for more information about Salotto please visit https://salotto.app
 			
            bcp1s.onmessage = (event) => { 
 		   		console.log("event.data: " + event.data);
-				if (!event.data == 0) {
+				if (event.data > document.getElementById("player1Score").innerHTML) {
                document.getElementById("player1Score").innerHTML = event.data;
                document.getElementById("player1Score").classList.add("winBlink");
 			   
-               setTimeout("clearWinBlink()",1000);
+               setTimeout("clearWinBlink()",500);
 				} else {
 				document.getElementById("player1Score").innerHTML = event.data;
 				
@@ -332,11 +332,11 @@ for more information about Salotto please visit https://salotto.app
             
 			bcp2s.onmessage = (event) => { 
 				console.log("event.data: " + event.data);
-				if (!event.data == 0) {
+				if (event.data > document.getElementById("player2Score").innerHTML) {
                document.getElementById("player2Score").innerHTML = event.data;
                document.getElementById("player2Score").classList.add("winBlink");
 			   
-               setTimeout("clearWinBlink()",1000);
+               setTimeout("clearWinBlink()",500);
 			   } else {
 			   document.getElementById("player2Score").innerHTML = event.data;
 			

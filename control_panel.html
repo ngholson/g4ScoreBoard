@@ -434,8 +434,9 @@ for more information about Salotto please visit https://salotto.app
 		<div class="obs28" id="settingsBox3">
 		<text>Logo Image Upload<br>Max size: 2.4MB</text>
 		</div><p style="font-size:1px">&nbsp;</p>
-		<div class="hover obs28" id="settingsBox2">Upload Custom Logo
+		<div class="hover obs28 tooltip" id="settingsBox2">Upload Custom Logo
 			<input type="file" id="FileUpload" onchange="logoPost(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+			<span class="tooltiptext"><img id="clImg" src="" style="height:30px; max-width:70px"></span>
 			<br>
 			
 		</div>	
@@ -444,13 +445,13 @@ for more information about Salotto please visit https://salotto.app
 			<span>Sponsor Logos:<input class="smallSize" type="checkbox" id="logoSlideshowChk" onchange="logoSlideshow()"></span> 
 		</div>
 		
-		<div class="tooltip obs28" id="logoSsImg1"><input type="file" id="FileUploadL1" onchange="logoPostL1(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28 hover" id="logoSsImg1"><input type="file" id="FileUploadL1" onchange="logoPostL1(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L1 <span class="tooltiptext"><img id="l1Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
-		<div class="tooltip obs28" id="logoSsImg2"><input type="file" id="FileUploadL2" onchange="logoPostL2(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28 hover" id="logoSsImg2"><input type="file" id="FileUploadL2" onchange="logoPostL2(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L2 <span class="tooltiptext"><img id="l2Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
-		<div class="tooltip obs28" id="logoSsImg3"><input type="file" id="FileUploadL3" onchange="logoPostL3(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28 hover" id="logoSsImg3"><input type="file" id="FileUploadL3" onchange="logoPostL3(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L3<span class="tooltiptext"><img id="l3Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
 		<p style="font-size:11px">&nbsp;</p>
@@ -713,6 +714,8 @@ for more information about Salotto please visit https://salotto.app
 					// convert image file to base64 string and save to localStorage
 					try { localStorage.setItem("customImage", reader.result); }
 					catch(err) { alert("the selected image exceedes the maximium file size");}
+					document.getElementById("clImg").src = localStorage.getItem("customImage");
+					
 
 					}, false);
 				setTimeout(logoOther, 50);

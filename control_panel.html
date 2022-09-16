@@ -707,7 +707,7 @@ for more information about Salotto please visit https://salotto.app
                     if (tev == 0) {
                         foulSound.loop= false;
                         foulSound.play();
-						stopClock();
+						setTimeout("stopClock()", 1000);
 						}
 					
 			}
@@ -1276,7 +1276,7 @@ for more information about Salotto please visit https://salotto.app
 			}
 			
 			function cLogoNameChange() {
-				cLogoName = prompt("What name do you want displayed here?");
+				cLogoName = prompt("Rename Custom Logo Checkbox Label");
 				if (cLogoName != null && cLogoName != "") {
 				localStorage.setItem("clogoNameStored", cLogoName.substring(0, 13));
 				document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
@@ -1284,7 +1284,7 @@ for more information about Salotto please visit https://salotto.app
 			}
 
 
-			// afterload statements
+			// afterDomload statements
 			if (localStorage.getItem("customLogo1") != null) {document.getElementById("l1Img").src = localStorage.getItem("customLogo1");} else { document.getElementById("l1Img").src = "./images/placeholder.png"; };
 			if (localStorage.getItem("customLogo2") != null) {document.getElementById("l2Img").src = localStorage.getItem("customLogo2");} else { document.getElementById("l2Img").src = "./images/placeholder.png"; };
 			if (localStorage.getItem("customLogo3") != null) {document.getElementById("l3Img").src = localStorage.getItem("customLogo3");} else { document.getElementById("l3Img").src = "./images/placeholder.png"; };

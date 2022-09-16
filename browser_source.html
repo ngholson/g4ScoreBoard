@@ -386,6 +386,14 @@ for more information about Salotto please visit https://salotto.app
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 				document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
                	document.getElementById("shotClockVis").style.background = "lime";
+                document.getElementById("shotClock").style.background = "green";
+				if (distance > 21000){
+		                document.getElementById("shotClock").style.color = "white";
+					}
+				if (distance > 5000 && distance < 21000) {
+	                document.getElementById("shotClock").style.color = "black";
+					}
+					
 				if (shottime == 61000) {
 					document.getElementById("shotClockVis").classList.add("start60");
 					} else {
@@ -396,7 +404,8 @@ for more information about Salotto please visit https://salotto.app
                       seconds = seconds + 60;
                     } 
                     document.getElementById("shotClock").innerHTML = seconds + "s";
-                    if (distance < 31000) {
+                    
+					if (distance < 31000) {
 						document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
                     	document.getElementById("shotClockVis").style.background = "lime";
 						document.getElementById("shotClockVis").classList.add("startTimer");
@@ -409,6 +418,8 @@ for more information about Salotto please visit https://salotto.app
                         
 					if (distance < 21000) {
                     	document.getElementById("shotClockVis").style.background = "#639b00";
+                        document.getElementById("shotClock").style.background = "orange";
+
                         }
                     if (distance < 16000) {
 
@@ -430,13 +441,15 @@ for more information about Salotto please visit https://salotto.app
                         document.getElementById("shotClock").classList.add("shotRed");
                         document.getElementById("shotClock").style.background = "red";
 						document.getElementById("shotClockVis").style.background = "red";
+						document.getElementById("shotClock").style.color = "white";
+
                     }
                     if (distance < 1000) {
                         clearInterval(shotClockxr);
                         document.getElementById("shotClock").style.background = "red";
 						document.getElementById("shotClockVis").style.background = "red";
-
-                        setTimeout("stopClock()", 2000)
+						document.getElementById("shotClock").style.color = "white";
+                    
 
                     }
 					if (seconds == tev) {

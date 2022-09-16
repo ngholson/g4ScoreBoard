@@ -10,6 +10,12 @@ for more information about Salotto please visit https://salotto.app
 
 <html>
     <head>
+	<link rel="stylesheet" href="yami.css" />
+	<link rel="stylesheet" href="dark.css" />
+	<link rel="stylesheet" href="acri.css" />
+	<link rel="stylesheet" href="grey.css" />
+	<link rel="stylesheet" href="light.css" />
+	<link rel="stylesheet" href="rachni.css" />		
 	 <script>
 	 //---------------------------------------------------------------------------------------------
 	 var versionNum = "1.6.0.daily.20220915";
@@ -57,21 +63,7 @@ for more information about Salotto please visit https://salotto.app
 	  cursor: pointer;
 	}
 	
-	.maroon {
-		background: maroon;
-		}
-	.blue28 {
-		background: #3345a3;
-		border:0px;
-		}
-	.obs28 {
-		background: #3c404b;
-		border:0px;
-	}
-	.obs27 {
-			background:#4c4c4c;
-		   }
-
+	
 	body{
 		font-family:tahoma;
 		background: #2b2e38;
@@ -80,11 +72,8 @@ for more information about Salotto please visit https://salotto.app
 		margin-bottom:auto;
 		margin-top:1px;
 		}
-	span {
-		cursor: default;
-		color:lightgrey;
-		font-size:8pt;
-		}
+		
+	
 	div {
 		color:lightgrey;
 		min-height: 30px;
@@ -138,9 +127,6 @@ for more information about Salotto please visit https://salotto.app
 		margin-left:2px;
 		font-size:8pt;
 		}
-	
-	
-	
 	
 	
 	#logoSsImg1, #logoSsImg2, #logoSsImg3 {
@@ -206,11 +192,7 @@ for more information about Salotto please visit https://salotto.app
 			font-size:9pt;
 
 		}
-	.hover {
-	}
-	.hover:hover {
-		background:#4f535e;
-	}
+	
 	
 	.noShow{
         visibility:hidden;
@@ -263,6 +245,7 @@ for more information about Salotto please visit https://salotto.app
 	padding-right:10px;
 	padding-bottom:2px;
 	margin-right:2px;
+	font-size:8pt;
 	}
 	
 	#settingsBox2 {
@@ -298,18 +281,6 @@ for more information about Salotto please visit https://salotto.app
 	width: 11px;
 	color:red;
 	}
-	
-	#swapBtn {
-		cursor:pointer;
-		position:relative;
-		border: 1px solid #997300;
-
-		padding-bottom:2px;
-		width:10%;
-		min-width:30px;
-		min-height:15px;
-		font-size:7pt;
-
 		 
 	}
 	hr{
@@ -399,7 +370,7 @@ for more information about Salotto please visit https://salotto.app
 		<text style="font-size:4px">&nbsp;</text>Game and Race Info:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br><p style="font-size:1px">&nbsp;</p>
 		<text style="font-size:8.5px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:5px" /p></div>
 		<p style="font-size:12px">&nbsp;</p>
-		<div class="hover" id="sendPNames" onclick="postNames()">Update Info</div>
+		<div class="hover obs28" id="sendPNames" onclick="postNames()">Update Info</div>
 		<p style="font-size:1.5pt">&nbsp;</p>
 		<select style="text-align:justify" name="p1Colors" id="p1colorDiv" class="obs28" onchange="playerColorChange(1)">
 			<option value="" default>P1 Color</option>
@@ -437,49 +408,49 @@ for more information about Salotto please visit https://salotto.app
             <option value="lightseagreen">SeaGreen</option>
 			<option value="purple">Purple</option>
             <option value="white">White</option>
-        </select><div class="hover" onclick="swapColors()" id="swapBtn"><text style="font-size:2pt">&nbsp;</text>Swap</div>
+        </select><div class="hover obs28" onclick="swapColors()" id="swapBtn"><text style="font-size:2pt">&nbsp;</text>Swap</div>
 		<hr>
-        <div class="hover" id="sendP1Score" onclick="postP1Score('add')">P1 +1 Score</div>
-        <div class="hover" id="sendP2Score" onclick="postP2Score('add')">P2 +1 Score</div>
+        <div class="hover obs28" id="sendP1Score" onclick="postP1Score('add')">P1 +1 Score</div>
+        <div class="hover obs28" id="sendP2Score" onclick="postP2Score('add')">P2 +1 Score</div>
 		<p style="font-size:9.25pt">&nbsp;</p>
-		<div class="hover" id="sendP1ScoreSub" onclick="postP1Score('sub')">P1 -1 Score</div>
-        <div class="hover" id="sendP2ScoreSub" onclick="postP2Score('sub')">P2 -1 Score</div>
+		<div class="hover obs28" id="sendP1ScoreSub" onclick="postP1Score('sub')">P1 -1 Score</div>
+        <div class="hover obs28" id="sendP2ScoreSub" onclick="postP2Score('sub')">P2 -1 Score</div>
 		<p style="font-size:11.25pt">&nbsp;</p><hr>
-		<div class="hover" id="shotClock30" onclick="shotClock(31000)">30s Shot Clock</div>
-		<div class="hover" id="shotClock60" onclick="shotClock(61000)">60s Shot Clock</div><p style="font-size:9.25pt">&nbsp;</p>
-		<div class="hover" id="shotClockShow" onclick="clockDisplay('show')">Show Clock</div>
+		<div class="hover obs28" id="shotClock30" onclick="shotClock(31000)">30s Shot Clock</div>
+		<div class="hover obs28" id="shotClock60" onclick="shotClock(61000)">60s Shot Clock</div><p style="font-size:9.25pt">&nbsp;</p>
+		<div class="hover obs28" id="shotClockShow" onclick="clockDisplay('show')">Show Clock</div>
 		<div id="clockLocalDisplay" onclick=""></div><p style="font-size:11pt">&nbsp;</p>
-		<div class="hover" id="p1extensionBtn" onclick="add30('p1')">P1 Extension</div>
-		<div class="hover" id="p2extensionBtn" onclick="add30('p2')">P2 Extension</div><p style="font-size:11.5pt">&nbsp;</p>
-		<div class="hover" id="stopClockDiv" onclick="stopClock()">Stop Clock</div>
-		<HR><div class="hover" id="resetBtn" onclick="resetScore()">Reset Scores and Extensions</div><p style="font-size:1.5pt">&nbsp;</p>
-		<div class="hover" id="p1ExtReset" onclick="resetExt('p1')">P1 Ext Reset</div>
-		<div class="hover" id="p2ExtReset" onclick="resetExt('p2')">P2 Ext Reset</div><p style="font-size:9pt">&nbsp;</p>
+		<div class="hover obs28" id="p1extensionBtn" onclick="add30('p1')">P1 Extension</div>
+		<div class="hover obs28" id="p2extensionBtn" onclick="add30('p2')">P2 Extension</div><p style="font-size:11.5pt">&nbsp;</p>
+		<div class="hover obs28" id="stopClockDiv" onclick="stopClock()">Stop Clock</div>
+		<HR><div class="hover obs28" id="resetBtn" onclick="resetScore()">Reset Scores and Extensions</div><p style="font-size:1.5pt">&nbsp;</p>
+		<div class="hover obs28" id="p1ExtReset" onclick="resetExt('p1')">P1 Ext Reset</div>
+		<div class="hover obs28" id="p2ExtReset" onclick="resetExt('p2')">P2 Ext Reset</div><p style="font-size:9pt">&nbsp;</p>
 		
-		<div id="settingsBox1">
+		<div class="obs28" id="settingsBox1">
 			<span>All <input type="checkbox" class="smallSize" id="allCheck" onchange="allCheck()" checked><br><span>Use Clock:<span> <input type="checkbox" class="smallSize" id="useClockSetting" onchange="clockSetting()" ><br><span>Salotto Logo:<span><input type="checkbox" class="smallSize" id="useSalottoSetting" onchange="salottoSetting()">
 			<br><span><text onclick="cLogoNameChange()" id="logoName"></text>&nbsp;Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
 		</div>
-		<div id="settingsBox3">
+		<div class="obs28" id="settingsBox3">
 		<text>Logo Image Upload<br>Max size: 2.4MB</text>
 		</div><p style="font-size:1px">&nbsp;</p>
-		<div class="hover" id="settingsBox2">Upload Custom Logo
+		<div class="hover obs28" id="settingsBox2">Upload Custom Logo
 			<input type="file" id="FileUpload" onchange="logoPost(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			<br>
 			
 		</div>	
 		<p style="font-size:9.5pt">&nbsp;</p>
-		<div id="logoSlideShowDiv">
+		<div class="obs28" id="logoSlideShowDiv">
 			<span>Sponsor Logos:<input class="smallSize" type="checkbox" id="logoSlideshowChk" onchange="logoSlideshow()"></span> 
 		</div>
 		
-		<div class="tooltip" id="logoSsImg1"><input type="file" id="FileUploadL1" onchange="logoPostL1(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28" id="logoSsImg1"><input type="file" id="FileUploadL1" onchange="logoPostL1(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L1 <span class="tooltiptext"><img id="l1Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
-		<div class="tooltip" id="logoSsImg2"><input type="file" id="FileUploadL2" onchange="logoPostL2(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28" id="logoSsImg2"><input type="file" id="FileUploadL2" onchange="logoPostL2(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L2 <span class="tooltiptext"><img id="l2Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
-		<div class="tooltip" id="logoSsImg3"><input type="file" id="FileUploadL3" onchange="logoPostL3(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28" id="logoSsImg3"><input type="file" id="FileUploadL3" onchange="logoPostL3(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L3<span class="tooltiptext"><img id="l3Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
 		<p style="font-size:11px">&nbsp;</p>
@@ -495,8 +466,13 @@ for more information about Salotto please visit https://salotto.app
 </div>	<div id="obsThemeDiv">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<text>theme:&nbsp;</text>
 		<select class="obs28" name="Theme" id="obsTheme" onchange="obsThemeChange()">
-            <option value="27" default>dark</option>
+            <option value="27" selected>dark</option>
             <option value="28">yami</option>
+			<option value="acri">acri</option>
+			<option value="grey">grey</option>
+			<option value="light">light</option>
+			<option value="rachni">rachni</option>
+
 		 </select>
 		 </div>
 		<!--  -->
@@ -952,8 +928,7 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("shotClock60").setAttribute("onclick", "");
 				document.getElementById("shotClock30").style.color = "dimgrey";
 				document.getElementById("shotClock60").style.color = "dimgrey";
-				if (localStorage.getItem("obsTheme") == "28") { document.getElementById("stopClockDiv").classList.replace("obs28", "blue28");}
-				else { document.getElementById("stopClockDiv").classList.replace("obs27", "maroon"); } ;
+				document.getElementById("stopClockDiv").classList.replace("obs28", "blue28");
 				document.getElementById("stopClockDiv").classList.remove("hover");
 			    //document.getElementById("clockLocalDisplay").classList.remove("noShow");
 				
@@ -972,10 +947,14 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("clockLocalDisplay").style.background = "none";
 				clockDisplay("hide");
 				document.getElementById("clockLocalDisplay").style.color = "black";
+				if (localStorage.getItem("obsTheme") == "light") {
+				document.getElementById("shotClock30").style.color = "#000";
+				document.getElementById("shotClock60").style.color = "#000";
+				} else {
 				document.getElementById("shotClock30").style.color = "lightGrey";
 				document.getElementById("shotClock60").style.color = "lightGrey";
-				if (localStorage.getItem("obsTheme") == "28") { document.getElementById("stopClockDiv").classList.replace("blue28", "obs28");}
-				else { document.getElementById("stopClockDiv").classList.replace("maroon", "obs27"); } ;
+				}
+				document.getElementById("stopClockDiv").classList.replace("blue28", "obs28");
 				document.getElementById("stopClockDiv").classList.add("hover");
 				setTimeout(rst_scr_btn, 100);
 			}
@@ -1139,140 +1118,148 @@ for more information about Salotto please visit https://salotto.app
 
 			
 			function obsThemeChange() {
-				if (localStorage.getItem("obsTheme") == null) { localStorage.setItem("obsTheme", "28"); document.getElementById("obsTheme").value =  "28";  };
 				if (document.getElementById("obsTheme").value ==  "28") {
-					localStorage.setItem("obsTheme", "28");
+					localStorage.setItem("obsTheme", "28"); 
+					document.getElementById("obsTheme").value =  "28";
 					document.getElementsByTagName("body")[0].style.background = "#2b2e38";
-					document.getElementsByTagName("hr")[0].style.borderTop = "1px solid steelblue";
-					document.getElementsByTagName("hr")[1].style.borderTop = "1px solid steelblue";
-					document.getElementsByTagName("hr")[2].style.borderTop = "1px solid steelblue";
-					document.getElementById("swapBtn").style.border = "1px solid steelblue";
-					document.getElementById("mainDiv").style.background = "#2b2e38";
-					document.getElementById("sendPNames").classList.replace("obs27" , "obs28");
-					document.getElementById("swapBtn").classList.replace("obs27" , "obs28");
-					document.getElementById("sendP1Score").classList.replace("obs27" , "obs28");
-					document.getElementById("sendP1ScoreSub").classList.replace("obs27" , "obs28");
-					document.getElementById("sendP2Score").classList.replace("obs27" , "obs28");
-					document.getElementById("sendP2ScoreSub").classList.replace("obs27" , "obs28");
-					document.getElementById("shotClock30").classList.replace("obs27" , "obs28");
-					document.getElementById("shotClock60").classList.replace("obs27" , "obs28");
-					document.getElementById("p1extensionBtn").classList.replace("obs27" , "obs28");
-					document.getElementById("p2extensionBtn").classList.replace("obs27" , "obs28");
-					document.getElementById("stopClockDiv").classList.replace("obs27" , "obs28");
-					document.getElementById("resetBtn").classList.replace("obs27" , "obs28");
-					document.getElementById("p1ExtReset").classList.replace("obs27" , "obs28");
-					document.getElementById("p2ExtReset").classList.replace("obs27" , "obs28");
-					document.getElementById("settingsBox1").classList.replace("obs27" , "obs28");
-					document.getElementById("settingsBox2").classList.replace("obs27" , "obs28");
-					document.getElementById("settingsBox3").classList.replace("obs27" , "obs28");
-					document.getElementById("obsTheme").classList.replace("obs27" , "obs28");
-					document.getElementById("shotClockShow").classList.replace("obs27" , "obs28");
-					document.getElementById("topPlayerGameInfo").classList.replace("obs27" , "obs28"); 
-					document.getElementById("obsTheme").classList.replace("obs27", "obs28");
-					document.getElementById("logoSlideShowDiv").classList.replace("obs27", "obs28");
-					document.getElementById("logoSsImg1").classList.replace("obs27", "obs28");
-					document.getElementById("logoSsImg2").classList.replace("obs27", "obs28");
-					document.getElementById("logoSsImg3").classList.replace("obs27", "obs28");
-					} else  { 
-					localStorage.setItem("obsTheme",  "27");
+					document.styleSheets[0].disabled = false;
+					document.styleSheets[1].disabled = true;
+					document.styleSheets[2].disabled = true;
+					document.styleSheets[3].disabled = true;
+					document.styleSheets[4].disabled = true;
+					document.styleSheets[5].disabled = true;
+					
+				}
+				
+				if (document.getElementById("obsTheme").value ==  "27") {
+					localStorage.setItem("obsTheme", "27"); 
+					document.getElementById("obsTheme").value =  "27";
 					document.getElementsByTagName("body")[0].style.background = "#1f1e1f";
-					document.getElementsByTagName("hr")[0].style.borderTop = "1px solid #997300";
-					document.getElementsByTagName("hr")[1].style.borderTop = "1px solid #997300";
-					document.getElementsByTagName("hr")[2].style.borderTop = "1px solid #997300";
-					document.getElementById("swapBtn").style.border = "1px solid #997300";
-					document.getElementById("mainDiv").style.background ="#1f1e1f"; 
-					document.getElementById("sendPNames").classList.replace("obs28" , "obs27");
-					document.getElementById("swapBtn").classList.replace("obs28" , "obs27");
-					document.getElementById("sendP1Score").classList.replace("obs28" , "obs27");
-					document.getElementById("sendP1ScoreSub").classList.replace("obs28" , "obs27");
-					document.getElementById("sendP2Score").classList.replace("obs28" , "obs27");
-					document.getElementById("sendP2ScoreSub").classList.replace("obs28" , "obs27");
-					document.getElementById("shotClock30").classList.replace("obs28" , "obs27");
-					document.getElementById("shotClock60").classList.replace("obs28" , "obs27");
-					document.getElementById("p1extensionBtn").classList.replace("obs28" , "obs27");
-					document.getElementById("p2extensionBtn").classList.replace("obs28" , "obs27");
-					document.getElementById("stopClockDiv").classList.replace("obs28" , "obs27");
-					document.getElementById("resetBtn").classList.replace("obs28" , "obs27");
-					document.getElementById("p1ExtReset").classList.replace("obs28" , "obs27");
-					document.getElementById("p2ExtReset").classList.replace("obs28" , "obs27");
-					document.getElementById("settingsBox1").classList.replace("obs28" , "obs27");
-					document.getElementById("settingsBox2").classList.replace("obs28" , "obs27");
-					document.getElementById("settingsBox3").classList.replace("obs28" , "obs27");
-					document.getElementById("obsTheme").classList.replace("obs28" , "obs27");
-					document.getElementById("shotClockShow").classList.replace("obs28" , "obs27");
-					document.getElementById("topPlayerGameInfo").classList.replace("obs28" , "obs27"); 
-					document.getElementById("obsTheme").classList.replace("obs28", "obs27");
-					document.getElementById("logoSlideShowDiv").classList.replace("obs28", "obs27");
-					document.getElementById("logoSsImg1").classList.replace("obs28", "obs27");
-					document.getElementById("logoSsImg2").classList.replace("obs28", "obs27");
-					document.getElementById("logoSsImg3").classList.replace("obs28", "obs27");
-					}		
+					document.styleSheets[0].disabled = true;
+					document.styleSheets[1].disabled = false;
+					document.styleSheets[2].disabled = true;
+					document.styleSheets[3].disabled = true;
+					document.styleSheets[4].disabled = true;
+					document.styleSheets[5].disabled = true;
+				}
+				if (document.getElementById("obsTheme").value ==  "acri") {
+					localStorage.setItem("obsTheme", "acri"); 
+					document.getElementById("obsTheme").value =  "acri";
+					document.getElementsByTagName("body")[0].style.background = "#181819";
+					document.styleSheets[0].disabled = true;
+					document.styleSheets[1].disabled = true;
+					document.styleSheets[2].disabled = false;
+					document.styleSheets[3].disabled = true;
+					document.styleSheets[4].disabled = true;
+					document.styleSheets[5].disabled = true;
+
+					
+				}
+				if (document.getElementById("obsTheme").value ==  "grey") {
+					localStorage.setItem("obsTheme", "grey"); 
+					document.getElementById("obsTheme").value =  "grey";
+					document.getElementsByTagName("body")[0].style.background = "#2f2f2f";
+					document.styleSheets[0].disabled = true;
+					document.styleSheets[1].disabled = true;
+					document.styleSheets[2].disabled = true;
+					document.styleSheets[3].disabled = false;
+					document.styleSheets[4].disabled = true;
+					document.styleSheets[5].disabled = true;
+
+				}
+				if (document.getElementById("obsTheme").value ==  "light") {
+					localStorage.setItem("obsTheme", "light"); 
+					document.getElementById("obsTheme").value =  "light";
+					document.getElementsByTagName("body")[0].style.background = "#e5e5e5";
+					document.styleSheets[0].disabled = true;
+					document.styleSheets[1].disabled = true;
+					document.styleSheets[2].disabled = true;
+					document.styleSheets[3].disabled = true;
+					document.styleSheets[4].disabled = false;
+					document.styleSheets[5].disabled = true;
+
+				}
+				if (document.getElementById("obsTheme").value ==  "rachni") {
+					localStorage.setItem("obsTheme", "rachni"); 
+					document.getElementById("obsTheme").value =  "rachni";
+					document.getElementsByTagName("body")[0].style.background = "#232629";
+					document.styleSheets[0].disabled = true;
+					document.styleSheets[1].disabled = true;
+					document.styleSheets[2].disabled = true;
+					document.styleSheets[3].disabled = true;
+					document.styleSheets[4].disabled = true;
+					document.styleSheets[5].disabled = false;
+
+				}
+
 			}
 			
 			function startThemeCheck() {
 					if (localStorage.getItem("obsTheme") == null) { localStorage.setItem("obsTheme", "28"); document.getElementById("obsTheme").value =  "28";  };
 					if (localStorage.getItem("obsTheme") == "28") {
-					document.getElementsByTagName("hr")[0].style.borderTop = "1px solid steelblue";
-					document.getElementsByTagName("hr")[1].style.borderTop = "1px solid steelblue";
-					document.getElementsByTagName("hr")[2].style.borderTop = "1px solid steelblue";
-					document.getElementById("swapBtn").style.border = "1px solid steelblue";
-					document.getElementsByTagName("body")[0].style.background = "#2b2e38";
-					document.getElementById("sendPNames").classList.add("obs28");
-					document.getElementById("swapBtn").classList.add("obs28");
-					document.getElementById("sendP1Score").classList.add("obs28");
-					document.getElementById("sendP1ScoreSub").classList.add("obs28");
-					document.getElementById("sendP2Score").classList.add("obs28");
-					document.getElementById("sendP2ScoreSub").classList.add("obs28");
-					document.getElementById("shotClock30").classList.add("obs28");
-					document.getElementById("shotClock60").classList.add("obs28");
-					document.getElementById("p1extensionBtn").classList.add("obs28");
-					document.getElementById("p2extensionBtn").classList.add("obs28");
-					document.getElementById("stopClockDiv").classList.add("obs28");
-					document.getElementById("resetBtn").classList.add("obs28");
-					document.getElementById("p1ExtReset").classList.add("obs28");
-					document.getElementById("p2ExtReset").classList.add("obs28");
-					document.getElementById("settingsBox1").classList.add("obs28");
-					document.getElementById("settingsBox2").classList.add("obs28");
-					document.getElementById("settingsBox3").classList.add("obs28");
-					document.getElementById("obsTheme").classList.add("obs28");
-					document.getElementById("shotClockShow").classList.add("obs28");
-					document.getElementById("topPlayerGameInfo").classList.add("obs28");
-					document.getElementById("logoSlideShowDiv").classList.add("obs28");
-					document.getElementById("logoSsImg1").classList.add("obs28");
-					document.getElementById("logoSsImg2").classList.add("obs28");
-					document.getElementById("logoSsImg3").classList.add("obs28");
+						document.getElementById("obsTheme").value =  "28";
+						document.getElementsByTagName("body")[0].style.background = "#2b2e38";
+						document.styleSheets[0].disabled = false;
+						document.styleSheets[1].disabled = true;
+						document.styleSheets[2].disabled = true;
+						document.styleSheets[3].disabled = true;
+						document.styleSheets[4].disabled = true;
+						document.styleSheets[5].disabled = true;
+
+
 					}
 					if (localStorage.getItem("obsTheme") == "27") {
-					document.getElementsByTagName("body")[0].style.background = "#1f1e1f";
-					document.getElementsByTagName("hr")[0].style.borderTop = "1px solid #997300";
-					document.getElementsByTagName("hr")[1].style.borderTop = "1px solid #997300";
-					document.getElementsByTagName("hr")[2].style.borderTop = "1px solid #997300";
-					document.getElementById("swapBtn").style.border = "1px solid #997300";
-					document.getElementById("sendPNames").classList.add("obs27");
-					document.getElementById("swapBtn").classList.add("obs27");
-					document.getElementById("sendP1Score").classList.add("obs27");
-					document.getElementById("sendP1ScoreSub").classList.add("obs27");
-					document.getElementById("sendP2Score").classList.add("obs27");
-					document.getElementById("sendP2ScoreSub").classList.add("obs27");
-					document.getElementById("shotClock30").classList.add("obs27");
-					document.getElementById("shotClock60").classList.add("obs27");
-					document.getElementById("p1extensionBtn").classList.add("obs27");
-					document.getElementById("p2extensionBtn").classList.add("obs27");
-					document.getElementById("stopClockDiv").classList.add("obs27");
-					document.getElementById("resetBtn").classList.add("obs27");
-					document.getElementById("p1ExtReset").classList.add("obs27");
-					document.getElementById("p2ExtReset").classList.add("obs27");
-					document.getElementById("settingsBox1").classList.add("obs27");
-					document.getElementById("settingsBox2").classList.add("obs27");
-					document.getElementById("settingsBox3").classList.add("obs27");
-					document.getElementById("obsTheme").classList.add("obs27");
-					document.getElementById("shotClockShow").classList.add("obs27");
-					document.getElementById("topPlayerGameInfo").classList.add("obs27");
-					document.getElementById("logoSlideShowDiv").classList.add("obs27");
-					document.getElementById("logoSsImg1").classList.add("obs27");
-					document.getElementById("logoSsImg2").classList.add("obs27");
-					document.getElementById("logoSsImg3").classList.add("obs27");
+						document.getElementById("obsTheme").value =  "27";
+						document.getElementsByTagName("body")[0].style.background = "#1f1e1f";
+						document.styleSheets[0].disabled = true;
+						document.styleSheets[1].disabled = false;
+						document.styleSheets[2].disabled = true;
+						document.styleSheets[3].disabled = true;
+						document.styleSheets[4].disabled = true;
+						document.styleSheets[5].disabled = true;
 					}
+					if (localStorage.getItem("obsTheme") == "acri") {
+						document.getElementById("obsTheme").value =  "acri";
+						document.getElementsByTagName("body")[0].style.background = "#181819";
+						document.styleSheets[0].disabled = true;
+						document.styleSheets[1].disabled = true;
+						document.styleSheets[2].disabled = false;
+						document.styleSheets[3].disabled = true;
+						document.styleSheets[4].disabled = true;
+						document.styleSheets[5].disabled = true;
+					}
+					if (localStorage.getItem("obsTheme") == "grey") {
+						document.getElementById("obsTheme").value =  "grey";
+						document.getElementsByTagName("body")[0].style.background = "#2f2f2f";
+						document.styleSheets[0].disabled = true;
+						document.styleSheets[1].disabled = true;
+						document.styleSheets[2].disabled = true;
+						document.styleSheets[3].disabled = false;
+						document.styleSheets[4].disabled = true;
+						document.styleSheets[5].disabled = true;
+					}
+					if (localStorage.getItem("obsTheme") == "light") {
+						document.getElementById("obsTheme").value =  "light";
+						document.getElementsByTagName("body")[0].style.background = "#e5e5e5";
+						document.styleSheets[0].disabled = true;
+						document.styleSheets[1].disabled = true;
+						document.styleSheets[2].disabled = true;
+						document.styleSheets[3].disabled = true;
+						document.styleSheets[4].disabled = false;
+						document.styleSheets[5].disabled = true;
+					}
+					if (localStorage.getItem("obsTheme") == "rachni") {
+						document.getElementById("obsTheme").value =  "rachni";
+						document.getElementsByTagName("body")[0].style.background = "#232629";
+						document.styleSheets[0].disabled = true;
+						document.styleSheets[1].disabled = true;
+						document.styleSheets[2].disabled = true;
+						document.styleSheets[3].disabled = true;
+						document.styleSheets[4].disabled = true;
+						document.styleSheets[5].disabled = false;
+					}
+					
+
 			}
 			
 			function cLogoNameChange() {

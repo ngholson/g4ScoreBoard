@@ -54,7 +54,7 @@ Zip contents:
 |   |		|-125.css
 |   |		|-150.css
 |   |
-|   |=[images]
+|   |-[images]
 |   |	 |-salotto.png
 |   | 	 |-g4logo.png
 |   |  	 |-logo.png

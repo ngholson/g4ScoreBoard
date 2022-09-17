@@ -40,6 +40,20 @@ Zip contents:
 |    |-[js]
 |        |-jquery.js
 |
+|-[css]
+|   |-[control_panel]
+|   |     |-yami.css
+|   |     |-acri.css
+|   |     |-dark.css
+|   |     |-grey.css
+|   |	  |-rachni.css
+|   |	  |-light.css
+|   |
+|   |-[broswer_source]
+|         |-100.css
+|	  |-125.css
+|	  |-150.css
+|
 |-[images]
 |    |-salotto.png
 |    |-g4logo.png
@@ -59,9 +73,6 @@ Zip contents:
 |-hotkeys.js
 |-README.md
 |-LICENSE
-|-100.css
-|-125.css
-|-150.css
 
 ```
 --------------------------------------------------------------

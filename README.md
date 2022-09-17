@@ -38,7 +38,7 @@ Zip contents:
 |
 |-[common]
 |   |-[js]
-|   |    |-jquery.js
+|   |   |-jquery.js
 |   |
 |   |-[css]
 |   |	|-[control_panel]

@@ -16,9 +16,9 @@ for more information about Salotto please visit https://salotto.app
     <head>
       	 <script src="./common/js/jquery.js"></script>
 
-		<link rel="stylesheet" href="./css/browser_source/100.css" />
-		<link rel="stylesheet" href="./css/browser_source/125.css" />
-		<link rel="stylesheet" href="./css/browser_source/150.css" />
+		<link rel="stylesheet" href="./common/css/browser_source/100.css" />
+		<link rel="stylesheet" href="./common/css/browser_source/125.css" />
+		<link rel="stylesheet" href="./common/css/browser_source/150.css" />
 		
     </head>
     <body>
@@ -26,8 +26,8 @@ for more information about Salotto please visit https://salotto.app
 
         <div id="scoreBoardDiv"  class="fadeInElm">
 		<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
-        <img class="fadeOutElm" id="salottoLogo" height="20px" src="./images/salotto.png">
-        <img class="fadeOutElm" id="g4Logo" height="20px" src="./images/logo.png">
+        <img class="fadeOutElm" id="salottoLogo" height="20px" src="./common/images/salotto.png">
+        <img class="fadeOutElm" id="g4Logo" height="20px" src="./common/images/logo.png">
 
         <div class="fadeInElm" id="p1ExtIcon">Ex</div>            
         <div class="fadeInElm" id="p2ExtIcon">Ex</div>            
@@ -254,9 +254,9 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
 					document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
 					document.getElementById("g4Logo").classList.add("fade");
-					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./images/placeholder.png"; };
-					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./images/placeholder.png"; };
-					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./images/placeholder.png"; };
+					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
+					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
+					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
 					
 					}
 				if (event.data =="logoSlideShow-hide") {
@@ -540,9 +540,9 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("g4Logo").style.display = "none";
 			
 			}
-					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./images/placeholder.png"; };
-					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./images/placeholder.png"; };
-					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./images/placeholder.png"; };
+					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
+					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
+					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
 					
 			if (localStorage.getItem("slideShow")  == "yes") { 
 				document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");

@@ -26,17 +26,17 @@ Zip contents:
 |   |
 |   |-[css]
 |   |	|-[control_panel]
-|   |	|	|-yami.css
-|   | 	| 	|-acri.css
-|   |	| 	|-dark.css
-|   |	| 	|-grey.css
-|   |	| 	|-rachni.css
-|   |	| 	|-light.css
+|   |	|  |-yami.css
+|   | 	|  |-acri.css
+|   |	|  |-dark.css
+|   |	|  |-grey.css
+|   |	|  |-rachni.css
+|   |	|  |-light.css
 |   |	|
 |   |	|-[broswer_source]
-|   |   	|-100.css
-|   |		|-125.css
-|   |		|-150.css
+|   |      |-100.css
+|   |	   |-125.css
+|   |	   |-150.css
 |   |
 |   |-[images]
 |   |  |-salotto.png

@@ -39,16 +39,16 @@ Zip contents:
 |   |		|-150.css
 |   |
 |   |-[images]
-|   |	 |-salotto.png
-|   | 	 |-g4logo.png
-|   |  	 |-logo.png
-|   | 	 |-8_ball_game.png <-example of other custom logo use
-|   |    |-9_ball_game.png <-example of other custom logo use
-|   |    |-template.psd
+|   |  |-salotto.png
+|   |  |-g4logo.png
+|   |  |-logo.png
+|   |  |-8_ball_game.png <-example of other custom logo use
+|   |  |-9_ball_game.png <-example of other custom logo use
+|   |  |-template.psd
 |   |
 |   |-[sound]
-|    	 |-beep2.mp3
-|   	 |-buzz.mp3
+|      |-beep2.mp3
+|      |-buzz.mp3
 |
 |-shot_clock_display.html   
 |-g4ScoreBoard_hotkeys.lua

@@ -26,29 +26,29 @@ Zip contents:
 |   |
 |   |-[css]
 |   |	|-[control_panel]
-|   |	|  |-yami.css
-|   | 	|  |-acri.css
-|   |	|  |-dark.css
-|   |	|  |-grey.css
-|   |	|  |-rachni.css
-|   |	|  |-light.css
+|   |	|   |-yami.css
+|   | 	|   |-acri.css
+|   |	|   |-dark.css
+|   |	|   |-grey.css
+|   |	|   |-rachni.css
+|   |	|   |-light.css
 |   |	|
 |   |	|-[broswer_source]
-|   |      |-100.css
-|   |	   |-125.css
-|   |	   |-150.css
+|   |       |-100.css
+|   |	    |-125.css
+|   |	    |-150.css
 |   |
 |   |-[images]
-|   |  |-salotto.png
-|   |  |-g4logo.png
-|   |  |-logo.png
-|   |  |-8_ball_game.png <-example of other custom logo use
-|   |  |-9_ball_game.png <-example of other custom logo use
-|   |  |-template.psd
+|   |   |-salotto.png
+|   |   |-g4logo.png
+|   |   |-logo.png
+|   |   |-8_ball_game.png <-example of other custom logo use
+|   |   |-9_ball_game.png <-example of other custom logo use
+|   |   |-template.psd
 |   |
 |   |-[sound]
-|      |-beep2.mp3
-|      |-buzz.mp3
+|       |-beep2.mp3
+|       |-buzz.mp3
 |
 |-shot_clock_display.html   
 |-g4ScoreBoard_hotkeys.lua

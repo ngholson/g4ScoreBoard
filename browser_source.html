@@ -34,14 +34,18 @@ for more information about Salotto please visit https://salotto.app
         <table id="scoreBoard">
              <tr>
                 <td class="noShow"></td>
-                <td class="fadeOutElm" colspan="2" id="shotClock">&nbsp;</td>
                 <td class="noShow"></td>
+				<td class="noShow"></td>
+                <td class="fadeOutElm" colspan="2" id="shotClock">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="noShow"></td>
+				<td class="noShow"></td>
+				<td class="noShow"></td>
             </tr>
 			
             <tr>
                 <td id="player1Name">Player 1</td>
-                <td id="player1Score">0</td>
-                <td id="player2Score">0</td>
+                <td id="player1Score" colspan="3">0</td>
+                <td id="player2Score" colspan="3">0</td>
                 <td id="player2Name">Player 2</td>
             </tr>
            
@@ -87,8 +91,6 @@ for more information about Salotto please visit https://salotto.app
 			}
 			
 		}
-
-
 		
 		if (localStorage.getItem("customLogo1") != null) {
 		document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");
@@ -111,10 +113,6 @@ for more information about Salotto please visit https://salotto.app
 		   setTimeout(showSlides, 20000); // Change image every 20 seconds
 		}
 
-		
-		
-		
-		
 			if (localStorage.getItem("customImage") !== null) {
 				document.getElementById("g4Logo").src = localStorage.getItem("customImage");
 			}
@@ -170,202 +168,164 @@ for more information about Salotto please visit https://salotto.app
 			
             var countDownTime;
             var shotClockxr = null;
-            const bcp1s = new BroadcastChannel('player1Score');  // i know there is a better way to do all of this but i don't know how yet....
-            const bcp2s = new BroadcastChannel('player2Score');
-            const bcp1n = new BroadcastChannel('player1Name');
-            const bcp2n = new BroadcastChannel('player2Name');
-			const bcShotClockStart = new BroadcastChannel('shotClockStart');
-			const bcClockDisplay = new BroadcastChannel('clockDisplay');
-			const bcri = new BroadcastChannel('race');
-			const bcw = new BroadcastChannel('wager');
-			const bcp1c = new BroadcastChannel('p1_color');
-			const bcp2c = new BroadcastChannel('p2_color');
-			const bcr = new BroadcastChannel('recv'); // browser_source -> control_panel channel 
-			const bco = new BroadcastChannel('sbopacity');
-			
-			bco.onmessage = (event) => {
-				document.getElementById("scoreBoardDiv").style.opacity  = event.data;
-				document.getElementById("raceInfo").style.opacity  = event.data;
-				document.getElementById("wagerInfo").style.opacity  = event.data;
-			}
+			          
+			const bcr = new BroadcastChannel('g4-recv'); // browser_source -> control_panel channel 
+			const bc = new BroadcastChannel('g4-main');
 
-			bcClockDisplay.onmessage = (event) => {
-				console.log("event.data: " + event.data);
-				if (event.data == "show"){
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			bc.onmessage = (event) => {
+				if(event.data.player && event.data.score != null){
+		   		console.log("event.data.score: " + event.data.score);
+				console.log("event.data.player: " + event.data.player);
+				if (event.data.score > document.getElementById("player"+event.data.player+"Score").innerHTML) {
+					document.getElementById("player"+event.data.player+"Score").innerHTML = event.data.score;
+					document.getElementById("player"+event.data.player+"Score").classList.add("winBlink");
+					setTimeout("clearWinBlink()",500);
+						} else {
+						document.getElementById("player"+event.data.player+"Score").innerHTML = event.data.score;
+						}
+				}
+				
+				if( event.data.opacity != null){
+				console.log("event.data(opacity): "+event.data.opacity);
+				document.getElementById("scoreBoardDiv").style.opacity  = event.data.opacity;
+				document.getElementById("raceInfo").style.opacity  = event.data.opacity;
+				document.getElementById("wagerInfo").style.opacity  = event.data.opacity;
+				}
+				
+				if (event.data.race != null){
+					console.log("event.data.race: " + event.data.race);
+					if (event.data.race == "") {
+						document.getElementById("raceInfo").classList.add("noShow");
+						document.getElementById("raceInfo").classList.remove("fadeInElm");
+						} else {
+							document.getElementById("raceInfo").classList.remove("noShow");
+							document.getElementById("raceInfo").classList.add("fadeInElm");
+							document.getElementById("raceInfo").innerHTML = event.data.race;
+					}
+				}
+				if (event.data.wager !=null) {
+				console.log("event.data.wager: " + event.data.wager);
+				if (event.data.wager == "") {
+					document.getElementById("wagerInfo").classList.add("noShow");
+					document.getElementById("wagerInfo").classList.remove("fadeInElm");
+					} else {
+						document.getElementById("wagerInfo").classList.remove("noShow");
+						document.getElementById("wagerInfo").classList.add("fadeInElm");
+						document.getElementById("wagerInfo").innerHTML = event.data.wager;
+				    }
+				}
+				
+				if (event.data.time != null){
+					console.log("event.data.time: " + event.data.time);
+					shotTimer(event.data.time);
+				}
+				
+				if (event.data.color !=null) {
+						console.log("event.data.player: "+event.data.player+" event.data.color: "+ event.data.color);			
+						document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to left, white , "+event.data.color;
+				}
+				
+				if (event.data.name != null) {
+					
+					console.log("event.data.player: "+event.data.player+" event.data.name: " + event.data.name);
+					if (!event.data.name == ""){
+					document.getElementById("player"+event.data.player+"Name").innerHTML = event.data.name;
+						} else {
+							document.getElementById("player"+event.data.player+"Name").innerHTML = "Player "+event.data.player;
+						}
+				
+				}
+				
+			// start of original clockDisplay channel 
+			if (event.data.clockDisplay != null) {
+				console.log("event.data.clockDisplay: " + event.data.clockDisplay);
+				if (event.data.clockDisplay == "show"){
 					showClock();
 					}  
-
-				if (event.data == "hide") {
+				if (event.data.clockDisplay == "hide") {
 						hideClock();
 					}  
-
-				if (event.data == "stopClock") {
+				if (event.data.clockDisplay == "stopClock") {
 						stopClock();
 					}  
-
-				if (event.data == "noClock") {
+				if (event.data.clockDisplay == "noClock") {
 						document.getElementById("p1ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
 						document.getElementById("p2ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
 					}  
-
-				if (event.data == "useClock") {
+				if (event.data.clockDisplay == "useClock") {
 						document.getElementById("p1ExtIcon").classList.replace("fadeOutElm","fadeInElm");	
 						document.getElementById("p2ExtIcon").classList.replace("fadeOutElm","fadeInElm");	
 					} 
-
-				if (event.data == "p1extension") {
+				if (event.data.clockDisplay == "p1extension") {
 						add30(1);
 					} 
-
-				if (event.data == "p2extension") {
+				if (event.data.clockDisplay == "p2extension") {
 						add30(2);
 					} 
-
-				if (event.data == "p1ExtReset") {
+				if (event.data.clockDisplay == "p1ExtReset") {
 						extReset('p1');
 					} 
-
-				if (event.data =="p2ExtReset") {
+				if (event.data.clockDisplay =="p2ExtReset") {
 						extReset('p2');
 					}  
-
-				if (event.data =="hidesalotto") {
+				if (event.data.clockDisplay =="hidesalotto") {
 						salottoHide();
 					}  
-
-				if (event.data =="showsalotto") {
+				if (event.data.clockDisplay =="showsalotto") {
 						salottoShow();
 					}
-					
-				if (event.data =="hidecustomLogo") {
+				if (event.data.clockDisplay =="hidecustomLogo") {
 						customHide();
 					} 
-					
-				if (event.data =="showcustomLogo") {
+				if (event.data.clockDisplay =="showcustomLogo") {
 						customShow();
 					}
-					
-				if (event.data =="postLogo") {
+				if (event.data.clockDisplay =="postLogo") {
 						postLogo();
 					}
-				if (event.data  =="logoSlideShow-show")  {
+				if (event.data.clockDisplay  =="logoSlideShow-show")  {
 					customHide(); 
-					
 					document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
 					document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
 					document.getElementById("g4Logo").classList.add("fade");
 					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
 					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
 					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
-					
 					}
-				if (event.data =="logoSlideShow-hide") {
+				if (event.data.clockDisplay =="logoSlideShow-hide") {
 					document.getElementById("logoSlideshowDiv").classList.replace("fadeInElm", "fadeOutElm");
 					}
-				if (event.data =="style100") {
+				if (event.data.clockDisplay =="style100") {
 					styleChange(1);
 					}
-				if (event.data =="style125") {
+				if (event.data.clockDisplay =="style125") {
 					styleChange(2);
 					}	
-				if (event.data =="style150") {
+				if (event.data.clockDisplay =="style150") {
 					styleChange(3);
 					}
-			}
-			
-			bcp1c.onmessage = (event) => {
-				console.log("event.data: " + event.data);			
-				document.getElementById("player1Name").style.background = "linear-gradient(to left, white , "+event.data;
-			}
-			
-			bcp2c.onmessage = (event) => {
-				console.log("event.data: " + event.data);
-				document.getElementById("player2Name").style.background = "linear-gradient(to right, white , "+event.data;
-			}
-			
-			
-			bcri.onmessage = (event) => {
-			console.log("event.data: " + event.data);
-			if (event.data == "") {
-					document.getElementById("raceInfo").classList.add("noShow");
-					document.getElementById("raceInfo").classList.remove("fadeInElm");
-
-					} else {
-						document.getElementById("raceInfo").classList.remove("noShow");
-						document.getElementById("raceInfo").classList.add("fadeInElm");
-						document.getElementById("raceInfo").innerHTML = event.data;
-				}
-			}
-			bcw.onmessage = (event) => {
-			console.log("event.data: " + event.data);
-				if (event.data == "") {
-					document.getElementById("wagerInfo").classList.add("noShow");
-					document.getElementById("wagerInfo").classList.remove("fadeInElm");
-					} else {
-						document.getElementById("wagerInfo").classList.remove("noShow");
-						document.getElementById("wagerInfo").classList.add("fadeInElm");
-
-						document.getElementById("wagerInfo").innerHTML = event.data;
-				}
-			}
-			
-			bcShotClockStart.onmessage = (event) => {
-				console.log("event.data: " + event.data);
-				shotTimer(event.data);
-			}
-			
-           bcp1s.onmessage = (event) => { 
-		   		console.log("event.data: " + event.data);
-				if (event.data > document.getElementById("player1Score").innerHTML) {
-               document.getElementById("player1Score").innerHTML = event.data;
-               document.getElementById("player1Score").classList.add("winBlink");
-			   
-               setTimeout("clearWinBlink()",500);
-				} else {
-				document.getElementById("player1Score").innerHTML = event.data;
 				
-				}
-
-               
-               
-            }
-            
-			bcp2s.onmessage = (event) => { 
-				console.log("event.data: " + event.data);
-				if (event.data > document.getElementById("player2Score").innerHTML) {
-               document.getElementById("player2Score").innerHTML = event.data;
-               document.getElementById("player2Score").classList.add("winBlink");
-			   
-               setTimeout("clearWinBlink()",500);
-			   } else {
-			   document.getElementById("player2Score").innerHTML = event.data;
+			} 
+			// end of original clockDisplay channel
 			
-			   }
-               
-            }
-            
-			bcp1n.onmessage = (event) => { 
-				console.log("event.data: " + event.data);
-				if (!event.data == ""){
-					document.getElementById("player1Name").innerHTML = event.data;
-					
-					
-						} else {
-							document.getElementById("player1Name").innerHTML = "Player 1";
-						}
-            }
-		   
-            bcp2n.onmessage = (event) => { 
-				console.log("event.data: " + event.data);
-               if (!event.data == ""){
-					document.getElementById("player2Name").innerHTML = event.data;
-						} else {
-							document.getElementById("player2Name").innerHTML = "Player 2";
-						}
-               
-               
-           }
-		   
+			// add more between these comments.	
+								
+				
+				
+				
+				
+			// add more between these comments.	
+			
+			
+			}   // ending brace don't delete dumbass.
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
+
+
+		
+			
 		    function postLogo() {
 			if (localStorage.getItem("customImage") !== "") {
 				document.getElementById("g4Logo").src = localStorage.getItem("customImage");
@@ -481,7 +441,7 @@ for more information about Salotto please visit https://salotto.app
 			function stopClock() {
                 clearInterval(shotClockxr);
 				hideClock();
-				document.getElementById("shotClock").innerHTML = "&nbsp;";
+				document.getElementById("shotClock").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 				document.getElementById("shotClock").classList.remove("shotRed");
                 document.getElementById("shotClock").style.background = "";
                 document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
@@ -540,10 +500,11 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("g4Logo").style.display = "none";
 			
 			}
-					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
-					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
-					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
-					
+			
+			//autostart stuff
+			if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
+			if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
+			if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
 			if (localStorage.getItem("slideShow")  == "yes") { 
 				document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
 				document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");

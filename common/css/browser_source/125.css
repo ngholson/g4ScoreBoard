@@ -1,8 +1,8 @@
 		 
             body{
-				/*
-				background: #000000; 
-				*/
+				background-color: rgba(0, 0, 0, 0);
+				margin: 0px auto;
+				overflow: hidden;
 				-moz-transform: scale(1.25, 1.25);
                 zoom: 1.25;
                 zoom: 125%;

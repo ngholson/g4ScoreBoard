@@ -1,9 +1,9 @@
 	
 					 
             body{
-				/*
-				background: #000000; 
-				*/
+				background-color: rgba(0, 0, 0, 0);
+				margin: 0px auto;
+				overflow: hidden;
 				-moz-transform: scale(1.50, 1.50);
                 zoom: 1.50;
                 zoom: 150%;

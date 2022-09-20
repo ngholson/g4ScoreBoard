@@ -18,7 +18,7 @@ for more information about Salotto please visit https://salotto.app
 	<link rel="stylesheet" href="./common/css/control_panel/rachni.css" />		
 	 <script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0.daily.20220917";
+	 var versionNum = "1.6.0.daily.20220920";
  	 var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
 	 //---------------------------------------------------------------------------------------------
 	 </script>
@@ -412,11 +412,11 @@ for more information about Salotto please visit https://salotto.app
             <option value="white">White</option>
         </select><div class="hover obs28" onclick="swapColors()" id="swapBtn"><text style="font-size:2pt">&nbsp;</text>Swap</div>
 		<hr>
-        <div class="hover obs28" id="sendP1Score" onclick="postP1Score('add')">P1 +1 Score</div>
-        <div class="hover obs28" id="sendP2Score" onclick="postP2Score('add')">P2 +1 Score</div>
+        <div class="hover obs28" id="sendP1Score" onclick="postScore('add','1')">P1 +1 Score</div>
+        <div class="hover obs28" id="sendP2Score" onclick="postScore('add','2')">P2 +1 Score</div>
 		<p style="font-size:9.25pt">&nbsp;</p>
-		<div class="hover obs28" id="sendP1ScoreSub" onclick="postP1Score('sub')">P1 -1 Score</div>
-        <div class="hover obs28" id="sendP2ScoreSub" onclick="postP2Score('sub')">P2 -1 Score</div>
+		<div class="hover obs28" id="sendP1ScoreSub" onclick="postScore('sub','1')">P1 -1 Score</div>
+        <div class="hover obs28" id="sendP2ScoreSub" onclick="postScore('sub','2')">P2 -1 Score</div>
 		<p style="font-size:11.25pt">&nbsp;</p><hr>
 		<div class="hover obs28" id="shotClock30" onclick="shotClock(31000)">30s Shot Clock</div>
 		<div class="hover obs28" id="shotClock60" onclick="shotClock(61000)">60s Shot Clock</div><p style="font-size:9.25pt">&nbsp;</p>
@@ -509,8 +509,6 @@ for more information about Salotto please visit https://salotto.app
 					};
 					
 			</script>
-	
-
 	</div>
 	
         <script>
@@ -525,7 +523,15 @@ for more information about Salotto please visit https://salotto.app
 			var hotkey60Clock;
 			var hotkeyStopClock;
 			var hotkeySwap;
-
+			var tev;
+			var p1ScoreValue;
+			var p2ScoreValue;
+			var warningBeep = new Audio("./common/sound/beep2.mp3");
+            var foulSound = new Audio("./common/sound/buzz.mp3");
+            var timerIsRunning;
+			var msg;
+			var racemsg;
+			var wagermsg;
 			
 			var hotkeyP1ScoreUpOld = hotkeyP1ScoreUp;
 			var hotkeyP2ScoreUpOld = hotkeyP2ScoreUp;
@@ -539,55 +545,33 @@ for more information about Salotto please visit https://salotto.app
 			var hotkeyStopClockOld = hotkeyStopClock;
 			var hotkeySwapOld = hotkeySwap;
 			
-            const bcp1s = new BroadcastChannel('player1Score');
-            const bcp2s = new BroadcastChannel('player2Score');
-            const bcp1n = new BroadcastChannel('player1Name');
-            const bcp2n = new BroadcastChannel('player2Name');
-			const bcShotClockStart = new BroadcastChannel('shotClockStart');
-			const bcClockDisplay = new BroadcastChannel('clockDisplay');
-			const bcri = new BroadcastChannel('race');
-			const bcw = new BroadcastChannel('wager');
-			const bcp1c = new BroadcastChannel('p1_color');
-			const bcp2c = new BroadcastChannel('p2_color');
-			const bcr = new BroadcastChannel('recv'); // return channel from browser_source 
-			const bco = new BroadcastChannel('sbopacity');
-
-			
-			var tev;
-			var p1ScoreValue;
-			var p2ScoreValue;
-			var warningBeep = new Audio("./common/sound/beep2.mp3");
-            var foulSound = new Audio("./common/sound/buzz.mp3");
-            var timerIsRunning;
-			
+			const bc = new BroadcastChannel('g4-main');
+			const bcr = new BroadcastChannel('g4-recv'); // return channel from browser_source 
+				
 			var slider = document.getElementById("myRange");
 			var sliderValue;
 			slider.oninput = function() {
 			sliderValue = this.value/100;
-			bco.postMessage(sliderValue);
+			bc.postMessage({opacity:sliderValue});
 			}
-
 			
 			function bsStyleChange() {
 				if (document.getElementById("bsStyle").value == 1) {
-				bcClockDisplay.postMessage("style100");
+				bc.postMessage({clockDisplay:'style100'});
 				localStorage.setItem("b_style", 1);
 
 				}
 				if (document.getElementById("bsStyle").value == 2) {
-				bcClockDisplay.postMessage("style125");
+				bc.postMessage({clockDisplay:'style125'});
 				localStorage.setItem("b_style", 2);
 
 				}
 				if (document.getElementById("bsStyle").value == 3) {
-				bcClockDisplay.postMessage("style150");
+				bc.postMessage({clockDisplay:'style150'});
 				localStorage.setItem("b_style", 3);
 
 				}
 			}
-
-
-
 
 			if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
 				document.getElementById("allCheck").checked = false;
@@ -610,17 +594,22 @@ for more information about Salotto please visit https://salotto.app
 			
 			if (localStorage.getItem('p1ScoreCtrlPanel') > 0 || localStorage.getItem('p1ScoreCtrlPanel') == "" ) {
 				p1ScoreValue = localStorage.getItem('p1ScoreCtrlPanel');
-				bcp1s.postMessage(p1ScoreValue);
+				msg = { player:'1', score:p1ScoreValue };
+				bc.postMessage(msg);
 				} else {
 				p1ScoreValue = 0;
-				bcp1s.postMessage(p1ScoreValue);
+				msg = { player:'1', score:p1ScoreValue };
+				bc.postMessage(msg);
 				}
+
 			if (localStorage.getItem('p2ScoreCtrlPanel') > 0 || localStorage.getItem('p2ScoreCtrlPanel') == "" ) {
 				p2ScoreValue = localStorage.getItem('p2ScoreCtrlPanel');
-				bcp2s.postMessage(p2ScoreValue);
+				msg = { player:'2', score:p2ScoreValue };
+				bc.postMessage(msg);
 				} else {
 				p2ScoreValue = 0;
-				bcp2s.postMessage(p2ScoreValue);
+				msg = { player:'2', score:p2ScoreValue };
+				bc.postMessage(msg);
 				}
 			
 			if (localStorage.getItem("useSalotto") == "yes") {
@@ -649,7 +638,6 @@ for more information about Salotto please visit https://salotto.app
 						clockSetting()
 						}			
 			
-			
 			bcr.onmessage = (event) => {
 					document.getElementById("clockLocalDisplay").style.background = "green";
 					document.getElementById("clockLocalDisplay").innerHTML = event.data + "s";
@@ -674,8 +662,6 @@ for more information about Salotto please visit https://salotto.app
 						document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('hide')");
 						document.getElementById("shotClockShow").innerHTML = "Hide Clock";
 						document.getElementById("shotClockShow").style.border = "1px solid lime";
-
-
 						}
                     if (tev < 6 && tev > 0) {    //tev > 0   this prevents both sounds from playing at 0.
 						document.getElementById("clockLocalDisplay").style.background = "red";
@@ -687,27 +673,23 @@ for more information about Salotto please visit https://salotto.app
                         foulSound.loop= false;
                         foulSound.play();
 						setTimeout("stopClock()", 1000);
-						}
-					
+					}
 			}
-			
 
 			function logoSlideshow() {
 				if (document.getElementById("logoSlideshowChk").checked == true) {
 					document.getElementById("customLogo").checked = false;
 					customLogoSetting_slideshowoff();
 					localStorage.setItem("slideShow","yes");
-					bcClockDisplay.postMessage("logoSlideShow-show");
+					bc.postMessage({clockDisplay:'logoSlideShow-show'});
 					} else {
-					bcClockDisplay.postMessage("logoSlideShow-hide");
+					bc.postMessage({clockDisplay:'logoSlideShow-hide'});
 					localStorage.setItem("slideShow","no");
 
 					}
 			}
 		
-		
 			function logoPost(input) {
-				
 				if (input.files && input.files[0]) {
 				const imgPath = document.getElementById('FileUpload').files[0];
 				const reader = new FileReader();
@@ -717,15 +699,12 @@ for more information about Salotto please visit https://salotto.app
 					try { localStorage.setItem("customImage", reader.result); }
 					catch(err) { alert("the selected image exceedes the maximium file size");}
 					document.getElementById("clImg").src = localStorage.getItem("customImage");
-					
-
 					}, false);
 				setTimeout(logoOther, 50);
 				}
 			}
 			
 			function logoPostL1(input) {
-				
 				if (input.files && input.files[0]) {
 				const imgPath = document.getElementById('FileUploadL1').files[0];
 				const reader = new FileReader();
@@ -735,15 +714,12 @@ for more information about Salotto please visit https://salotto.app
 					try {localStorage.setItem("customLogo1", reader.result);}
 					catch(err) { alert("the selected image exceedes the maximium file size");}
 					document.getElementById("l1Img").src = localStorage.getItem("customLogo1");
-
 					}, false);
-				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
-
+					if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
 				}
 			}
 			
 			function logoPostL2(input) {
-				
 				if (input.files && input.files[0]) {
 				const imgPath = document.getElementById('FileUploadL2').files[0];
 				const reader = new FileReader();
@@ -755,12 +731,10 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("l2Img").src = localStorage.getItem("customLogo2");
 					}, false);
 				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
-
 				}
 			}
 			
 			function logoPostL3(input) {
-				
 				if (input.files && input.files[0]) {
 				const imgPath = document.getElementById('FileUploadL3').files[0];
 				const reader = new FileReader();
@@ -772,22 +746,21 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("l3Img").src = localStorage.getItem("customLogo3");
 					}, false);
 				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
-
 				}
 			}
 			
 			function logoOther() {
-				bcClockDisplay.postMessage('postLogo');
+				bc.postMessage({clockDisplay:'postLogo'});
 			}
 			
 			function slideOther() {
-				bcClockDisplay.postMessage('logoSlideShow-show');
+				bc.postMessage({clockDisplay:'logoSlideShow-show'});
 			}
 			
 			function swapColors() {
 				if (localStorage.getItem('p1colorSet') != null){ var p1original = localStorage.getItem('p1colorSet'); } else { var p1original = "white"; }
 				if (localStorage.getItem('p2colorSet') != null){ var p2original = localStorage.getItem('p2colorSet'); } else { var p2original = "white"; }				
-				setTimeout( function()  { document.getElementById("p1colorDiv").value = p2original; document.getElementById("p2colorDiv").value = p1original; bcp1c.postMessage(p2original); bcp2c.postMessage(p1original); 
+				setTimeout( function()  { document.getElementById("p1colorDiv").value = p2original; document.getElementById("p2colorDiv").value = p1original; bc.postMessage({player:'1',color:p2original}); bc.postMessage({player:'2',color:p1original}); 
 				document.getElementById("p2colorDiv").style.background = p1original; document.getElementById("p1colorDiv").style.background = p2original; localStorage.setItem('p1colorSet', p2original); localStorage.setItem('p2colorSet', p1original);
 				document.getElementsByTagName("select")[0].options[0].value = p2original; document.getElementsByTagName("select")[1].options[0].value = p1original;	c1value = p1original; c2value = p2original;
 				if (c1value == "orange"  || c1value == "khaki"  || c1value == "tomato" || c1value == "red" || c1value == "orangered" || c1value == "white" || c1value == "orange" || c1value == "lightgreen" || c1value == "lightseagreen")  { document.getElementById("p2colorDiv").style.color= "#000";} else { document.getElementById("p2colorDiv").style.color= "lightgrey";};
@@ -795,17 +768,20 @@ for more information about Salotto please visit https://salotto.app
 				} , 100);
 			}
 
-
 			function playerColorChange(player) {
 			var cvalue  = document.getElementById("p"+player+"colorDiv").value;
 			if (player == 1) {
-				bcp1c.postMessage(document.getElementById("p"+player+"colorDiv").value);
+				playerx  =  player;
+				pColormsg = document.getElementById("p"+player+"colorDiv").value;
+				bc.postMessage({player:playerx,color:pColormsg});
 				document.getElementById("p1colorDiv").style.background = document.getElementById("p"+player+"colorDiv").value;
 				if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "white" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p1colorDiv").style.color= "#000";} else { document.getElementById("p1colorDiv").style.color= "lightgrey";};
 				localStorage.setItem("p1colorSet", document.getElementById("p"+player+"colorDiv").value);
 				document.getElementsByTagName("select")[0].options[0].value = cvalue;
 				} else {
-					bcp2c.postMessage(document.getElementById("p"+player+"colorDiv").value);
+					playerx  =  player;
+					pColormsg = document.getElementById("p"+player+"colorDiv").value;
+					bc.postMessage({player:playerx,color:pColormsg});
 					document.getElementById("p2colorDiv").style.background = document.getElementById("p"+player+"colorDiv").value;
 					if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "white" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p2colorDiv").style.color= "#000";} else { document.getElementById("p2colorDiv").style.color= "lightgrey";};
 					localStorage.setItem("p2colorSet", document.getElementById("p"+player+"colorDiv").value);
@@ -816,7 +792,7 @@ for more information about Salotto please visit https://salotto.app
 			function clockSetting() {
 				if (!document.getElementById("useClockSetting").checked) {
 						localStorage.setItem("useClock", "no");
-						bcClockDisplay.postMessage("noClock");
+						bc.postMessage({clockDisplay:'noClock'});
 						document.getElementById("shotClock30").classList.add("noShow");
 						document.getElementById("shotClock60").classList.add("noShow");
 						document.getElementById("shotClockShow").classList.add("noShow");
@@ -828,11 +804,10 @@ for more information about Salotto please visit https://salotto.app
 						document.getElementById("resetBtn").innerHTML = "Reset Scores";
 						if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
 						document.getElementById("allCheck").checked = false;
-				}
-
-					} else if (document.getElementById("useClockSetting").checked) {
+						}
+						} else if (document.getElementById("useClockSetting").checked) {
 						localStorage.setItem("useClock", "yes");
-						bcClockDisplay.postMessage("useClock");
+						bc.postMessage({clockDisplay:'useClock'});
 						document.getElementById("shotClock30").classList.remove("noShow");
 						document.getElementById("shotClock60").classList.remove("noShow");
 						document.getElementById("shotClockShow").classList.remove("noShow");
@@ -845,11 +820,12 @@ for more information about Salotto please visit https://salotto.app
 						if ( localStorage.getItem("useSalotto") == "yes" && localStorage.getItem("useClock") == "yes" && localStorage.getItem("useCustomLogo") == "yes" ) {
 						document.getElementById("allCheck").checked = true;
 						}
-					}
+						}	
 			}
 	
 			function clockDisplay(opt3) {
-				bcClockDisplay.postMessage(opt3);
+				var optmsg = opt3;
+				bc.postMessage({clockDisplay:optmsg});
 				if (opt3 == "show") {
 					document.getElementById("shotClockShow").innerHTML = "Hide Clock";
 					document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('hide')");
@@ -860,7 +836,6 @@ for more information about Salotto please visit https://salotto.app
 					document.getElementById("shotClockShow").style.border = "none";
 				}
 			}
-					
 
             function postNames() {
 				if (raceInfoTxt.value == " "){
@@ -868,11 +843,15 @@ for more information about Salotto please visit https://salotto.app
 					}
 				if (wagerInfoTxt.value == " "){
 					wagerInfoTxt.value = "&nbsp;";
-					}	
-                bcp1n.postMessage(document.getElementById("p1Name").value.substring(0, 29));    
-				bcp2n.postMessage(document.getElementById("p2Name").value.substring(0, 29));
-				bcri.postMessage(document.getElementById("raceInfoTxt").value);
-				bcw.postMessage(document.getElementById("wagerInfoTxt").value);
+					}
+				p1namemsg = document.getElementById("p1Name").value.substring(0, 29);
+				p2namemsg = document.getElementById("p2Name").value.substring(0, 29);
+                bc.postMessage({player:'1',name:p1namemsg});
+				bc.postMessage({player:'2',name:p2namemsg});
+				racemsg = document.getElementById("raceInfoTxt").value;
+				wagermsg = document.getElementById("wagerInfoTxt").value;
+				bc.postMessage({race:racemsg}); 				
+				bc.postMessage({wager:wagermsg});
 				var p1FirstName = document.getElementById("p1Name").value.split(" ")[0];
 				var p2FirstName = document.getElementById("p2Name").value.split(" ")[0];
 				if (!p1Name.value == "") {document.getElementById("p1ExtReset").innerHTML = "Reset<br>"+p1FirstName.substring(0, 9)+"'s Ext";} else {document.getElementById("p1ExtReset").innerHTML = "P1 Ext Reset";}
@@ -885,32 +864,55 @@ for more information about Salotto please visit https://salotto.app
 				localStorage.setItem("p2NameCtrlPanel", p2Name.value);
 				localStorage.setItem("raceInfo", raceInfoTxt.value);
 				localStorage.setItem("wagerInfo", wagerInfoTxt.value);
-
-				
 			}
 			            
-            function postP1Score(opt1) {
+            function postScore(opt1,player) {
+				if(player == "1"){
 				if (opt1 == "add") {
 					p1ScoreValue = p1ScoreValue +++ 1;
-					bcp1s.postMessage(p1ScoreValue);
-					localStorage.setItem("p1ScoreCtrlPanel", p1ScoreValue);
+					msg={player: player , score: p1ScoreValue };
+					bc.postMessage(msg);
+					localStorage.setItem("p"+player+"ScoreCtrlPanel", p1ScoreValue);
 					stopClock();
-					document.getElementById("sendP1Score").style.border ="1px solid lightgreen";
+					document.getElementById("sendP"+player+"Score").style.border ="1px solid lightgreen";
 					setTimeout(rst_scr_btn, 100);
 					resetExt('p1','noflash');
 					resetExt('p2','noflash');
 					} else {
 						if (p1ScoreValue > 0) {
 							p1ScoreValue = p1ScoreValue --- 1;
-							bcp1s.postMessage(p1ScoreValue);
-							localStorage.setItem("p1ScoreCtrlPanel", p1ScoreValue);
-							document.getElementById("sendP1ScoreSub").style.border ="1px solid tomato";
+							msg={player: player , score: p1ScoreValue };
+							bc.postMessage(msg);
+							localStorage.setItem("p"+player+"ScoreCtrlPanel", p1ScoreValue);
+							document.getElementById("sendP"+player+"ScoreSub").style.border ="1px solid tomato";
 							setTimeout(rst_scr_btn, 100);
-					} 
+						} 
+					}
 				}
-				
-				
-			}
+				if(player == "2"){
+					if (opt1 == "add") {
+					p2ScoreValue = p2ScoreValue +++ 1;
+					msg2={player: player , score: p2ScoreValue };
+					bc.postMessage(msg2);
+					localStorage.setItem("p"+player+"ScoreCtrlPanel", p2ScoreValue);
+					stopClock();
+					document.getElementById("sendP"+player+"Score").style.border ="1px solid lightgreen";
+					setTimeout(rst_scr_btn, 100);
+					resetExt('p1','noflash');
+					resetExt('p2','noflash');
+					} else {
+						if (p2ScoreValue > 0) {
+							p2ScoreValue = p2ScoreValue --- 1;
+							msg2={player: player , score: p2ScoreValue };
+							bc.postMessage(msg2);
+							localStorage.setItem("p"+player+"ScoreCtrlPanel", p2ScoreValue);
+							document.getElementById("sendP"+player+"ScoreSub").style.border ="1px solid tomato";
+							setTimeout(rst_scr_btn, 100);
+						}	 
+					}
+				 }
+				}
+		
             function rst_scr_btn() {
 				document.getElementById("sendP1Score").style.border ="none";
 				document.getElementById("sendP2Score").style.border ="none";
@@ -924,26 +926,22 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById('logoSsImg3').style.border = "none";
 			}
 			
-			
-			
 			function shotClock(timex) {
 				timerIsRunning = true;
-				bcShotClockStart.postMessage(timex);
+				var stime = timex;
+				bc.postMessage({time:stime});
 				if  (timex  == 31000) { document.getElementById("shotClock30").style.border = "1px solid lime"; } else { document.getElementById("shotClock60").style.border = "1px solid lime"; };
-
-
 				document.getElementById("shotClock30").setAttribute("onclick", "");
 				document.getElementById("shotClock60").setAttribute("onclick", "");
 				document.getElementById("shotClock30").style.color = "dimgrey";
 				document.getElementById("shotClock60").style.color = "dimgrey";
 				document.getElementById("stopClockDiv").classList.replace("obs28", "blue28");
 				document.getElementById("stopClockDiv").classList.remove("hover");
-			    //document.getElementById("clockLocalDisplay").classList.remove("noShow");
 				
 			}
 			
 			function stopClock() {
-				bcClockDisplay.postMessage('stopClock');
+				bc.postMessage({clockDisplay:'stopClock'});
 				timerIsRunning = false;
 				document.getElementById("shotClock30").style.border = "none";
 				document.getElementById("shotClock60").style.border = "none";
@@ -951,7 +949,6 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("shotClock30").setAttribute("onclick", "shotClock(31000)");
 				document.getElementById("shotClock60").setAttribute("onclick", "shotClock(61000)");
 				document.getElementById("clockLocalDisplay").innerHTML = "";
-			//	document.getElementById("clockLocalDisplay").classList.add("noShow");
 				document.getElementById("clockLocalDisplay").style.background = "none";
 				clockDisplay("hide");
 				document.getElementById("clockLocalDisplay").style.color = "black";
@@ -967,45 +964,22 @@ for more information about Salotto please visit https://salotto.app
 				setTimeout(rst_scr_btn, 100);
 			}
 			
-			
-            function postP2Score(opt2) {
-				if (opt2 == "add") {
-					p2ScoreValue = p2ScoreValue +++ 1;
-					bcp2s.postMessage(p2ScoreValue);
-					localStorage.setItem("p2ScoreCtrlPanel", p2ScoreValue);
-					stopClock();
-					document.getElementById("sendP2Score").style.border ="1px solid lightgreen";
-					setTimeout(rst_scr_btn, 100);
-					resetExt('p1','noflash');
-					resetExt('p2','noflash');
-					} else {
-						if (p2ScoreValue > 0) {
-							p2ScoreValue = p2ScoreValue --- 1;
-							bcp2s.postMessage(p2ScoreValue);
-							localStorage.setItem("p2ScoreCtrlPanel", p2ScoreValue);
-							document.getElementById("sendP2ScoreSub").style.border ="1px solid tomato";
-							setTimeout(rst_scr_btn, 100);
-							} 
-				}
-				
-			}
-			
 			function resetScore() {
 				if (confirm("Click OK to confirm")) {
 				p1ScoreValue = 0;
 				p2ScoreValue = 0;
 				localStorage.setItem("p1ScoreCtrlPanel", 0);
 				localStorage.setItem("p2ScoreCtrlPanel", 0);
-				bcp1s.postMessage(p1ScoreValue);   
-				bcp2s.postMessage(p2ScoreValue);   
+				bc.postMessage({player:'1',score:'0'});   
+				bc.postMessage({player:'2',score:'0'});   
 				resetExt('p1','noflash');
 				resetExt('p2','noflash');		
 				} else { }
 			}	
 
-
 			function add30(player) { 
-					bcClockDisplay.postMessage(player +"extension");
+					var playermsgx = player;
+					bc.postMessage({clockDisplay:playermsgx +'extension'});
 					document.getElementById(player+"extensionBtn").setAttribute("onclick", "");
 					document.getElementById(player+"extensionBtn").style.color = "dimgrey";
 					document.getElementById(player+"extensionBtn").style.border = "1px solid red";
@@ -1013,51 +987,47 @@ for more information about Salotto please visit https://salotto.app
 			}
 
 			function resetExt(player,flash) {
-				bcClockDisplay.postMessage(player +"ExtReset");
+				var playermsgx = player;
+				bc.postMessage({clockDisplay:playermsgx +'ExtReset'});
 				document.getElementById(player+"extensionBtn").setAttribute("onclick", "add30('"+player+"')");
 				document.getElementById(player+"extensionBtn").style.border = "none";
 				document.getElementById(player+"extensionBtn").style.color = "lightGrey";
 				if (flash != "noflash") {
 				document.getElementById(player+"ExtReset").style.border = "1px solid blue";
 				setTimeout(rst_scr_btn, 100); };
-
-				
 			}
 
 			function salottoSetting() {
 				if (!document.getElementById("useSalottoSetting").checked) {
-				bcClockDisplay.postMessage("hidesalotto");
+				bc.postMessage({clockDisplay:'hidesalotto'});
 				localStorage.setItem("useSalotto", "no");
 				if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {	document.getElementById("allCheck").checked = false;}
 				} else {
-				bcClockDisplay.postMessage("showsalotto");
+				bc.postMessage({clockDisplay:'showsalotto'});
 				localStorage.setItem("useSalotto", "yes");
 				if ( localStorage.getItem("useSalotto") == "yes" && localStorage.getItem("useClock") == "yes" && localStorage.getItem("useCustomLogo") == "yes" ) {	document.getElementById("allCheck").checked = true;}
 				}
 			}
 			
-			
-			
 			function customLogoSetting_slideshowoff() {
 				if (!document.getElementById("customLogo").checked) {
-				bcClockDisplay.postMessage("hidecustomLogo");
+				bc.postMessage({clockDisplay:'hidecustomLogo'});
 				localStorage.setItem("useCustomLogo", "no");
 				if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {	document.getElementById("allCheck").checked = false;}
 				} else {
-				bcClockDisplay.postMessage("showcustomLogo");
+				bc.postMessage({clockDisplay:'showcustomLogo'});
 				localStorage.setItem("useCustomLogo", "yes");
-				
 				if ( localStorage.getItem("useSalotto") == "yes" && localStorage.getItem("useClock") == "yes" && localStorage.getItem("useCustomLogo") == "yes" ) {	document.getElementById("allCheck").checked = true;	}
 				}
 			}
 			
 			function customLogoSetting() {
 				if (!document.getElementById("customLogo").checked) {
-				bcClockDisplay.postMessage("hidecustomLogo");
+				bc.postMessage({clockDisplay:'hidecustomLogo'});
 				localStorage.setItem("useCustomLogo", "no");
 				if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {	document.getElementById("allCheck").checked = false;}
 				} else {
-				bcClockDisplay.postMessage("showcustomLogo");
+				bc.postMessage({clockDisplay:'showcustomLogo'});
 				localStorage.setItem("useCustomLogo", "yes");
 				document.getElementById("logoSlideshowChk").checked = false;
 				logoSlideshow();
@@ -1084,7 +1054,6 @@ for more information about Salotto please visit https://salotto.app
 				}				
 					
 			}			
-			
 
 			//////////////////// HotKey scripts
 
@@ -1120,11 +1089,8 @@ for more information about Salotto please visit https://salotto.app
 				updateHotkeys();
 				setTimeout(refreshData, x*1000);
 			}
-	
 			
 			//////////////////// end of HotKey scripts
-			
-
 			
 			function obsThemeChange() {
 				if (document.getElementById("obsTheme").value ==  "28") {
@@ -1267,7 +1233,6 @@ for more information about Salotto please visit https://salotto.app
 				}
 			}
 
-
 			// afterDomload statements
 			if (localStorage.getItem("customLogo1") != null) {document.getElementById("l1Img").src = localStorage.getItem("customLogo1");} else { document.getElementById("l1Img").src = "./common/images/placeholder.png"; };
 			if (localStorage.getItem("customLogo2") != null) {document.getElementById("l2Img").src = localStorage.getItem("customLogo2");} else { document.getElementById("l2Img").src = "./common/images/placeholder.png"; };
@@ -1288,8 +1253,6 @@ for more information about Salotto please visit https://salotto.app
 			postNames();
 			refreshData();
 			startThemeCheck();
-		
 		</script>
-  
 	</body>
 </html>

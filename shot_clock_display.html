@@ -23,33 +23,36 @@
 			font-family:tahoma;
 			font-weight:bolder;
 			text-align:center;
+			vertical-align: middle;
 			}
 		</style>
 		</head>
 		<script>
-			const bcr = new BroadcastChannel('recv'); // messages from browser_source 
-			const bcClockDisplay = new BroadcastChannel('clockDisplay');
+			const bcr = new BroadcastChannel('g4-recv'); // messages from browser_source 
+			const bc = new BroadcastChannel('g4-main');
 			
-			bcClockDisplay.onmessage = (event) => {
-				if(event.data == "stopClock"){
-				document.getElementsByTagName("body")[0].style.background = "darkgreen";
-				document.getElementById("clockTime").innerHTML = " ";
+			bc.onmessage = (event) => {
+				if(event.data.clockDisplay == "stopClock") {
+					setTimeout(function() {
+						document.getElementsByTagName("body")[0].style.background = "darkgreen";
+					},2000);
 				}
 			}
 
 			bcr.onmessage = (event) => {
 				document.getElementsByTagName("body")[0].style.background = "darkgreen";
 				document.getElementsByTagName("body")[0].innerHTML = event.data;
+				if (event.data > 5) { document.getElementsByTagName("body")[0].style.color = "black"; } ;
 				if (event.data < 21) { document.getElementsByTagName("body")[0].style.background = "orange"; } ;
 				if (event.data < 16) { document.getElementsByTagName("body")[0].style.background = "yellow"; } ;
 				if (event.data < 11) { document.getElementsByTagName("body")[0].style.background = "tomato"; } ;
-				if (event.data < 6) { document.getElementsByTagName("body")[0].style.background = "red"; } ;
-				if (event.data = 0) { setTimeout("resetClock()",2000);};
+				if (event.data < 6) { document.getElementsByTagName("body")[0].style.background = "red"; document.getElementsByTagName("body")[0].style.color = "white"; } ;
+				if (event.data = 0) { document.getElementsByTagName("body")[0].style.background = "red"; setTimeout("resetClock()",2000);};
 			}
 		
 			function resetClock() {
 				document.getElementsByTagName("body")[0].style.background = "darkgreen";
-				document.getElementsByTagName("body")[0].innerHTML = " ";
+				document.getElementsByTagName("body")[0].innerHTML = "&nbsp;";
 			}
 		</script>
 		<body>

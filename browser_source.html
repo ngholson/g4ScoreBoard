@@ -224,7 +224,8 @@ for more information about Salotto please visit https://salotto.app
 				
 				if (event.data.color !=null) {
 						console.log("event.data.player: "+event.data.player+" event.data.color: "+ event.data.color);			
-						document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to left, white , "+event.data.color;
+						if (event.data.player == "1") {	document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to left, white , "+event.data.color; };
+						if (event.data.player == "2") {	document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to right, white , "+event.data.color; };
 				}
 				
 				if (event.data.name != null) {

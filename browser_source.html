@@ -415,7 +415,26 @@ for more information about Salotto please visit https://salotto.app
 				slides[slideIndex-1].style.display = "block";  
 				setTimeout(showSlides, 20000); // Change image every 20 seconds
 				}
-
+			
+		function styleChange(n) {
+			if (n == 1) {
+			document.styleSheets[0].disabled = false;
+			document.styleSheets[1].disabled = true;
+			document.styleSheets[2].disabled = true;
+			}
+			if (n == 2) {
+			document.styleSheets[0].disabled = true;
+			document.styleSheets[1].disabled = false;
+			document.styleSheets[2].disabled = true;
+			}
+			if (n == 3) {
+			document.styleSheets[0].disabled = true;
+			document.styleSheets[1].disabled = true;
+			document.styleSheets[2].disabled = false;
+			}
+			
+		}
+		
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 //							autostart stuff
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -488,24 +507,7 @@ for more information about Salotto please visit https://salotto.app
 				document.styleSheets[2].disabled = true;
 			}
 				
-		function styleChange(n) {
-			if (n == 1) {
-			document.styleSheets[0].disabled = false;
-			document.styleSheets[1].disabled = true;
-			document.styleSheets[2].disabled = true;
-			}
-			if (n == 2) {
-			document.styleSheets[0].disabled = true;
-			document.styleSheets[1].disabled = false;
-			document.styleSheets[2].disabled = true;
-			}
-			if (n == 3) {
-			document.styleSheets[0].disabled = true;
-			document.styleSheets[1].disabled = true;
-			document.styleSheets[2].disabled = false;
-			}
-			
-		}
+		
 		
 		if (localStorage.getItem("customLogo1") != null) {
 		document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");

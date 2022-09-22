@@ -36,7 +36,7 @@ Zip contents:
 |   |	|   |-light.css
 |   |   |   |-required.css
 |   |	|
-|   |	|-[broswer_source]
+|   |	|-[browser_source]
 |   |       |-100.css
 |   |	    |-125.css
 |   |	    |-150.css

@@ -23,6 +23,8 @@ Zip contents:
 |-[common]
 |   |-[js]
 |   |   |-jquery.js
+|   |   |-browser_source.js
+|   |   |-control_panel.js
 |   |
 |   |-[css]
 |   |	|-[control_panel]
@@ -32,6 +34,7 @@ Zip contents:
 |   |	|   |-grey.css
 |   |	|   |-rachni.css
 |   |	|   |-light.css
+|   |   |   |-required.css
 |   |	|
 |   |	|-[broswer_source]
 |   |       |-100.css

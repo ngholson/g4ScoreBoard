@@ -1,0 +1,332 @@
+.slidecontainer {
+	  width: 100%;
+	  position:relative;
+	  bottom:-10px;
+	}
+
+	.slider {
+	  -webkit-appearance: none;
+	  width: 100%;
+	  height: 5px;
+	  border-radius: 5px;
+	  background: #d3d3d3;
+	  outline: none;
+	  opacity: 1;
+	  -webkit-transition: .2s;
+	  transition: opacity .2s;
+	}
+
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none;
+	  appearance: none;
+	  width: 15px;
+	  height: 15px;
+	  border-radius: 50%;
+	  background: #3345a3;
+	  cursor: pointer;
+	}
+
+	.slider::-moz-range-thumb {
+	  width: 15px;
+	  height: 15px;
+	  border-radius: 50%;
+	  background: #3345a3;
+	  cursor: pointer;
+	}
+	
+	
+	body{
+		font-family:tahoma;
+		background: #2b2e38;
+		margin-left:auto;
+		margin-right:auto;
+		margin-bottom:auto;
+		margin-top:1px;
+		}
+		
+	
+	div {
+		color:lightgrey;
+		min-height: 30px;
+		border: 0px solid #000;
+		border-radius: 5px;
+		display: flex;
+		 justify-content: center; /* align horizontal */
+		align-items: center; /* align vertical */
+		font-size:9pt;
+		}
+		
+	#mainDiv {
+		margin-top: 0px;
+		margin-right: auto;
+		margin-left: auto;
+		margin-bottom: auto;
+		display: flex;
+		min-height: 95%;
+		border: 0px solid #000;
+		border-radius: 0px;
+		min-width:50px;
+		justify-content: center; /* align horizontal */
+		font-size:8pt;
+		padding:20px;
+		padding-right:60px;
+		padding-left:60px;
+		padding-top:2px;
+	
+		}
+	
+	#sendP1Score, #sendP1ScoreSub, #shotClock30, #shotClockShow, #p1extensionBtn, #p1ExtReset {
+		cursor: pointer;
+		min-width:85px;
+		width:125px;
+		position:absolute;
+		right:50%;
+		padding-left:10px;
+		padding-right:10px;
+		margin-right:2px;
+		font-size:8pt;
+		}
+		
+	#sendP2Score, #sendP2ScoreSub, #shotClock60, #clockLocalDisplay, #p2extensionBtn, #p2ExtReset {
+		cursor: pointer;
+		width:125px;
+		position:absolute;
+		left:50%;
+		padding-left:10px;
+		padding-right:10px;
+		margin-left:2px;
+		font-size:8pt;
+		}
+		
+	 #clockLocalDisplay {
+		cursor:default;
+	 }
+	
+	#logoSsImg1, #logoSsImg2, #logoSsImg3 {
+	position:absolute;
+	cursor: pointer;
+	font-size:8pt;
+	left:50%;
+	padding-left:0px;
+	padding-right:0px;
+	padding-bottom:2px;
+	width: 47px;
+	}
+	#logoSsImg1 {
+		margin-left:2px;
+
+	}
+	#logoSsImg2 {
+		margin-left:51px;
+
+	}
+	#logoSsImg3 {
+		margin-left:100px;
+
+	}
+	
+	#p1colorDiv {
+		
+		cursor: pointer;
+		width:116px;
+		position:absolute;
+		right:50%;
+		padding-left:10px;
+		padding-right:10px;
+
+		color: #fff;
+		border-radius:5px;
+		margin-right:30px;
+		font-family:tahoma;
+		font-size:8pt;
+		color: lightgrey;
+	}
+	
+	#p2colorDiv {
+		cursor: pointer;
+		width:116px;
+		position:absolute;
+		left:50%;
+		padding-left:10px;
+		padding-right:10px;
+		
+		color: #fff;
+		border-radius:5px;
+		margin-left:30px;
+		font-family:tahoma;
+		font-size:8pt;
+		color: lightgrey;
+	}
+	
+	
+	#stopClockDiv, #resetBtn, #sendPNames {
+			cursor: pointer;
+			width:294px;
+			font-size:9pt;
+
+		}
+	
+	
+	.noShow{
+        visibility:hidden;
+        }
+	#clockLocalDisplay {
+		font-weight:bolder;
+	}
+	
+	#footer {
+	width:90%;
+	left:5%;
+	border: none;
+	background: none;
+	position: absolute;
+	bottom: 5px;
+	text-align:center;
+	}
+	#FileUpload, #FileUploadL1, #FileUploadL2, #FileUploadL3 {
+    display: none;
+	}
+
+	#btnFile {
+	font-size:8pt;
+
+	color: lightgrey;
+	border: none;
+	padding:0px;
+	cursor: pointer;
+	}
+	
+	
+	#topPlayerGameInfo {
+	min-width:85px;
+	width:295px;
+	height:78px;
+	position:relative;
+	top:33px;
+	display:block;
+	font-size:8pt;
+	padding-top:5px;
+	
+	}
+	
+	#settingsBox1, #logoSlideShowDiv {
+	min-width:85px;
+	width:125px;
+	position:absolute;
+	right:50%;
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:2px;
+	margin-right:2px;
+	font-size:8pt;
+	}
+	
+	#settingsBox2 {
+	cursor: pointer;
+	font-size:8pt;
+	min-width:85px;
+	width: 145px;
+	position:absolute;
+	left:50%;
+	margin-left:2px;
+	padding-bottom:2.5px;
+	padding-top:2.5px;
+	}	
+	
+	#settingsBox3 {
+	cursor: arrow;
+	min-width:85px;
+	width:145px;
+	position:static;
+	left:50%;
+	margin-left:150px;
+	
+	margin-bottom:3px;
+	font-size:7pt;
+	}	
+	
+	text {
+	cursor: default;
+	}
+	
+	input.smallSize {
+	height: 11px;
+	width: 11px;
+	color:red;
+	}
+		 
+	}
+	hr{
+		border-top: 1px solid #997300;
+		border-bottom: 0px;
+		width:290px;
+	}
+	#bsStyle{
+		position:relative;
+		font-size: 8pt;
+		cursor: pointer;
+		border-radius:5px;
+		font-family:tahoma;
+		color: lightgrey;
+		bottom:0px;
+		border:0px;
+		text-align:justify
+		
+	}
+	#obsThemeDiv {
+		position:fixed;
+		font-size: 8pt;
+		cursor: pointer;
+		border-radius:5px;
+		font-family:tahoma;
+		color: lightgrey;
+		top:10px;
+		border:0px;
+		left:50%;
+		text-align:justify
+	}
+	
+	#obsTheme{
+		font-size: 8pt;
+		cursor: pointer;
+		border-radius:5px;
+		font-family:tahoma;
+		color: lightgrey;
+		text-align:justify
+	}
+	
+	#obsThemeLabel {
+		position:fixed;
+		font-size: 8pt;
+		right:50%;
+		font-family:tahoma;
+		font-size:8pt;
+		color: lightgrey;
+		top:10px;
+	}
+	input {
+		border-radius:3px;
+		border:0px;
+	}
+	
+		.tooltip {
+		}
+				
+		.tooltip .tooltiptext {
+		visibility: hidden;
+		width:70px;
+		background: rgba(0,0,0,0.6);
+		border-radius: 6px;
+		padding: 5px 0;
+	  
+		/* Position the tooltip */
+		position: absolute;
+		z-index: 1;
+		bottom: 100%;
+		left: 50%;
+		margin-left: -50px;
+		}
+
+		.tooltip:hover .tooltiptext {
+		  visibility: visible;
+		}

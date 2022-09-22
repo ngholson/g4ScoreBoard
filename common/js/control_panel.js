@@ -285,8 +285,8 @@
 				if  (timex  == 31000) { document.getElementById("shotClock30").style.border = "1px solid lime"; } else { document.getElementById("shotClock60").style.border = "1px solid lime"; };
 				document.getElementById("shotClock30").setAttribute("onclick", "");
 				document.getElementById("shotClock60").setAttribute("onclick", "");
-				document.getElementById("shotClock30").style.color = "dimgrey";
-				document.getElementById("shotClock60").style.color = "dimgrey";
+				document.getElementById("shotClock30").classList.add("clkd");
+				document.getElementById("shotClock60").classList.add("clkd");
 				document.getElementById("stopClockDiv").classList.replace("obs28", "blue28");
 				document.getElementById("stopClockDiv").classList.remove("hover");
 				
@@ -305,11 +305,11 @@
 				clockDisplay("hide");
 				document.getElementById("clockLocalDisplay").style.color = "black";
 				if (localStorage.getItem("obsTheme") == "light") {
-				document.getElementById("shotClock30").style.color = "#000";
-				document.getElementById("shotClock60").style.color = "#000";
+				document.getElementById("shotClock30").classList.remove("clkd");
+				document.getElementById("shotClock60").classList.remove("clkd");
 				} else {
-				document.getElementById("shotClock30").style.color = "lightGrey";
-				document.getElementById("shotClock60").style.color = "lightGrey";
+				document.getElementById("shotClock30").classList.remove("clkd");
+				document.getElementById("shotClock60").classList.remove("clkd");
 				}
 				document.getElementById("stopClockDiv").classList.replace("blue28", "obs28");
 				document.getElementById("stopClockDiv").classList.add("hover");
@@ -333,7 +333,7 @@
 					var playermsgx = player;
 					bc.postMessage({clockDisplay:playermsgx +'extension'});
 					document.getElementById(player+"extensionBtn").setAttribute("onclick", "");
-					document.getElementById(player+"extensionBtn").style.color = "dimgrey";
+					document.getElementById(player+"extensionBtn").classList.add("clkd"); 
 					document.getElementById(player+"extensionBtn").style.border = "1px solid red";
 					clockDisplay("hide");
 			}
@@ -343,7 +343,7 @@
 				bc.postMessage({clockDisplay:playermsgx +'ExtReset'});
 				document.getElementById(player+"extensionBtn").setAttribute("onclick", "add30('"+player+"')");
 				document.getElementById(player+"extensionBtn").style.border = "none";
-				document.getElementById(player+"extensionBtn").style.color = "lightGrey";
+				document.getElementById(player+"extensionBtn").classList.remove("clkd");
 				if (flash != "noflash") {
 				document.getElementById(player+"ExtReset").style.border = "1px solid blue";
 				setTimeout(rst_scr_btn, 100); };

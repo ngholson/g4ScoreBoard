@@ -1,3 +1,4 @@
+'use strict';
 
 //  G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
 //  https://g4billiards.com http://www.g4creations.com
@@ -32,41 +33,36 @@
 			} else {
 			document.getElementById("shotClockVis").classList.add("startTimer");
 			}
-			
 		shotClockxr = setInterval(function() {
 		var now = new Date().getTime();
 		var distance = countDownTime - now;
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		
 		document.getElementById("shotClockVis").style.background = "lime";
 		document.getElementById("shotClock").style.background = "green";
 		if (distance > 21000){ document.getElementById("shotClock").style.color = "white"; };
 		if (distance > 5000 && distance < 21000) { document.getElementById("shotClock").style.color = "black"; };
-		
-		if (distance > 60000) {
-			  seconds = seconds + 60;
-			} 
-			document.getElementById("shotClock").innerHTML = seconds + "s";
+		if (distance > 60000) { seconds = seconds + 60; }; 
+		document.getElementById("shotClock").innerHTML = seconds + "s";
 			if (distance < 31000) {
 				document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
 				document.getElementById("shotClockVis").style.background = "lime";
 				document.getElementById("shotClockVis").classList.add("startTimer");
 				}
 			if (distance < 26000) {
-				document.getElementById("shotClockVis").style.background = "#5aa500";
+				//document.getElementById("shotClockVis").style.background = "#5aa500";
 				document.getElementById("shotClockVis").style.opacity = "0.7";
 				}
 			if (distance < 21000) {
-				document.getElementById("shotClockVis").style.background = "#639b00";
+				document.getElementById("shotClockVis").style.background = "orange";
 				document.getElementById("shotClock").style.background = "orange";
 				}
 			if (distance < 16000) {
 				document.getElementById("shotClock").style.background = "yellow";
-				document.getElementById("shotClockVis").style.background = "#926d00";
+				document.getElementById("shotClockVis").style.background = "yellow";
 			}
 			if (distance < 11000) {
 				document.getElementById("shotClock").style.background = "tomato";
-				document.getElementById("shotClockVis").style.background = "#d12f00";
+				document.getElementById("shotClockVis").style.background = "tomato";
 				document.getElementById("shotClockVis").style.opacity = "1";          
 			}
 			if (distance < 11000 && distance > 9700) { showClock(); };

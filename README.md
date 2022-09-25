@@ -100,7 +100,6 @@ To install Hotkeys:
 --------------------------------------------------------------
 
 ## Notes on use:  
-(in no particular order, my brain is all over the place right now)
 ```
 1. The race info and wager info boxes will disappear if text box is left blank when updating match info.
    (behavior is by design. if you wish to have the panels display empty,

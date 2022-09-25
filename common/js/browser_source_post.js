@@ -1,3 +1,5 @@
+'use strict';
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //										variable declarations
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
@@ -7,7 +9,7 @@
 			const bcr = new BroadcastChannel('g4-recv'); // browser_source -> control_panel channel 
 			const bc = new BroadcastChannel('g4-main');
 			var playerNumber;
-          
+			          
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //										broadcast channel events
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
@@ -102,7 +104,7 @@
 						customHide(); 
 						document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
 						document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
-						document.getElementById("g4Logo").classList.add("fade");
+						setTimeout(function(){document.getElementById("g4Logo").classList.add("fade");},500);
 						if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
 						if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
 						if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };

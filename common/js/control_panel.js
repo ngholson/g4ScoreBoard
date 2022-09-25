@@ -1,9 +1,12 @@
+'use strict';
+
 //  G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
 //  https://g4billiards.com http://www.g4creations.com
 //  this is a purely javascript/html/css driven scoreboard system for OBS Studio
 //  free to use and modify and use as long as this copyright statment remains intact. 
 //  Salotto logo is the copyright of Salotto and is used with their permission.
 //  for more information about Salotto please visit https://salotto.app
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // functions
@@ -365,6 +368,7 @@
 
 			//Reload the hotjeys.js file updated by the LUA script
 			function updateHotkeys() {
+				var src;
 			    src = 'hotkeys.js';
 			    $('script[src="' + src + '"]').remove();
 			    var head= document.getElementsByTagName('head')[0];
@@ -390,6 +394,7 @@
 			}
 			
 			function refreshData() {
+				var x;
 			    x = 0.05; // Refresh time multiplier
 				checkHotkeys();
 				updateHotkeys();

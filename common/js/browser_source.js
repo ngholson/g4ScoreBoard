@@ -1,3 +1,4 @@
+'use strict';
 //  G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
 //  https://g4billiards.com http://www.g4creations.com
 //  this is a purely javascript/html/css driven scoreboard system for OBS Studio
@@ -148,17 +149,19 @@
 	}
 	
 	function customShow() {
+		document.getElementById("g4Logo").style.removeProperty('display');
+		setTimeout(function(){
 		if (document.getElementById("g4Logo").classList.contains("logoSlide")) {
 			document.getElementById("g4Logo").classList.replace("logoSlide", "fadeOutElm"); }
 		if (document.getElementById("g4Logo").classList.contains("fade")) {
-			document.getElementById("g4Logo").classList.remove("fade"); }
-		document.getElementById("g4Logo").style.display = "block";
+			document.getElementById("g4Logo").classList.replace("fade", "fadeOutElm"); }
 		document.getElementById("g4Logo").classList.replace("fadeOutElm","fadeInElm");
+		},100);
 	
 	}
 	function customHide() {
 		document.getElementById("g4Logo").classList.replace("fadeInElm","fadeOutElm");
-		document.getElementById("g4Logo").style.display = "none";
+		setTimeout( function(){document.getElementById("g4Logo").style.display = "none";},1000);
 	
 	}
 	

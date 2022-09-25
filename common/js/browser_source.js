@@ -1,4 +1,4 @@
-'use strict';
+
 //  G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
 //  https://g4billiards.com http://www.g4creations.com
 //  this is a purely javascript/html/css driven scoreboard system for OBS Studio
@@ -25,20 +25,24 @@
 	 function shotTimer(shottime){
 		var tev;
 		countDownTime = new Date().getTime() + shottime;
+		if (shottime == 61000) {
+			document.getElementById("shotClockVis").classList.add("start60");
+			document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
+
+			} else {
+			document.getElementById("shotClockVis").classList.add("startTimer");
+			}
+			
 		shotClockxr = setInterval(function() {
 		var now = new Date().getTime();
 		var distance = countDownTime - now;
 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
+		
 		document.getElementById("shotClockVis").style.background = "lime";
 		document.getElementById("shotClock").style.background = "green";
 		if (distance > 21000){ document.getElementById("shotClock").style.color = "white"; };
 		if (distance > 5000 && distance < 21000) { document.getElementById("shotClock").style.color = "black"; };
-		if (shottime == 61000) {
-			document.getElementById("shotClockVis").classList.add("start60");
-			} else {
-			document.getElementById("shotClockVis").classList.add("startTimer");
-			}
+		
 		if (distance > 60000) {
 			  seconds = seconds + 60;
 			} 

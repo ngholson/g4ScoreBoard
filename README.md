@@ -26,7 +26,7 @@ Zip contents:
 |   |   |-browser_source.js
 |   |   |-control_panel.js
 |   |   |-browser_source_post.js
-|   |   |-contol_panel_post.js
+|   |   |-control_panel_post.js
 |   |
 |   |-[css]
 |   |	|-[control_panel]

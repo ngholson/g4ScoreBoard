@@ -17,36 +17,27 @@ for more information about Salotto please visit https://salotto.app
 	<link rel="stylesheet" href="./common/css/control_panel/light.css" />
 	<link rel="stylesheet" href="./common/css/control_panel/rachni.css" />	
 	<link rel="stylesheet" href="./common/css/control_panel/required.css" />		
-
-	 <script>
+	<script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0.daily.20220921";
- 	 var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
-	 //---------------------------------------------------------------------------------------------
+	 var versionNum = "1.6.0.daily.20220923";
+ 	 //---------------------------------------------------------------------------------------------
 	 </script>
-	 
 	 <script src="./common/js/jquery.js"></script>
 	 <script src="./common/js/control_panel.js"></script>
 	 <script src="hotkeys.js"></script>
      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"> 
-    <style>
-	
-	</style>
-	</head>
-	
-	
-    <body>
-       
-        <div id="mainDiv">
-         <center><div id="topPlayerGameInfo" class="obs28"><p style="font-size:1px">&nbsp;</p>
-	    Player/Team 1 Name:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p1Name" placeholder="Player 1"><br><p style="font-size:1px">&nbsp;</p>
-        Player/Team 2 Name:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p2Name" placeholder="Player 2"><br><p style="font-size:1px">&nbsp;</p>
-		<text style="font-size:4px">&nbsp;</text>Game and Race Info:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br><p style="font-size:1px">&nbsp;</p>
-		<text style="font-size:8.5px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:5px" /p></div>
-		<p style="font-size:12px">&nbsp;</p>
-		<div class="hover obs28" id="sendPNames" onclick="postNames()">Update Info</div>
-		<p style="font-size:1.5pt">&nbsp;</p>
-		<select style="text-align:justify" name="p1Colors" id="p1colorDiv" class="obs28" onchange="playerColorChange(1)">
+  	</head>
+	<body>
+		<div id="mainDiv">
+			 <center><div id="topPlayerGameInfo" class="obs28"><p style="font-size:1px">&nbsp;</p>
+			Player/Team 1 Name:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p1Name" placeholder="Player 1"><br><p style="font-size:1px">&nbsp;</p>
+			Player/Team 2 Name:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="p2Name" placeholder="Player 2"><br><p style="font-size:1px">&nbsp;</p>
+			<text style="font-size:4px">&nbsp;</text>Game and Race Info:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="raceInfoTxt" placeholder=""><br><p style="font-size:1px">&nbsp;</p>
+			<text style="font-size:8.5px">&nbsp;&nbsp;&nbsp;</text>Wager / Other Info:&nbsp;<input style="font-size:8pt; width: 120px; background:lightgrey" type="text" id="wagerInfoTxt" placeholder=""><p style="font-size:5px" /p></div>
+			<p style="font-size:12px">&nbsp;</p>
+			<div class="hover obs28" id="sendPNames" onclick="postNames()">Update Info</div>
+			<p style="font-size:1.5pt">&nbsp;</p>
+			<select style="text-align:justify" name="p1Colors" id="p1colorDiv" class="obs28" onchange="playerColorChange(1)">
 			<option value="" default>P1 Color</option>
             <option value="grey">Grey</option>
 			<option value="steelblue">SteelBlue</option>
@@ -62,10 +53,7 @@ for more information about Salotto please visit https://salotto.app
             <option value="lightseagreen">SeaGreen</option>
 			<option value="purple">Purple</option>
 			<option value="white">White</option>
-			
-
-        </select>
-		
+		</select>
 		<select style="text-align:justify" name="p2Colors" id="p2colorDiv" class="obs28" onchange="playerColorChange(2)">
             <option value="" default>P2 Color</option>
             <option value="grey">Grey</option>
@@ -100,45 +88,42 @@ for more information about Salotto please visit https://salotto.app
 		<HR><div class="hover obs28" id="resetBtn" onclick="resetScore()">Reset Scores and Extensions</div><p style="font-size:1.5pt">&nbsp;</p>
 		<div class="hover obs28" id="p1ExtReset" onclick="resetExt('p1')">P1 Ext Reset</div>
 		<div class="hover obs28" id="p2ExtReset" onclick="resetExt('p2')">P2 Ext Reset</div><p style="font-size:9pt">&nbsp;</p>
-		
 		<div class="obs28" id="settingsBox1">
 			<span>All <input type="checkbox" class="smallSize" id="allCheck" onchange="allCheck()" checked><br><span>Use Clock:<span> <input type="checkbox" class="smallSize" id="useClockSetting" onchange="clockSetting()" ><br><span>Salotto Logo:<span><input type="checkbox" class="smallSize" id="useSalottoSetting" onchange="salottoSetting()">
-			<br><span><text onclick="cLogoNameChange()" id="logoName"></text>&nbsp;Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
+			<br><span><text class="hover" onclick="cLogoNameChange()" id="logoName"></text>&nbsp;Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
 		</div>
 		<div class="obs28" id="settingsBox3">
 		<text>Logo Image Upload<br>Max size: 2.4MB</text>
 		</div><p style="font-size:1px">&nbsp;</p>
 		<div class="hover obs28 tooltip" id="settingsBox2">Upload Custom Logo
-			<input type="file" id="FileUpload" onchange="logoPost(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
-			<span class="tooltiptext"><img id="clImg" src="" style="height:30px; max-width:70px"></span>
+			<input type="file" id="FileUploadL0" onchange="logoPost(this,0)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+			<span class="tooltiptext"><img id="l0Img" src="" style="height:30px; max-width:70px"></span>
 			<br>
-			
 		</div>	
 		<p style="font-size:9.5pt">&nbsp;</p>
 		<div class="obs28" id="logoSlideShowDiv">
 			<span>Sponsor Logos:<input class="smallSize" type="checkbox" id="logoSlideshowChk" onchange="logoSlideshow()"></span> 
 		</div>
-		
-		<div class="tooltip obs28 hover" id="logoSsImg1"><input type="file" id="FileUploadL1" onchange="logoPostL1(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28 hover" id="logoSsImg1"><input type="file" id="FileUploadL1" onchange="logoPost(this,1)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L1 <span class="tooltiptext"><img id="l1Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
-		<div class="tooltip obs28 hover" id="logoSsImg2"><input type="file" id="FileUploadL2" onchange="logoPostL2(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28 hover" id="logoSsImg2"><input type="file" id="FileUploadL2" onchange="logoPost(this,2)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L2 <span class="tooltiptext"><img id="l2Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
-		<div class="tooltip obs28 hover" id="logoSsImg3"><input type="file" id="FileUploadL3" onchange="logoPostL3(this)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+		<div class="tooltip obs28 hover" id="logoSsImg3"><input type="file" id="FileUploadL3" onchange="logoPost(this,3)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			L3<span class="tooltiptext"><img id="l3Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
 		<p style="font-size:11px">&nbsp;</p>
 		<div class="slidecontainer">
 			<input type="range" min="0" max="100" value="100" class="slider" id="myRange">
 		</div></center>
-<div id="obsThemeLabel"><text id="StyleChange">size:&nbsp;</text>
+<div class="themeSizeLabels" id="obsThemeLabel"><text id="StyleChange">size:&nbsp;</text>
 	<select class="obs28" name="bsstyle" id="bsStyle" onchange="bsStyleChange()">
     <option value="1">small</option>
     <option value="2" selected>medium</option>
 	<option value="3">large</option>
 	</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</div>	<div id="obsThemeDiv">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>	<div class="themeSizeLabels" id="obsThemeDiv">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<text>theme:&nbsp;</text>
 		<select class="obs28" name="Theme" id="obsTheme" onchange="obsThemeChange()">
             <option value="27" selected>dark</option>
@@ -147,214 +132,202 @@ for more information about Salotto please visit https://salotto.app
 			<option value="grey">grey</option>
 			<option value="light">light</option>
 			<option value="rachni">rachni</option>
-
 		 </select>
 		 </div>
-		<!--  -->
-		
 	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; ">g4ScoreBoard v<text id="verNum"></text></text>
 </div>
 	
 <script>
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// variable declarations
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
-			var hotkeyP1ScoreUp;
-			var hotkeyP1ScoreDown;
-			var hotkeyP2ScoreUp;
-			var hotkeyP2ScoreDown;
-			var hotkeyScoreReset;
-			var hotkeyP1Extension;
-			var hotkeyP2Extension;
-			var hotkey30Clock;
-			var hotkey60Clock;
-			var hotkeyStopClock;
-			var hotkeySwap;
-			var tev;
-			var p1ScoreValue;
-			var p2ScoreValue;
-			var warningBeep = new Audio("./common/sound/beep2.mp3");
-            var foulSound = new Audio("./common/sound/buzz.mp3");
-            var timerIsRunning;
-			var msg;
-			var racemsg;
-			var wagermsg;
-			var slider = document.getElementById("myRange");
-			var sliderValue;
-			var hotkeyP1ScoreUpOld = hotkeyP1ScoreUp;
-			var hotkeyP2ScoreUpOld = hotkeyP2ScoreUp;
-			var hotkeyP1ScoreDownOld = hotkeyP1ScoreDown;
-			var hotkeyP2ScoreDownOld = hotkeyP2ScoreDown;
-			var hotkeyScoreResetOld = hotkeyScoreReset;
-			var hotkeyP1ExtensionOld = hotkeyP1Extension;
-			var hotkeyP2ExtensionOld = hotkeyP2Extension;
-			var hotkey30ClockOld = hotkey30Clock;
-			var hotkey60ClockOld = hotkey60Clock;
-			var hotkeyStopClockOld = hotkeyStopClock;
-			var hotkeySwapOld = hotkeySwap;
-			const bc = new BroadcastChannel('g4-main');
-			const bcr = new BroadcastChannel('g4-recv'); // return channel from browser_source 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// variable declarations
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 				
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// onload stuff
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-			slider.oninput = function() {
-					sliderValue = this.value/100;
-					bc.postMessage({opacity:sliderValue});
-					}
-			
-			document.getElementById('settingsBox2').onclick = function() { 
-					document.getElementById('settingsBox2').style.border = "1px solid blue";
-					document.getElementById('FileUpload').click();
-					setTimeout(rst_scr_btn,100);
-					};
-					
-				document.getElementById('logoSsImg1').onclick = function() { 
-					document.getElementById('logoSsImg1').style.border = "1px solid blue";
-					document.getElementById('FileUploadL1').click();
-					setTimeout(rst_scr_btn,100);
-					};	
+	var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
+	var hotkeyP1ScoreUp;
+	var hotkeyP1ScoreDown;
+	var hotkeyP2ScoreUp;
+	var hotkeyP2ScoreDown;
+	var hotkeyScoreReset;
+	var hotkeyP1Extension;
+	var hotkeyP2Extension;
+	var hotkey30Clock;
+	var hotkey60Clock;
+	var hotkeyStopClock;
+	var hotkeySwap;
+	var tev;
+	var p1ScoreValue;
+	var p2ScoreValue;
+	var warningBeep = new Audio("./common/sound/beep2.mp3");
+	var foulSound = new Audio("./common/sound/buzz.mp3");
+	var timerIsRunning;
+	var msg;
+	var racemsg;
+	var wagermsg;
+	var slider = document.getElementById("myRange");
+	var sliderValue;
+	var hotkeyP1ScoreUpOld = hotkeyP1ScoreUp;
+	var hotkeyP2ScoreUpOld = hotkeyP2ScoreUp;
+	var hotkeyP1ScoreDownOld = hotkeyP1ScoreDown;
+	var hotkeyP2ScoreDownOld = hotkeyP2ScoreDown;
+	var hotkeyScoreResetOld = hotkeyScoreReset;
+	var hotkeyP1ExtensionOld = hotkeyP1Extension;
+	var hotkeyP2ExtensionOld = hotkeyP2Extension;
+	var hotkey30ClockOld = hotkey30Clock;
+	var hotkey60ClockOld = hotkey60Clock;
+	var hotkeyStopClockOld = hotkeyStopClock;
+	var hotkeySwapOld = hotkeySwap;
+	const bc = new BroadcastChannel('g4-main');
+	const bcr = new BroadcastChannel('g4-recv'); // return channel from browser_source 
 				
-				document.getElementById('logoSsImg2').onclick = function() { 
-					document.getElementById('logoSsImg2').style.border = "1px solid blue";
-					document.getElementById('FileUploadL2').click();
-					setTimeout(rst_scr_btn,100);
-					};				
-					
-				document.getElementById('logoSsImg3').onclick = function() { 
-					document.getElementById('logoSsImg3').style.border = "1px solid blue";
-					document.getElementById('FileUploadL3').click();
-					setTimeout(rst_scr_btn,100);
-					};
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// onload stuff
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	slider.oninput = function() {
+			sliderValue = this.value/100;
+			bc.postMessage({opacity:sliderValue});
+			}
+
+	document.getElementById('settingsBox2').onclick = function() { 
+			document.getElementById('settingsBox2').style.border = "1px solid blue";
+			document.getElementById('FileUploadL0').click();
+			setTimeout(rst_scr_btn,100);
+			};
 			
-			if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
-				document.getElementById("allCheck").checked = false;
+		document.getElementById('logoSsImg1').onclick = function() { 
+			document.getElementById('logoSsImg1').style.border = "1px solid blue";
+			document.getElementById('FileUploadL1').click();
+			setTimeout(rst_scr_btn,100);
+			};	
+		
+		document.getElementById('logoSsImg2').onclick = function() { 
+			document.getElementById('logoSsImg2').style.border = "1px solid blue";
+			document.getElementById('FileUploadL2').click();
+			setTimeout(rst_scr_btn,100);
+			};				
+			
+		document.getElementById('logoSsImg3').onclick = function() { 
+			document.getElementById('logoSsImg3').style.border = "1px solid blue";
+			document.getElementById('FileUploadL3').click();
+			setTimeout(rst_scr_btn,100);
+			};
+
+	if ( localStorage.getItem("useSalotto") != "yes" && localStorage.getItem("useClock") != "yes" && localStorage.getItem("useCustomLogo") != "yes" ) {
+		document.getElementById("allCheck").checked = false;
+		}
+
+	if (localStorage.getItem('p1colorSet') !== null) {
+		var cvalue = localStorage.getItem('p1colorSet');
+		document.getElementById('p1colorDiv').style.background = localStorage.getItem('p1colorSet');
+		document.getElementsByTagName("select")[0].options[0].value = cvalue;
+		if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "white" || cvalue == "orangered" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p1colorDiv").style.color= "#000";} else { document.getElementById("p1colorDiv").style.color= "lightgrey";};
+
+	}
+
+	if (localStorage.getItem('p2colorSet') !== null) {
+		var cvalue = localStorage.getItem('p2colorSet');
+		document.getElementById('p2colorDiv').style.background = localStorage.getItem('p2colorSet');
+		if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "white" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p2colorDiv").style.color= "#000";} else { document.getElementById("p2colorDiv").style.color= "lightgrey";};
+
+	}
+
+	if (localStorage.getItem('p1ScoreCtrlPanel') > 0 || localStorage.getItem('p1ScoreCtrlPanel') == "" ) {
+		p1ScoreValue = localStorage.getItem('p1ScoreCtrlPanel');
+		msg = { player:'1', score:p1ScoreValue };
+		bc.postMessage(msg);
+		} else {
+		p1ScoreValue = 0;
+		msg = { player:'1', score:p1ScoreValue };
+		bc.postMessage(msg);
+		}
+
+	if (localStorage.getItem('p2ScoreCtrlPanel') > 0 || localStorage.getItem('p2ScoreCtrlPanel') == "" ) {
+		p2ScoreValue = localStorage.getItem('p2ScoreCtrlPanel');
+		msg = { player:'2', score:p2ScoreValue };
+		bc.postMessage(msg);
+		} else {
+		p2ScoreValue = 0;
+		msg = { player:'2', score:p2ScoreValue };
+		bc.postMessage(msg);
+		}
+
+	if (localStorage.getItem("useSalotto") == "yes") {
+			console.log("salotto = TRUE");
+			document.getElementById("useSalottoSetting").checked = true;
+			salottoSetting();
+				} 	else {
+				salottoSetting()
 				}
-			
-			if (localStorage.getItem('p1colorSet') !== null) {
-				var cvalue = localStorage.getItem('p1colorSet');
-				document.getElementById('p1colorDiv').style.background = localStorage.getItem('p1colorSet');
-				document.getElementsByTagName("select")[0].options[0].value = cvalue;
-				if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "white" || cvalue == "orangered" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p1colorDiv").style.color= "#000";} else { document.getElementById("p1colorDiv").style.color= "lightgrey";};
 
-			}
-			
-			if (localStorage.getItem('p2colorSet') !== null) {
-				var cvalue = localStorage.getItem('p2colorSet');
-				document.getElementById('p2colorDiv').style.background = localStorage.getItem('p2colorSet');
-				if (cvalue == "orange"  || cvalue == "khaki"  || cvalue == "tomato" || cvalue == "red" || cvalue == "orangered" || cvalue == "white" || cvalue == "orange" || cvalue == "lightgreen" || cvalue == "lightseagreen")  { document.getElementById("p2colorDiv").style.color= "#000";} else { document.getElementById("p2colorDiv").style.color= "lightgrey";};
+	if (localStorage.getItem("useCustomLogo") == "yes") {
+			console.log("customLogo = TRUE");
+			document.getElementById("customLogo").checked = true;
+			customLogoSetting();
+			} else {
+				customLogoSetting()
+				}			
 
-			}
-			
-			if (localStorage.getItem('p1ScoreCtrlPanel') > 0 || localStorage.getItem('p1ScoreCtrlPanel') == "" ) {
-				p1ScoreValue = localStorage.getItem('p1ScoreCtrlPanel');
-				msg = { player:'1', score:p1ScoreValue };
-				bc.postMessage(msg);
+	if (localStorage.getItem("useClock") == "yes") {
+			console.log("Clock = TRUE");
+			document.getElementById("useClockSetting").checked = true;
+			clockSetting();
 				} else {
-				p1ScoreValue = 0;
-				msg = { player:'1', score:p1ScoreValue };
-				bc.postMessage(msg);
-				}
+					document.getElementById("useSalottoSetting").checked = false;
+					document.getElementById("useSalottoSetting").removeAttribute("checked");
+					clockSetting()
+					}			
 
-			if (localStorage.getItem('p2ScoreCtrlPanel') > 0 || localStorage.getItem('p2ScoreCtrlPanel') == "" ) {
-				p2ScoreValue = localStorage.getItem('p2ScoreCtrlPanel');
-				msg = { player:'2', score:p2ScoreValue };
-				bc.postMessage(msg);
-				} else {
-				p2ScoreValue = 0;
-				msg = { player:'2', score:p2ScoreValue };
-				bc.postMessage(msg);
-				}
+	if (localStorage.getItem("customLogo1") != null) {document.getElementById("l1Img").src = localStorage.getItem("customLogo1");} else { document.getElementById("l1Img").src = "./common/images/placeholder.png"; };
+	if (localStorage.getItem("customLogo2") != null) {document.getElementById("l2Img").src = localStorage.getItem("customLogo2");} else { document.getElementById("l2Img").src = "./common/images/placeholder.png"; };
+	if (localStorage.getItem("customLogo3") != null) {document.getElementById("l3Img").src = localStorage.getItem("customLogo3");} else { document.getElementById("l3Img").src = "./common/images/placeholder.png"; };
+	if (localStorage.getItem("customLogo0") != null) {document.getElementById("l0Img").src = localStorage.getItem("customLogo0");} else { document.getElementById("l0Img").src = "./common/images/placeholder.png"; };
+	if (localStorage.getItem("slideShow") == "yes") { document.getElementById("logoSlideshowChk").checked = true; logoSlideshow(); };
+	if (localStorage.getItem("obsTheme") == "28") { document.getElementById("obsTheme").value = "28"; }
+	if (localStorage.getItem("b_style") == "1") { document.getElementById("bsStyle").value = "1"; }
+	if (localStorage.getItem("b_style") == "2") { document.getElementById("bsStyle").value = "2"; }
+	if (localStorage.getItem("b_style") == "3") { document.getElementById("bsStyle").value = "3"; }
+	if (localStorage.getItem("clogoNameStored") != null) { cLogoName = localStorage.getItem("clogoNameStored"); }	
+	document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
+	document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
+	document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");
+	document.getElementById("raceInfoTxt").value = localStorage.getItem("raceInfo");
+	document.getElementById("wagerInfoTxt").value = localStorage.getItem("wagerInfo");
+	document.getElementById("verNum").innerHTML = versionNum;			
+	postNames();refreshData();startThemeCheck();
 			
-			if (localStorage.getItem("useSalotto") == "yes") {
-					console.log("salotto = TRUE");
-					document.getElementById("useSalottoSetting").checked = true;
-					salottoSetting();
-						} 	else {
-						salottoSetting()
-						}
-			
-			if (localStorage.getItem("useCustomLogo") == "yes") {
-					console.log("customLogo = TRUE");
-					document.getElementById("customLogo").checked = true;
-					customLogoSetting();
-						} 	else {
-						customLogoSetting()
-						}			
-			
-			if (localStorage.getItem("useClock") == "yes") {
-					console.log("Clock = TRUE");
-					document.getElementById("useClockSetting").checked = true;
-					clockSetting();
-						} 	else {
-						document.getElementById("useSalottoSetting").checked = false;
-						document.getElementById("useSalottoSetting").removeAttribute("checked");
-						clockSetting()
-						}			
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// broadcast channel events from browser_source
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 
-			if (localStorage.getItem("customLogo1") != null) {document.getElementById("l1Img").src = localStorage.getItem("customLogo1");} else { document.getElementById("l1Img").src = "./common/images/placeholder.png"; };
-			if (localStorage.getItem("customLogo2") != null) {document.getElementById("l2Img").src = localStorage.getItem("customLogo2");} else { document.getElementById("l2Img").src = "./common/images/placeholder.png"; };
-			if (localStorage.getItem("customLogo3") != null) {document.getElementById("l3Img").src = localStorage.getItem("customLogo3");} else { document.getElementById("l3Img").src = "./common/images/placeholder.png"; };
-			if (localStorage.getItem("customImage") != null) {document.getElementById("clImg").src = localStorage.getItem("customLogo3");} else { document.getElementById("l3Img").src = "./common/images/placeholder.png"; };
-			if (localStorage.getItem("slideShow") == "yes") { document.getElementById("logoSlideshowChk").checked = true; logoSlideshow(); };
-			if (localStorage.getItem("obsTheme") == "28") { document.getElementById("obsTheme").value = "28"; }
-			if (localStorage.getItem("b_style") == "1") { document.getElementById("bsStyle").value = "1"; }
-			if (localStorage.getItem("b_style") == "2") { document.getElementById("bsStyle").value = "2"; }
-			if (localStorage.getItem("b_style") == "3") { document.getElementById("bsStyle").value = "3"; }
-			if (localStorage.getItem("clogoNameStored") != null) { cLogoName = localStorage.getItem("clogoNameStored"); }	
-			document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
-			document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
-			document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");
-			document.getElementById("raceInfoTxt").value = localStorage.getItem("raceInfo");
-			document.getElementById("wagerInfoTxt").value = localStorage.getItem("wagerInfo");
-			document.getElementById("verNum").innerHTML = versionNum;			
-			postNames();refreshData();startThemeCheck();
-			
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// broadcast channel events from browser_source
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-
-			bcr.onmessage = (event) => {
-					document.getElementById("clockLocalDisplay").style.background = "green";
-					document.getElementById("clockLocalDisplay").innerHTML = event.data + "s";
-					tev =  event.data;
-					console.log(tev);
-					if (tev > 20) {
-						document.getElementById("clockLocalDisplay").style.color = "white";
-						}
-					if (tev > 5 && tev < 21) {
-						document.getElementById("clockLocalDisplay").style.color = "black";
-					}
-					if (tev < 21) {
-						document.getElementById("clockLocalDisplay").style.background = "orange";
-					}
-					if (tev < 16) {
-						document.getElementById("clockLocalDisplay").style.background = "yellow";
-						}
-					if (tev < 11) {
-						document.getElementById("clockLocalDisplay").style.background = "tomato";
-						}
-					if (tev == 10) {
-						document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('hide')");
-						document.getElementById("shotClockShow").innerHTML = "Hide Clock";
-						document.getElementById("shotClockShow").style.border = "1px solid lime";
-						}
-                    if (tev < 6 && tev > 0) {    //tev > 0   this prevents both sounds from playing at 0.
-						document.getElementById("clockLocalDisplay").style.background = "red";
-						document.getElementById("clockLocalDisplay").style.color = "white";
-                        warningBeep.loop = false;
-                        warningBeep.play(); 
-                    }
-                    if (tev == 0) {
-                        foulSound.loop= false;
-                        foulSound.play();
-						setTimeout("stopClock()", 1000);
-					}
+	bcr.onmessage = (event) => {
+		document.getElementById("clockLocalDisplay").style.background = "green";
+		document.getElementById("clockLocalDisplay").innerHTML = event.data + "s";
+		tev =  event.data;
+		console.log(tev);
+		if (tev > 20) {	document.getElementById("clockLocalDisplay").style.color = "white";	};
+		if (tev > 5 && tev < 21) { document.getElementById("clockLocalDisplay").style.color = "black"; };
+		if (tev < 21) {	document.getElementById("clockLocalDisplay").style.background = "orange"; };
+		if (tev < 16) {	document.getElementById("clockLocalDisplay").style.background = "yellow"; };
+		if (tev < 11) {	document.getElementById("clockLocalDisplay").style.background = "tomato"; };
+		if (tev == 10) {
+			document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('hide')");
+			document.getElementById("shotClockShow").innerHTML = "Hide Clock";
+			document.getElementById("shotClockShow").style.border = "1px solid lime";
 			}
-
+		if (tev < 6 && tev > 0) {    //tev > 0   this prevents both sounds from playing at 0.
+			document.getElementById("clockLocalDisplay").style.background = "red";
+			document.getElementById("clockLocalDisplay").style.color = "white";
+			warningBeep.loop = false;
+			warningBeep.play(); 
+		}
+		if (tev == 0) {
+			foulSound.loop= false;
+			foulSound.play();
+			setTimeout("stopClock()", 1000);
+		}
+	}
 			
-		</script>
-	</body>
+</script>
+</body>
 </html>

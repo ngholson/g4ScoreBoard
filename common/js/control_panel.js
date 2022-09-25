@@ -37,70 +37,25 @@
 					} else {
 					bc.postMessage({clockDisplay:'logoSlideShow-hide'});
 					localStorage.setItem("slideShow","no");
-
 					}
 			}
-		
-			function logoPost(input) {
+					
+			function logoPost(input,xL) {
 				if (input.files && input.files[0]) {
-				const imgPath = document.getElementById('FileUpload').files[0];
+				const imgPath = document.getElementById('FileUploadL'+xL).files[0];
 				const reader = new FileReader();
 					reader.readAsDataURL(input.files[0]);
 					reader.addEventListener("load", function () {
 					// convert image file to base64 string and save to localStorage
-					try { localStorage.setItem("customImage", reader.result); }
+					try {localStorage.setItem("customLogo"+xL, reader.result);}
 					catch(err) { alert("the selected image exceedes the maximium file size");}
-					document.getElementById("clImg").src = localStorage.getItem("customImage");
-					}, false);
-				setTimeout(logoOther, 50);
-				}
-			}
-			
-			function logoPostL1(input) {
-				if (input.files && input.files[0]) {
-				const imgPath = document.getElementById('FileUploadL1').files[0];
-				const reader = new FileReader();
-					reader.readAsDataURL(input.files[0]);
-					reader.addEventListener("load", function () {
-					// convert image file to base64 string and save to localStorage
-					try {localStorage.setItem("customLogo1", reader.result);}
-					catch(err) { alert("the selected image exceedes the maximium file size");}
-					document.getElementById("l1Img").src = localStorage.getItem("customLogo1");
+					document.getElementById("l"+xL+"Img").src = localStorage.getItem("customLogo"+xL);
 					}, false);
 					if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
+					if (xL == 0) { setTimeout(logoOther, 50); };
 				}
 			}
-			
-			function logoPostL2(input) {
-				if (input.files && input.files[0]) {
-				const imgPath = document.getElementById('FileUploadL2').files[0];
-				const reader = new FileReader();
-					reader.readAsDataURL(input.files[0]);
-					reader.addEventListener("load", function () {
-					// convert image file to base64 string and save to localStorage
-					try {localStorage.setItem("customLogo2", reader.result);}
-					catch(err) { alert("the selected image exceedes the maximium file size");}
-					document.getElementById("l2Img").src = localStorage.getItem("customLogo2");
-					}, false);
-				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
-				}
-			}
-			
-			function logoPostL3(input) {
-				if (input.files && input.files[0]) {
-				const imgPath = document.getElementById('FileUploadL3').files[0];
-				const reader = new FileReader();
-					reader.readAsDataURL(input.files[0]);
-					reader.addEventListener("load", function () {
-					// convert image file to base64 string and save to localStorage
-					try { localStorage.setItem("customLogo3", reader.result); }
-					catch(err) { alert("the selected image exceedes the maximium file size");}
-					document.getElementById("l3Img").src = localStorage.getItem("customLogo3");
-					}, false);
-				if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
-				}
-			}
-			
+				
 			function logoOther() {
 				bc.postMessage({clockDisplay:'postLogo'});
 			}

@@ -183,7 +183,7 @@
 	bottom: 5px;
 	text-align:center;
 	}
-	#FileUpload, #FileUploadL1, #FileUploadL2, #FileUploadL3 {
+	#FileUploadL0, #FileUploadL1, #FileUploadL2, #FileUploadL3 {
     display: none;
 	}
 
@@ -267,7 +267,7 @@
 		cursor: pointer;
 		border-radius:5px;
 		font-family:tahoma;
-		color: lightgrey;
+	 
 		bottom:0px;
 		border:0px;
 		text-align:justify
@@ -279,7 +279,6 @@
 		cursor: pointer;
 		border-radius:5px;
 		font-family:tahoma;
-		color: lightgrey;
 		top:10px;
 		border:0px;
 		left:50%;
@@ -291,7 +290,6 @@
 		cursor: pointer;
 		border-radius:5px;
 		font-family:tahoma;
-		color: lightgrey;
 		text-align:justify
 	}
 	
@@ -301,7 +299,6 @@
 		right:50%;
 		font-family:tahoma;
 		font-size:8pt;
-		color: lightgrey;
 		top:10px;
 	}
 	input {

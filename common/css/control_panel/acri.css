@@ -5,6 +5,7 @@
 	.obs28 {
 		background: #162458;
 		border:0px;
+		color:lightgrey;
 		}
 	#swapBtn {
 		cursor:pointer;
@@ -36,6 +37,9 @@
 	
 	.clkd {
 		color: dimgrey;
+	}
+	.themeSizeLabels{
+		color:lightgrey;
 	}
 	
 	

@@ -60,7 +60,8 @@ for more information about Salotto please visit https://salotto.app
             var shotClockxr = null;
 			const bcr = new BroadcastChannel('g4-recv'); // browser_source -> control_panel channel 
 			const bc = new BroadcastChannel('g4-main');
-			          
+			var playerNumber;
+          
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //										broadcast channel events
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
@@ -187,8 +188,8 @@ for more information about Salotto please visit https://salotto.app
 				document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
 				document.getElementById("g4Logo").classList.add("fade");
 				}
-			if (localStorage.getItem("customImage") !== null) {
-			document.getElementById("g4Logo").src = localStorage.getItem("customImage");
+			if (localStorage.getItem("customLogo0") !== null) {
+			document.getElementById("g4Logo").src = localStorage.getItem("customLogo0");
 			}
 	
 			if  (localStorage.getItem("p1ScoreCtrlPanel") !== null) {
@@ -253,7 +254,14 @@ for more information about Salotto please visit https://salotto.app
 			
 			let slideIndex = 0;
 			showSlides();
-	
+
         </script>
     </body>
 </html>
+
+
+
+
+
+
+

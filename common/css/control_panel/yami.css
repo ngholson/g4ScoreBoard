@@ -42,8 +42,18 @@
 	.themeSizeLabels{
 		color:lightgrey;
 	}
-	
-	
+		
+	.slider {
+	  -webkit-appearance: none;
+	  width: 100%;
+	  height: 5px;
+	  border-radius: 5px;
+	  background: #3c404b; 
+	  outline: none;
+	  opacity: 1;
+	  -webkit-transition: .2s;
+	  transition: opacity .2s;
+	}
 	
 		
 		

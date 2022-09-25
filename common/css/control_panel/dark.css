@@ -10,7 +10,7 @@
 	#swapBtn {
 		cursor:pointer;
 		position:relative;
-		border: 1px solid #997300;
+		border: 1px solid dimgrey;
 		padding-bottom:2px;
 		width:10%;
 		min-width:30px;
@@ -23,7 +23,7 @@
 	
 	hr {
 		border-bottom:0px;
-		border-top: 1px solid #997300;
+		border-top: 1px solid #4c4c4c;
 		border-left: 0px;
 		border-right: 0px;
 		

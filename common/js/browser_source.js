@@ -23,20 +23,30 @@
 		document.getElementById("player2Score").classList.remove("winBlink");
 	}
 	
+	function sleep(milliseconds) {
+		var start = new Date().getTime();
+		for (var i = 0; i < 1e7; i++) {
+			if ((new Date().getTime() - start) > milliseconds){
+			break;
+			}
+		}
+	}
+	
 	 function shotTimer(shottime){
-		var tev;
 		countDownTime = new Date().getTime() + shottime;
+		sleep(100);
+		var seconds = shottime/1000;
+		var tev = seconds;
 		if (shottime == 61000) {
 			document.getElementById("shotClockVis").classList.add("start60");
 			document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
-
 			} else {
 			document.getElementById("shotClockVis").classList.add("startTimer");
 			}
 		shotClockxr = setInterval(function() {
 		var now = new Date().getTime();
 		var distance = countDownTime - now;
-		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		seconds = Math.floor((distance % (1000 * 60)) / 1000);
 		document.getElementById("shotClockVis").style.background = "lime";
 		document.getElementById("shotClock").style.background = "green";
 		if (distance > 21000){ document.getElementById("shotClock").style.color = "white"; };

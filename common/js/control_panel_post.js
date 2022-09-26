@@ -29,7 +29,7 @@
 	var hotkey60ClockOld = hotkey60Clock;
 	var hotkeyStopClockOld = hotkeyStopClock;
 	var hotkeySwapOld = hotkeySwap;
-	var tev;
+	var tevr;
 	var p1ScoreValue;
 	var p2ScoreValue;
 	var warningBeep = new Audio("./common/sound/beep2.mp3");
@@ -175,25 +175,25 @@
 	bcr.onmessage = (event) => {
 		document.getElementById("clockLocalDisplay").style.background = "green";
 		document.getElementById("clockLocalDisplay").innerHTML = event.data + "s";
-		tev =  event.data;
-		console.log(tev);
-		if (tev > 20) {	document.getElementById("clockLocalDisplay").style.color = "white";	};
-		if (tev > 5 && tev < 21) { document.getElementById("clockLocalDisplay").style.color = "black"; };
-		if (tev < 21) {	document.getElementById("clockLocalDisplay").style.background = "orange"; };
-		if (tev < 16) {	document.getElementById("clockLocalDisplay").style.background = "yellow"; };
-		if (tev < 11) {	document.getElementById("clockLocalDisplay").style.background = "tomato"; };
-		if (tev == 10) {
+		tevr =  event.data;
+		console.log(tevr);
+		if (tevr > 20) {	document.getElementById("clockLocalDisplay").style.color = "white";	};
+		if (tevr > 5 && tevr < 21) { document.getElementById("clockLocalDisplay").style.color = "black"; };
+		if (tevr < 21) {	document.getElementById("clockLocalDisplay").style.background = "orange"; };
+		if (tevr < 16) {	document.getElementById("clockLocalDisplay").style.background = "yellow"; };
+		if (tevr < 11) {	document.getElementById("clockLocalDisplay").style.background = "tomato"; };
+		if (tevr == 10) {
 			document.getElementById("shotClockShow").setAttribute("onclick", "clockDisplay('hide')");
 			document.getElementById("shotClockShow").innerHTML = "Hide Clock";
 			document.getElementById("shotClockShow").style.border = "1px solid lime";
 			}
-		if (tev < 6 && tev > 0) {    //tev > 0   this prevents both sounds from playing at 0.
+		if (tevr < 6 && tevr > 0) {    //tevr > 0   this prevents both sounds from playing at 0.
 			document.getElementById("clockLocalDisplay").style.background = "red";
 			document.getElementById("clockLocalDisplay").style.color = "white";
 			warningBeep.loop = false;
 			warningBeep.play(); 
 		}
-		if (tev == 0) {
+		if (tevr == 0) {
 			foulSound.loop= false;
 			foulSound.play();
 			setTimeout("stopClock()", 1000);

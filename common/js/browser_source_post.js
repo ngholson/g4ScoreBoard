@@ -1,5 +1,10 @@
 'use strict';
-
+//  G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
+//  https://g4billiards.com http://www.g4creations.com
+//  this is a purely javascript/html/css driven scoreboard system for OBS Studio
+//  free to use and modify and use as long as this copyright statment remains intact. 
+//  Salotto logo is the copyright of Salotto and is used with their permission.
+//  for more information about Salotto please visit https://salotto.app
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //										variable declarations
@@ -10,15 +15,14 @@
 			const bcr = new BroadcastChannel('g4-recv'); // browser_source -> control_panel channel 
 			const bc = new BroadcastChannel('g4-main');
 			var playerNumber;
-			          
+			
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //										broadcast channel events
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
 			
 			bc.onmessage = (event) => {
-				if(event.data.player && event.data.score != null){
-		   		console.log("event.data.score: " + event.data.score);
-				console.log("event.data.player: " + event.data.player);
+				if(event.data.score != null){
+		   		console.log("event.data.player: " + event.data.player+"  event.data.score: " + event.data.score);
 				if (event.data.score > document.getElementById("player"+event.data.player+"Score").innerHTML) {
 					document.getElementById("player"+event.data.player+"Score").innerHTML = event.data.score;
 					document.getElementById("player"+event.data.player+"Score").classList.add("winBlink");
@@ -130,28 +134,28 @@
 				document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
 				document.getElementById("g4Logo").classList.add("fade");
 				}
-			if (localStorage.getItem("customLogo0") !== null) {
+			if (localStorage.getItem("customLogo0") != null) {
 			document.getElementById("g4Logo").src = localStorage.getItem("customLogo0");
 			}
 	
-			if  (localStorage.getItem("p1ScoreCtrlPanel") !== null) {
+			if  (localStorage.getItem("p1ScoreCtrlPanel") != null) {
 			document.getElementById("player1Score").innerHTML = localStorage.getItem("p1ScoreCtrlPanel");
 			} else {
 			document.getElementById("player1Score").innerHTML = 0;
 			}
 
-			if  (localStorage.getItem("p2ScoreCtrlPanel") !== null) {
+			if  (localStorage.getItem("p2ScoreCtrlPanel") != null) {
 			document.getElementById("player2Score").innerHTML = localStorage.getItem("p2ScoreCtrlPanel");
 			} else {
 			document.getElementById("player2Score").innerHTML = 0;
 			}
 
-			if (localStorage.getItem("wagerInfo") !== ""){
+			if (localStorage.getItem("wagerInfo") != ""){
 			document.getElementById("wagerInfo").classList.remove("noShow");
 			}
 	
-			if (localStorage.getItem("raceInfo") !== ""){
-			document.getElementById("raceInfo").classList.remove("noShow");
+			if (localStorage.getItem("raceInfo") != null){
+				document.getElementById("raceInfo").classList.remove("noShow");
 			}
 		
 			document.getElementById("player1Name").innerHTML = localStorage.getItem("p1NameCtrlPanel");
@@ -166,16 +170,16 @@
 			if (localStorage.getItem("useSalotto") == "yes") {
 				document.getElementById("salottoLogo").classList.replace("fadeOutElm","fadeInElm");		
 			}
-			if (localStorage.getItem("useClock") !== "yes") {
+			if (localStorage.getItem("useClock") != "yes") {
 				document.getElementById("p1ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
 				document.getElementById("p2ExtIcon").classList.replace("fadeInElm","fadeOutElm");			
 			}
 	
-			if (localStorage.getItem('p1colorSet') !== "") {
+			if (localStorage.getItem('p1colorSet') != "") {
 				document.getElementById("player1Name").style.background = "linear-gradient(to left, white , "+localStorage.getItem('p1colorSet');
 				console.log("p1color: "+localStorage.getItem('p1colorSet'));
 			}
-			if (localStorage.getItem('p2colorSet') !== "") {
+			if (localStorage.getItem('p2colorSet') != "") {
 				document.getElementById("player2Name").style.background = "linear-gradient(to right, white , "+localStorage.getItem('p2colorSet');
 				console.log("p2color: "+localStorage.getItem('p2colorSet'));
 			}

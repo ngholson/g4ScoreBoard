@@ -34,9 +34,7 @@
 	
 	 function shotTimer(shottime){
 		countDownTime = new Date().getTime() + shottime;
-		sleep(100);
-		var seconds = shottime/1000;
-		var tev = seconds;
+		sleep(1); //fixes clock 0 glitch. 1ms wait time. allows time for countdowntime to reliably update.
 		if (shottime == 61000) {
 			document.getElementById("shotClockVis").classList.add("start60");
 			document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
@@ -46,7 +44,7 @@
 		shotClockxr = setInterval(function() {
 		var now = new Date().getTime();
 		var distance = countDownTime - now;
-		seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 		document.getElementById("shotClockVis").style.background = "lime";
 		document.getElementById("shotClock").style.background = "green";
 		if (distance > 21000){ document.getElementById("shotClock").style.color = "white"; };
@@ -59,7 +57,6 @@
 				document.getElementById("shotClockVis").classList.add("startTimer");
 				}
 			if (distance < 26000) {
-				//document.getElementById("shotClockVis").style.background = "#5aa500";
 				document.getElementById("shotClockVis").style.opacity = "0.7";
 				}
 			if (distance < 21000) {
@@ -91,8 +88,8 @@
 			if (seconds == tev) {
 				var ntev = seconds --- 1;
 				document.getElementById("shotClock").innerHTML = ntev + "s";
-				tev = ntev;
-				console.log("dup Detected- tev:"+tev);
+				var tev = ntev;
+				console.log("dup Detected - corrected tev:"+tev);
 				bcr.postMessage(tev);
 				} else {
 					document.getElementById("shotClock").innerHTML = seconds + "s";

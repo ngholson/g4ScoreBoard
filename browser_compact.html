@@ -1,0 +1,629 @@
+<!doctype html>
+<!--
+browser_compact.html ultra compact version of the scoreboard
+
+g4Scoreboard v1.6.0 Copyright 2022, Norman H Gholson IV
+https://g4billiards.com http://www.g4creations.com
+this is a purely javascript/html/css driven scoreboard system for OBS Studio
+free to use and modify and use as long as this copyright statment remains intact. 
+Salotto logo is the copyright of Salotto and is used with their permission.
+for more information about Salotto please visit https://salotto.app
+-->
+
+<html>
+<head>
+<style>
+#scoreBoardDiv {
+	font-family:tahoma;
+	font-weight:bold;
+	position:absolute;
+	bottom:10px;
+	width:90%;
+	left:5%;
+}
+
+	 
+table {
+	border: 0px solid #000;
+}
+td{
+	border: 2px solid #000;
+	border-radius:5px;
+	text-align:center;
+	vertical-align:middle;
+}
+.noShow{
+	visibility:hidden;
+}
+ #player1Name {
+	background-image: linear-gradient(to left, white , steelblue);
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+#player2Name {
+	background-image: linear-gradient(to right, white , steelblue);
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+
+}            
+#p1ExtIcon{
+	position:absolute;
+	left:573px;
+top:30px;
+	background:green;
+	border: solid 1px #000;
+	border-radius:4px 0px 0px 5px;
+	color:#fff;
+	font-size:8.5pt;
+	padding:4px;
+}
+#p2ExtIcon {
+	position:absolute;
+	right:573px;
+	top:30px;
+	background:green;
+	border: solid 1px #000;
+	border-radius:0px 4px 4px 0px;
+	color:#fff;
+	font-size:8.5pt;
+	padding:4.0px;
+	
+}
+	
+.greenBtn {
+	background:green;
+	color:white;
+}
+.redBtn {
+	background:red;
+	color:white;
+}
+.shotRed {
+	color:white;
+}
+.fadeInElm {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 1s linear;
+}
+.fadeOutElm {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 1s, opacity 1s linear;
+}
+
+
+/* blink code */
+
+@keyframes blinking {
+0% {
+background-color: #ffffff;
+}
+100% {
+background-color: lightgreen;
+}
+}
+.winBlink {
+animation: blinking .10s 4;
+}
+
+
+@keyframes extblinking {
+0% {
+background-color: green;
+}
+100% {
+background-color: red;
+}
+}
+.extBlink {
+animation: extblinking .15s 3;
+}
+/* end of blink code */
+
+#raceInfo {
+	background-image: linear-gradient(to right, grey, white);
+	position:fixed;
+	bottom:13px;
+	width:245px;
+	left:670px;
+	border-radius: 0px 00px 10px 10px;
+	text-align:center;
+	font-size:7pt;
+	font-weight:bolder;
+	border:1px solid #000;
+	z-index:-1;
+}
+#wagerInfo {
+	background-image: linear-gradient(to left, grey, white);
+	position:fixed;
+	bottom:13px;
+	width:245px;
+	right:670px;
+	border-radius: 0px 00px 10px 10px;
+	text-align:center;
+	font-size:7pt;
+	font-weight:bolder;
+	border:1px solid #000;
+	z-index:-1;
+}
+  
+	#salottoLogo {
+		position:absolute;
+		top: 35.5px;
+		right: 823px;
+		z-index:9;
+		visibility:hidden;
+	}
+	 #g4Logo {
+		position:absolute;
+		top: 35px;
+		left: 823px;
+		z-index:9;
+		visibility:hidden;
+	}
+#shotClock {
+	width: 170px;
+	text-align:center;
+	font-size:8pt;
+	vertical-align: bottom;
+	position:relative;
+	top:-3px;
+	z-index:-2;
+}
+</style>
+</head>
+<body>
+<div class="noShow fadeInElm" id="raceInfo">&nbsp;</div><div class="noShow fadeInElm" id="wagerInfo">&nbsp;</div>
+
+
+<center>
+<div class="fadeInElm" id="scoreBoardDiv">
+<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
+<img class="noShow fadeOutElm" id="salottoLogo" height="20px" src="./common/images/salotto.png">
+<img class="noShow fadeOutElm" id="g4Logo" height="20px" src="./common/images/logo.png">
+<div class="fadeInElm" id="p1ExtIcon">Ex</div>            
+<div class="fadeInElm" id="p2ExtIcon">Ex</div>   
+<table>
+<tr>
+<td class="noShow"></td>
+<td class="noShow"></td>
+<td class="noShow"></td>
+<td class="noShow" colspan=2 width="30px">>&nbsp;</td>
+<td class="noShow"></td>
+<td class="noShow"></td>
+<td class="noShow"></td>
+</tr>
+<tr>
+<td id="player1Name" width="250px">p1name</td>
+<td id="player1Score" style="background:#fff" colspan=3>0</td>
+<td id="player2Score" style="background:#fff" colspan=3>0</td>
+<td id="player2Name" width="250px">p2name</td>
+</tr>
+</table>
+<div class="fadeOutElm" id="shotClock">&nbsp;</div>
+
+</div>
+<!-- testing -->
+		<div id="logoSlideshowDiv" class="noShow slideshow-container fadeOutElm">
+		<div class="mySlides logoSlide fade">
+		<img id="customLogo1" src="" style="height:20px">
+ 		</div>
+		<div class="mySlides logoSlide fade">
+		<img id="customLogo2" src="" style="height:20px">
+		</div>
+		<div class="mySlides logoSlide fade">
+		<img  id="customLogo3" src="" style="height:20px">
+		</div>
+		</div>
+ <!--testing  -->      
+</center>
+   <script>
+//		if (localStorage.getItem("b_style") != null) {
+//			styleChange(localStorage.getItem("b_style"));
+//			}else{
+//				document.styleSheets[0].disabled = true;
+//				document.styleSheets[1].disabled = false;
+//				document.styleSheets[2].disabled = true;
+//			}
+//				
+//		function styleChange(n) {
+//			if (n == 1) {
+//			document.styleSheets[0].disabled = false;
+//			document.styleSheets[1].disabled = true;
+//			document.styleSheets[2].disabled = true;
+//			}
+//			if (n == 2) {
+//			document.styleSheets[0].disabled = true;
+//			document.styleSheets[1].disabled = false;
+//			document.styleSheets[2].disabled = true;
+//			}
+//			if (n == 3) {
+//			document.styleSheets[0].disabled = true;
+//			document.styleSheets[1].disabled = true;
+//			document.styleSheets[2].disabled = false;
+//			}
+//			
+//		}
+
+
+		
+		if (localStorage.getItem("customLogo1") != null) {
+		document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");
+		document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");
+		document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");
+		}
+		
+		let slideIndex = 0;
+		showSlides();
+		
+		function showSlides() {
+		  let i;
+		  let slides = document.getElementsByClassName("logoSlide");
+		   for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";  
+		  }
+		  slideIndex++;
+		  if (slideIndex > slides.length) {slideIndex = 1}    
+		   slides[slideIndex-1].style.display = "block";  
+		   setTimeout(showSlides, 20000); // Change image every 20 seconds
+		}
+
+		
+		
+		
+		
+			if (localStorage.getItem("customImage") !== null) {
+				document.getElementById("g4Logo").src = localStorage.getItem("customImage");
+			}
+			
+			if  (localStorage.getItem("p1ScoreCtrlPanel") !== null) {
+			document.getElementById("player1Score").innerHTML = localStorage.getItem("p1ScoreCtrlPanel");
+			} else {
+			document.getElementById("player1Score").innerHTML = 0;
+			}
+
+			if  (localStorage.getItem("p2ScoreCtrlPanel") !== null) {
+			document.getElementById("player2Score").innerHTML = localStorage.getItem("p2ScoreCtrlPanel");
+			} else {
+			document.getElementById("player2Score").innerHTML = 0;
+			}
+
+			if (localStorage.getItem("wagerInfo") !== ""){
+				document.getElementById("wagerInfo").classList.remove("noShow");
+				}
+			
+			if (localStorage.getItem("raceInfo") !== ""){
+				document.getElementById("raceInfo").classList.remove("noShow");
+				}
+				
+			document.getElementById("player1Name").innerHTML = localStorage.getItem("p1NameCtrlPanel");
+			document.getElementById("raceInfo").innerHTML = localStorage.getItem("raceInfo");
+			document.getElementById("player2Name").innerHTML = localStorage.getItem("p2NameCtrlPanel");			
+			document.getElementById("wagerInfo").innerHTML = localStorage.getItem("wagerInfo");			
+			document.getElementById("raceInfo").innerHTML = localStorage.getItem("raceInfo");			
+
+			
+			if (localStorage.getItem("useCustomLogo") == "yes") {
+				document.getElementById("g4Logo").classList.replace("fadeOutElm","fadeInElm");			
+			}
+			if (localStorage.getItem("useSalotto") == "yes") {
+				document.getElementById("salottoLogo").classList.replace("fadeOutElm","fadeInElm");		
+			}
+			if (localStorage.getItem("useClock") !== "yes") {
+				document.getElementById("p1ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
+				document.getElementById("p2ExtIcon").classList.replace("fadeInElm","fadeOutElm");			
+			}
+			
+			if (localStorage.getItem('p1colorSet') !== "") {
+				document.getElementById("player1Name").style.background = "linear-gradient(to left, white , "+localStorage.getItem('p1colorSet');
+				console.log("p1color: "+localStorage.getItem('p1colorSet'));
+			}
+			if (localStorage.getItem('p2colorSet') !== "") {
+				document.getElementById("player2Name").style.background = "linear-gradient(to right, white , "+localStorage.getItem('p2colorSet');
+				console.log("p2color: "+localStorage.getItem('p2colorSet'));
+			}
+			
+			
+			
+          /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//										variable declarations
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+			
+            var countDownTime;
+            var shotClockxr = null;
+			const bcr = new BroadcastChannel('g4-recv'); // browser_source -> control_panel channel 
+			const bc = new BroadcastChannel('g4-main');
+			var playerNumber;
+			
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//										broadcast channel events
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+			
+			bc.onmessage = (event) => {
+				if(event.data.score != null){
+		   		console.log("event.data.player: " + event.data.player+"  event.data.score: " + event.data.score);
+				if (event.data.score > document.getElementById("player"+event.data.player+"Score").innerHTML) {
+					document.getElementById("player"+event.data.player+"Score").innerHTML = event.data.score;
+					document.getElementById("player"+event.data.player+"Score").classList.add("winBlink");
+					setTimeout("clearWinBlink()",500);
+						} else {
+						document.getElementById("player"+event.data.player+"Score").innerHTML = event.data.score;
+						}
+				}
+				
+				if( event.data.opacity != null){
+				console.log("event.data(opacity): "+event.data.opacity);
+				document.getElementById("scoreBoardDiv").style.opacity  = event.data.opacity;
+				document.getElementById("raceInfo").style.opacity  = event.data.opacity;
+				document.getElementById("wagerInfo").style.opacity  = event.data.opacity;
+				}
+				
+				if (event.data.race != null){
+					console.log("event.data.race: " + event.data.race);
+					if (event.data.race == "") {
+						document.getElementById("raceInfo").classList.add("noShow");
+						document.getElementById("raceInfo").classList.remove("fadeInElm");
+						} else {
+							document.getElementById("raceInfo").classList.remove("noShow");
+							document.getElementById("raceInfo").classList.add("fadeInElm");
+							document.getElementById("raceInfo").innerHTML = event.data.race;
+					}
+				}
+				if (event.data.wager !=null) {
+				console.log("event.data.wager: " + event.data.wager);
+				if (event.data.wager == "") {
+					document.getElementById("wagerInfo").classList.add("noShow");
+					document.getElementById("wagerInfo").classList.remove("fadeInElm");
+					} else {
+						document.getElementById("wagerInfo").classList.remove("noShow");
+						document.getElementById("wagerInfo").classList.add("fadeInElm");
+						document.getElementById("wagerInfo").innerHTML = event.data.wager;
+				    }
+				}
+				
+				if (event.data.time != null){
+					console.log("event.data.time: " + event.data.time);
+					shotTimer(event.data.time);
+				}
+				
+				if (event.data.color !=null) {
+						console.log("event.data.player: "+event.data.player+" event.data.color: "+ event.data.color);
+						if (event.data.player == "1") {	document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to left, white , "+event.data.color; };
+						if (event.data.player == "2") {	document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to right, white , "+event.data.color; };
+				}
+				
+				if (event.data.name != null) {
+					console.log("event.data.player: "+event.data.player+" event.data.name: " + event.data.name);
+					if (!event.data.name == ""){
+						document.getElementById("player"+event.data.player+"Name").innerHTML = event.data.name;
+						} else {
+							document.getElementById("player"+event.data.player+"Name").innerHTML = "Player "+event.data.player;
+						}
+				}
+				
+				// start of original clockDisplay channel 
+				if (event.data.clockDisplay != null) {
+					console.log("event.data.clockDisplay: " + event.data.clockDisplay);
+					if (event.data.clockDisplay == "show") { showClock(); };  
+					if (event.data.clockDisplay == "hide") {hideClock(); };  
+					if (event.data.clockDisplay == "stopClock") { stopClock(); };
+					if (event.data.clockDisplay == "noClock") {
+							document.getElementById("p1ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
+							document.getElementById("p2ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
+						}  
+					if (event.data.clockDisplay == "useClock") {
+							document.getElementById("p1ExtIcon").classList.replace("fadeOutElm","fadeInElm");	
+							document.getElementById("p2ExtIcon").classList.replace("fadeOutElm","fadeInElm");	
+						} 
+					if (event.data.clockDisplay == "p1extension") { add30(1); };
+					if (event.data.clockDisplay == "p2extension") { add30(2); };
+					if (event.data.clockDisplay == "p1ExtReset") { extReset('p1'); }; 
+					if (event.data.clockDisplay == "p2ExtReset") { extReset('p2'); };
+					if (event.data.clockDisplay == "hidesalotto") { salottoHide(); };
+					if (event.data.clockDisplay == "showsalotto") { salottoShow(); };
+					if (event.data.clockDisplay == "hidecustomLogo") { customHide(); };
+					if (event.data.clockDisplay == "showcustomLogo") { customShow(); };
+					if (event.data.clockDisplay == "postLogo") { postLogo(); };
+					if (event.data.clockDisplay == "logoSlideShow-show")  {
+						customHide(); 
+						document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
+						document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
+						setTimeout(function(){document.getElementById("g4Logo").classList.add("fade");},500);
+						if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
+						if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
+						if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
+						}
+					if (event.data.clockDisplay =="logoSlideShow-hide") {document.getElementById("logoSlideshowDiv").classList.replace("fadeInElm", "fadeOutElm");};
+					if (event.data.clockDisplay =="style100") { styleChange(1); };
+					if (event.data.clockDisplay =="style125") { styleChange(2); };	
+					if (event.data.clockDisplay =="style150") { styleChange(3); };
+				} 
+			}   
+		   
+		    function postLogo() {
+			if (localStorage.getItem("customImage") !== "") {
+				document.getElementById("g4Logo").src = localStorage.getItem("customImage");
+			
+			}
+			}
+			function clearWinBlink() {
+                document.getElementById("player1Score").classList.remove("winBlink");
+                document.getElementById("player2Score").classList.remove("winBlink");
+            }
+			
+			 function shotTimer(shottime){
+                var tev;
+			    countDownTime = new Date().getTime() + shottime;
+                shotClockxr = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownTime - now;
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
+               	document.getElementById("shotClockVis").style.background = "lime";
+                document.getElementById("shotClock").style.background = "green";
+				if (distance > 21000){
+		                document.getElementById("shotClock").style.color = "white";
+					}
+				if (distance > 5000 && distance < 21000) {
+	                document.getElementById("shotClock").style.color = "black";
+					}
+					
+				if (shottime == 61000) {
+					document.getElementById("shotClockVis").classList.add("start60");
+					} else {
+					document.getElementById("shotClockVis").classList.add("startTimer");
+					}
+										
+				if (distance > 60000) {
+                      seconds = seconds + 60;
+                    } 
+                    document.getElementById("shotClock").innerHTML = seconds + "s";
+                    
+					if (distance < 31000) {
+						document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
+                    	document.getElementById("shotClockVis").style.background = "lime";
+						document.getElementById("shotClockVis").classList.add("startTimer");
+
+						}
+					if (distance < 26000) {
+                    	document.getElementById("shotClockVis").style.background = "#5aa500";
+						document.getElementById("shotClockVis").style.opacity = "0.7";
+                        }
+                        
+					if (distance < 21000) {
+                    	document.getElementById("shotClockVis").style.background = "#639b00";
+                        document.getElementById("shotClock").style.background = "orange";
+
+                        }
+                    if (distance < 16000) {
+
+                        document.getElementById("shotClock").style.background = "yellow";
+						document.getElementById("shotClockVis").style.background = "#926d00";
+
+                    }
+
+                    if (distance < 11000) {
+                        document.getElementById("shotClock").style.background = "tomato";
+						document.getElementById("shotClockVis").style.background = "#d12f00";
+						document.getElementById("shotClockVis").style.opacity = "1";          
+					}
+					if (distance < 11000 && distance > 9700) {	
+					   showClock();
+					}
+                    
+                    if (distance < 6000 && distance > 999) {
+                        document.getElementById("shotClock").classList.add("shotRed");
+                        document.getElementById("shotClock").style.background = "red";
+						document.getElementById("shotClockVis").style.background = "red";
+						document.getElementById("shotClock").style.color = "white";
+
+                    }
+                    if (distance < 1000) {
+                        clearInterval(shotClockxr);
+                        document.getElementById("shotClock").style.background = "red";
+						document.getElementById("shotClockVis").style.background = "red";
+						document.getElementById("shotClock").style.color = "white";
+                    
+
+                    }
+					if (seconds == tev) {
+						var ntev = seconds --- 1;
+						document.getElementById("shotClock").innerHTML = ntev + "s";
+						tev = ntev;
+						console.log("dup Detected- tev:"+tev);
+						bcr.postMessage(tev);
+						} else {
+							document.getElementById("shotClock").innerHTML = seconds + "s";
+							tev = seconds;
+							console.log("tev:"+tev);
+							bcr.postMessage(tev);
+						}
+						
+                 }, 1000);
+                
+				}
+
+
+			 function showClock(){
+                document.getElementById("shotClock").classList.replace("fadeOutElm","fadeInElm");
+            }
+
+            function hideClock(){
+                document.getElementById("shotClock").classList.replace("fadeInElm", "fadeOutElm");
+            }
+			
+			function stopClock() {
+                clearInterval(shotClockxr);
+				hideClock();
+				document.getElementById("shotClock").innerHTML = "&nbsp;";
+				document.getElementById("shotClock").classList.remove("shotRed");
+                document.getElementById("shotClock").style.background = "";
+                document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
+				document.getElementById("shotClockVis").classList.remove("startTimer");
+				document.getElementById("shotClockVis").classList.remove("start60");
+				document.getElementById("shotClockVis").style.background = "";
+
+			}
+			var playerNumber;
+			function add30(player) { 
+					countDownTime = countDownTime + 30000;
+					document.getElementById("p"+player+"ExtIcon").style.background = "darkred";
+                    document.getElementById("shotClock").classList.remove("shotRed");
+                    document.getElementById("shotClock").style.background = "";    
+					document.getElementById("shotClockVis").classList.remove("startTimer");
+					document.getElementById("shotClockVis").classList.remove("start60");
+					document.getElementById("shotClockVis").style.background = "";
+					document.getElementById("shotClock").classList.replace("fadeInElm", "fadeOutElm");
+					document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
+					document.getElementById("p"+player+"ExtIcon").classList.add("extBlink");
+					playerNumber =  player;
+					setTimeout("clearExtBlink(playerNumber)",500);	
+			}
+			
+			function clearExtBlink(playerN) {
+                document.getElementById("p"+playerN+"ExtIcon").classList.remove("extBlink");
+                document.getElementById("p"+playerN+"ExtIcon").style.background = "darkred";
+
+			}
+			
+			function extReset(player) {
+			    document.getElementById(player+"ExtIcon").style.background = "green";
+                             
+				}
+				
+			function salottoShow() {
+				document.getElementById("salottoLogo").classList.replace("fadeOutElm","fadeInElm");	
+			
+			}
+			function salottoHide() {
+				document.getElementById("salottoLogo").classList.replace("fadeInElm","fadeOutElm");
+			
+			}
+			
+			function customShow() {
+				if (document.getElementById("g4Logo").classList.contains("logoSlide")) {
+					document.getElementById("g4Logo").classList.replace("logoSlide", "fadeOutElm"); }
+				if (document.getElementById("g4Logo").classList.contains("fade")) {
+					document.getElementById("g4Logo").classList.remove("fade"); }
+				document.getElementById("g4Logo").style.display = "block";
+				document.getElementById("g4Logo").classList.replace("fadeOutElm","fadeInElm");
+			
+			}
+			function customHide() {
+				document.getElementById("g4Logo").classList.replace("fadeInElm","fadeOutElm");
+				document.getElementById("g4Logo").style.display = "none";
+			
+			}
+					if (localStorage.getItem("customLogo1") != null) {document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");} else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
+					if (localStorage.getItem("customLogo2") != null) {document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");} else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
+					if (localStorage.getItem("customLogo3") != null) {document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");} else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
+					
+			if (localStorage.getItem("slideShow")  == "yes") { 
+				document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
+				document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
+				document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
+				document.getElementById("g4Logo").classList.add("fade");
+				}
+				
+        </script>
+</body>
+</html>

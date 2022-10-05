@@ -57,6 +57,7 @@ Zip contents:
 |
 |-shot_clock_display.html   
 |-g4ScoreBoard_hotkeys.lua
+|-browser_compact.html
 |-browser_source.html   
 |-control_panel.html
 |-hotkeys.js

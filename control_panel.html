@@ -155,10 +155,10 @@ for more information about Salotto please visit https://salotto.app
 			//Toggle the switches if a hotkey is pressed
 			function checkHotkeys (){
 			
-				if (hotkeyP1ScoreUp != hotkeyP1ScoreUpOld){	postP1Score('add'); hotkeyP1ScoreUpOld = hotkeyP1ScoreUp; }
-				if (hotkeyP2ScoreUp != hotkeyP2ScoreUpOld){	postP2Score('add');	hotkeyP2ScoreUpOld = hotkeyP2ScoreUp; }
-				if (hotkeyP1ScoreDown != hotkeyP1ScoreDownOld){	postP1Score('sub'); hotkeyP1ScoreDownOld = hotkeyP1ScoreDown; }
-				if (hotkeyP2ScoreDown != hotkeyP2ScoreDownOld){	postP2Score('sub'); hotkeyP2ScoreDownOld = hotkeyP2ScoreDown; }
+				if (hotkeyP1ScoreUp != hotkeyP1ScoreUpOld){	postScore('add','1'); hotkeyP1ScoreUpOld = hotkeyP1ScoreUp; }
+				if (hotkeyP2ScoreUp != hotkeyP2ScoreUpOld){	postScore('add','2');	hotkeyP2ScoreUpOld = hotkeyP2ScoreUp; }
+				if (hotkeyP1ScoreDown != hotkeyP1ScoreDownOld){	postScore('sub','1'); hotkeyP1ScoreDownOld = hotkeyP1ScoreDown; }
+				if (hotkeyP2ScoreDown != hotkeyP2ScoreDownOld){	postScore('sub','2'); hotkeyP2ScoreDownOld = hotkeyP2ScoreDown; }
 				if (hotkeyScoreReset != hotkeyScoreResetOld){ resetScore(); hotkeyScoreResetOld = hotkeyScoreReset;	}
 				if (hotkeyP1Extension != hotkeyP1ExtensionOld){	add30('p1'); hotkeyP1ExtensionOld = hotkeyP1Extension; }
 				if (hotkeyP2Extension != hotkeyP2ExtensionOld){	add30('p2'); hotkeyP2ExtensionOld = hotkeyP2Extension; }

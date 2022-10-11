@@ -172,7 +172,7 @@
 	document.getElementById("raceInfoTxt").value = localStorage.getItem("raceInfo");
 	document.getElementById("wagerInfoTxt").value = localStorage.getItem("wagerInfo");
 	document.getElementById("verNum").innerHTML = versionNum;			
-	postNames();refreshData();startThemeCheck();
+	postNames();startThemeCheck();
 			
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// broadcast channel events from browser_source

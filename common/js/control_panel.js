@@ -363,46 +363,7 @@
 				}				
 					
 			}			
-
-			//////////////////// HotKey scripts
-
-			//Reload the hotjeys.js file updated by the LUA script
-			function updateHotkeys() {
-				var src;
-			    src = 'hotkeys.js';
-			    $('script[src="' + src + '"]').remove();
-			    var head= document.getElementsByTagName('head')[0];
-		    	var script= document.createElement('script');
-		    	script.src= src;
-		    	head.appendChild(script);
-			}
-
-			//Toggle the switches if a hotkey is pressed
-			function checkHotkeys (){
-			
-				if (hotkeyP1ScoreUp != hotkeyP1ScoreUpOld){	postP1Score('add'); hotkeyP1ScoreUpOld = hotkeyP1ScoreUp; }
-				if (hotkeyP2ScoreUp != hotkeyP2ScoreUpOld){	postP2Score('add');	hotkeyP2ScoreUpOld = hotkeyP2ScoreUp; }
-				if (hotkeyP1ScoreDown != hotkeyP1ScoreDownOld){	postP1Score('sub'); hotkeyP1ScoreDownOld = hotkeyP1ScoreDown; }
-				if (hotkeyP2ScoreDown != hotkeyP2ScoreDownOld){	postP2Score('sub'); hotkeyP2ScoreDownOld = hotkeyP2ScoreDown; }
-				if (hotkeyScoreReset != hotkeyScoreResetOld){ resetScore(); hotkeyScoreResetOld = hotkeyScoreReset;	}
-				if (hotkeyP1Extension != hotkeyP1ExtensionOld){	add30('p1'); hotkeyP1ExtensionOld = hotkeyP1Extension; }
-				if (hotkeyP2Extension != hotkeyP2ExtensionOld){	add30('p2'); hotkeyP2ExtensionOld = hotkeyP2Extension; }
-				if (hotkey30Clock != hotkey30ClockOld){	shotClock(31000); hotkey30ClockOld = hotkey30Clock; }
-				if (hotkey60Clock != hotkey60ClockOld){	shotClock(61000); hotkey60ClockOld = hotkey60Clock;	}
-				if (hotkeyStopClock != hotkeyStopClockOld){	stopClock(); hotkeyStopClockOld = hotkeyStopClock; }
-				if (hotkeySwap != hotkeySwapOld){ swapColors(); hotkeySwapOld = hotkeySwap;	}
-			}
-			
-			function refreshData() {
-				var x;
-			    x = 0.05; // Refresh time multiplier
-				checkHotkeys();
-				updateHotkeys();
-				setTimeout(refreshData, x*1000);
-			}
-			
-			//////////////////// end of HotKey scripts
-			
+		
 			function obsThemeChange() {
 				if (document.getElementById("obsTheme").value ==  "28") {
 					localStorage.setItem("obsTheme", "28"); 

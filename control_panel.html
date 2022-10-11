@@ -19,7 +19,7 @@ for more information about Salotto please visit https://salotto.app
 	<link rel="stylesheet" href="./common/css/control_panel/required.css" />		
 	<script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0.daily.20221004";
+	 var versionNum = "1.6.0.daily.20220925";
  	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 <script src="./common/js/jquery.js"></script>
@@ -137,5 +137,48 @@ for more information about Salotto please visit https://salotto.app
 	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; ">g4ScoreBoard v<text id="verNum"></text></text>
 </div>
 <script src="./common/js/control_panel_post.js"></script>
+
+<script>
+	//////////////////// HotKey scripts
+
+			//Reload the hotjeys.js file updated by the LUA script
+			function updateHotkeys() {
+				var src;
+			    src = 'hotkeys.js';
+			    $('script[src="' + src + '"]').remove();
+			    var head= document.getElementsByTagName('head')[0];
+		    	var script= document.createElement('script');
+		    	script.src= src;
+		    	head.appendChild(script);
+			}
+
+			//Toggle the switches if a hotkey is pressed
+			function checkHotkeys (){
+			
+				if (hotkeyP1ScoreUp != hotkeyP1ScoreUpOld){	postP1Score('add'); hotkeyP1ScoreUpOld = hotkeyP1ScoreUp; }
+				if (hotkeyP2ScoreUp != hotkeyP2ScoreUpOld){	postP2Score('add');	hotkeyP2ScoreUpOld = hotkeyP2ScoreUp; }
+				if (hotkeyP1ScoreDown != hotkeyP1ScoreDownOld){	postP1Score('sub'); hotkeyP1ScoreDownOld = hotkeyP1ScoreDown; }
+				if (hotkeyP2ScoreDown != hotkeyP2ScoreDownOld){	postP2Score('sub'); hotkeyP2ScoreDownOld = hotkeyP2ScoreDown; }
+				if (hotkeyScoreReset != hotkeyScoreResetOld){ resetScore(); hotkeyScoreResetOld = hotkeyScoreReset;	}
+				if (hotkeyP1Extension != hotkeyP1ExtensionOld){	add30('p1'); hotkeyP1ExtensionOld = hotkeyP1Extension; }
+				if (hotkeyP2Extension != hotkeyP2ExtensionOld){	add30('p2'); hotkeyP2ExtensionOld = hotkeyP2Extension; }
+				if (hotkey30Clock != hotkey30ClockOld){	console.log("HIT");shotClock(31000); hotkey30ClockOld = hotkey30Clock; }
+				if (hotkey60Clock != hotkey60ClockOld){	shotClock(61000); hotkey60ClockOld = hotkey60Clock;	}
+				if (hotkeyStopClock != hotkeyStopClockOld){	stopClock(); hotkeyStopClockOld = hotkeyStopClock; }
+				if (hotkeySwap != hotkeySwapOld){ swapColors(); hotkeySwapOld = hotkeySwap;	}
+			}
+	
+			function refreshData() {
+				var x;
+			    x = 0.05; // Refresh time multiplier
+				checkHotkeys();
+				updateHotkeys();
+				setTimeout(refreshData, x*1000);
+			}
+			
+			//////////////////// end of HotKey scripts
+			refreshData();
+</script>
+
 </body>
 </html>

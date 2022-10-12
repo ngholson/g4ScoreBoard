@@ -118,6 +118,7 @@
 					if (event.data.clockDisplay =="style100") { styleChange(1); };
 					if (event.data.clockDisplay =="style125") { styleChange(2); };	
 					if (event.data.clockDisplay =="style150") { styleChange(3); };
+					if (event.data.clockDisplay =="style200") { styleChange(4); };
 				} 
 			}   
 			

@@ -4,9 +4,9 @@
 				background-color: rgba(0, 0, 0, 0);
 				margin: 0px auto;
 				overflow: hidden;
-				-moz-transform: scale(1.50, 1.50);
-                zoom: 1.50;
-                zoom: 150%;
+				-moz-transform: scale(2.00, 2.00);
+                zoom: 2.00;
+                zoom: 200%;
                 font-family:tahoma;
             }
 			
@@ -30,7 +30,7 @@
                 width: 95%;
                 margin:auto;
             }
-				
+			
             #player1Score, #player2Score{
                 text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
                 text-align:center;
@@ -57,7 +57,6 @@
             }
             #player1Name, #player2Name {
                 width:250px;
-				font-size:15pt;
 
             }
             #player1Name {
@@ -72,8 +71,8 @@
             }            
             #p1ExtIcon{
                 position:absolute;
-                left:36.5px;
-                top:32px;
+                left:29.0px;
+                top:32.75px;
                 background:green;
                 border: solid 1px #000;
                 border-radius:9px 0px 0px 9px;
@@ -83,8 +82,8 @@
             }
             #p2ExtIcon {
                 position:absolute;
-                right:36.5px;
-                top:32px;
+                right:29.0px;
+                top:32.75px;
                 background:green;
                 border: solid 1px #000;
                 border-radius:0px 9px 9px 0px;
@@ -149,14 +148,14 @@
             
             #salottoLogo {
                 position:absolute;
-                top: 35.5px;
-                right: 690px;
+                top: 36.5px;
+                right: 525px;
                 z-index:9;
             }
 			 #g4Logo {
                 position:absolute;
-                top: 35.5px;
-                left: 690px;
+                top: 36.5px;
+                left: 525px;
                 z-index:9;
             }
            #player1Image {
@@ -180,7 +179,7 @@
 				position:fixed;
 				bottom:1px;
 				width:20%;
-				left:110px;
+				left:90px;
 				border-radius: 0px 00px 10px 10px;
 				text-align:center;
 				font-size:7pt;
@@ -193,7 +192,7 @@
 				position:fixed;
 				bottom:1px;
 				width:20%;
-				right:100px;
+				right:80px;
 				border-radius: 0px 00px 10px 10px;
 				text-align:center;
 				font-size:7pt;
@@ -212,7 +211,9 @@
 				border-radius:5px;
  
 			}
-
+			#player1Name, #player2Name {
+				font-size: 15pt;
+			}	
 			.startTimer {
 				width: 0px;
 				transition: width 30s;
@@ -228,8 +229,8 @@
 			.mySlides {
 			position:fixed;
 			display: none;
-			bottom: 14px;
-            left: 754px;
+			bottom: 13.75px;
+            left: 573px;
 			}
 
 

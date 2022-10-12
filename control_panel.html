@@ -19,7 +19,7 @@ for more information about Salotto please visit https://salotto.app
 	<link rel="stylesheet" href="./common/css/control_panel/required.css" />		
 	<script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.6.0.daily.20220925";
+	 var versionNum = "1.6.0.daily.20221012";
  	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 <script src="./common/js/jquery.js"></script>
@@ -122,6 +122,7 @@ for more information about Salotto please visit https://salotto.app
     <option value="1">small</option>
     <option value="2" selected>medium</option>
 	<option value="3">large</option>
+	<option value="4">XL</option>
 	</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </div>	<div class="themeSizeLabels" id="obsThemeDiv">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<text>theme:&nbsp;</text>
@@ -162,7 +163,7 @@ for more information about Salotto please visit https://salotto.app
 				if (hotkeyScoreReset != hotkeyScoreResetOld){ resetScore(); hotkeyScoreResetOld = hotkeyScoreReset;	}
 				if (hotkeyP1Extension != hotkeyP1ExtensionOld){	add30('p1'); hotkeyP1ExtensionOld = hotkeyP1Extension; }
 				if (hotkeyP2Extension != hotkeyP2ExtensionOld){	add30('p2'); hotkeyP2ExtensionOld = hotkeyP2Extension; }
-				if (hotkey30Clock != hotkey30ClockOld){	console.log("HIT");shotClock(31000); hotkey30ClockOld = hotkey30Clock; }
+				if (hotkey30Clock != hotkey30ClockOld){	shotClock(31000); hotkey30ClockOld = hotkey30Clock; }
 				if (hotkey60Clock != hotkey60ClockOld){	shotClock(61000); hotkey60ClockOld = hotkey60Clock;	}
 				if (hotkeyStopClock != hotkeyStopClockOld){	stopClock(); hotkeyStopClockOld = hotkeyStopClock; }
 				if (hotkeySwap != hotkeySwapOld){ swapColors(); hotkeySwapOld = hotkeySwap;	}

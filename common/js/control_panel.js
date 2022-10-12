@@ -28,6 +28,12 @@
 				localStorage.setItem("b_style", 3);
 
 				}
+				if (document.getElementById("bsStyle").value == 4) {
+				bc.postMessage({clockDisplay:'style200'});
+				localStorage.setItem("b_style", 4);
+
+				}
+		
 			}
 
 			function logoSlideshow() {

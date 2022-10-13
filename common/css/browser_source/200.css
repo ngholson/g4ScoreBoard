@@ -177,12 +177,12 @@
             #raceInfo {
                 background-image: linear-gradient(to right, grey, white);
 				position:fixed;
-				bottom:1px;
+				bottom:0px;
 				width:20%;
-				left:90px;
+				left:110px;
 				border-radius: 0px 00px 10px 10px;
 				text-align:center;
-				font-size:7pt;
+				font-size:8pt;
 				font-weight:bolder;
 				border:1px solid #000;
 				z-index:-1;
@@ -190,17 +190,17 @@
 			#wagerInfo {
                 background-image: linear-gradient(to left, grey, white);
 				position:fixed;
-				bottom:1px;
+				bottom:0px;
 				width:20%;
-				right:80px;
+				right:100px;
 				border-radius: 0px 00px 10px 10px;
 				text-align:center;
-				font-size:7pt;
+				font-size:8pt;
 				font-weight:bolder;
 				border:1px solid #000;
 				z-index:-1;
 			}
-			
+						
 			.shotclockvis {
 				position:absolute;
 				width: 90%;

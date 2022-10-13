@@ -56,6 +56,7 @@
             }
             #player1Name, #player2Name {
                 width:250px;
+				font-size:15pt;
 
             }
             #player1Name {

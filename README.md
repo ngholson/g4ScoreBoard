@@ -108,7 +108,7 @@ To install Hotkeys:
    type "&nbsp;" (without the quotes) in the text box.)
 2. The shot clock will auto display in the stream starting at 10s remaining.
 3. Once a player strokes the ball click Stop Clock and then start a new 30s timer for the next shot or
-   the incoming player.
+   the incoming player when the cue ball fully stops moving.
 4. Audible alerts will sound starting at 5s remaining. 
    (these only play locally unless picked up by microphone).
 5. Players get 1 30s extension per rack. if accidently clicked you can use the P1/P2 ext reset buttons. 

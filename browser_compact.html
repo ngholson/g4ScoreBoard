@@ -16,6 +16,7 @@ for more information about Salotto please visit https://salotto.app
 #scoreBoardDiv {
 	font-family:tahoma;
 	font-weight:bold;
+	font-size: 15pt;
 	position:absolute;
 	bottom:10px;
 	width:90%;
@@ -47,24 +48,24 @@ td{
 #p1ExtIcon{
 	position:absolute;
 	left:573px;
-top:30px;
+	top:35.5px;
 	background:green;
 	border: solid 1px #000;
 	border-radius:4px 0px 0px 5px;
 	color:#fff;
-	font-size:8.5pt;
-	padding:4px;
+	font-size:10pt; /*8.5*/
+	padding:4.5px;
 }
 #p2ExtIcon {
 	position:absolute;
 	right:573px;
-	top:30px;
+	top:35.5px;
 	background:green;
 	border: solid 1px #000;
 	border-radius:0px 4px 4px 0px;
 	color:#fff;
-	font-size:8.5pt;
-	padding:4.0px;
+	font-size:10pt; /*8.5*/
+	padding:4.5px;
 	
 }
 	
@@ -127,7 +128,7 @@ animation: extblinking .15s 3;
 	left:670px;
 	border-radius: 0px 00px 10px 10px;
 	text-align:center;
-	font-size:7pt;
+	font-size:12pt; /*7*/
 	font-weight:bolder;
 	border:1px solid #000;
 	z-index:-1;
@@ -140,7 +141,7 @@ animation: extblinking .15s 3;
 	right:670px;
 	border-radius: 0px 00px 10px 10px;
 	text-align:center;
-	font-size:7pt;
+	font-size:12pt;  /*7*/
 	font-weight:bolder;
 	border:1px solid #000;
 	z-index:-1;
@@ -163,11 +164,13 @@ animation: extblinking .15s 3;
 #shotClock {
 	width: 170px;
 	text-align:center;
-	font-size:8pt;
+	font-size:12pt;
 	vertical-align: bottom;
 	position:relative;
+	padding-bottom:2px;
 	top:-3px;
 	z-index:-2;
+	
 }
 </style>
 </head>
@@ -217,7 +220,9 @@ animation: extblinking .15s 3;
  <!--testing  -->      
 </center>
    <script>
-	
+
+
+		
 		if (localStorage.getItem("customLogo1") != null) {
 		document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");
 		document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");

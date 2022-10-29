@@ -40,7 +40,7 @@
                 background: rgba(255,255,255,1);;
                 font-size:15pt;
                 font-weight:bold;
-                vertical-align: middle
+                vertical-align: middle;
                 text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
                 }
 				
@@ -208,7 +208,7 @@
 				left:5%;
 				bottom:36px;
 				height: 3px;
-				background: ;
+				background: #fff ;
 				border-radius:5px;
  
 			}

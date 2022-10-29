@@ -1,6 +1,5 @@
 --[[
-      OBS Studio Lua script : Control the g4ScoreBoard with hotkeys
-            
+      OBS Studio Lua script : Control the g4ScoreBoard with hotkeys    
 --]]
 
 

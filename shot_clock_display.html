@@ -18,7 +18,7 @@
 
 		<style>
 			body {
-			background:;
+			background: rgba(0,0,0,0);
 			font-size:600pt;
 			font-family:tahoma;
 			font-weight:bolder;
@@ -34,7 +34,9 @@
 			bc.onmessage = (event) => {
 				if(event.data.clockDisplay == "stopClock") {
 					setTimeout(function() {
-						document.getElementsByTagName("body")[0].style.background = "darkgreen";
+						document.getElementsByTagName("body")[0].style.background = "rgba(0,0,0,0)";
+						document.getElementsByTagName("body")[0].innerHTML = "&nbsp;";
+						//setTimeout( function() {document.getElementTagName("body")[0].innerHTML = "&nbsp;";},1000);
 					},2000);
 				}
 			}

@@ -1,5 +1,5 @@
 'use strict';
-//  G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022 Norman Gholson IV
+//  G4ScoreBoard addon for OBS version 1.6.0 Copyright 2022-2023 Norman Gholson IV
 //  https://g4billiards.com http://www.g4creations.com
 //  this is a purely javascript/html/css driven scoreboard system for OBS Studio
 //  free to use and modify and use as long as this copyright statment remains intact. 

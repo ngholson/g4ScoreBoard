@@ -10,7 +10,7 @@
 	// variable declarations
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	var scoreAmount = 1; // CHANGE THIS TO ADJUST HOW MANY POINTS ARE AWARDED PER WIN
+	var scoreAmount = 1; // Depreciated, change is now done via control panel gui
 	var cLogoName = "Custom";  // 13 character limit. it will auto trim to 13 characters.
 	const bc = new BroadcastChannel('g4-main');
 	const bcr = new BroadcastChannel('g4-recv'); // return channel from browser_source 

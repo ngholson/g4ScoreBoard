@@ -184,7 +184,7 @@
             function postScore(opt1,player) {
 				if(player == "1"){
 				if (opt1 == "add") {
-					p1ScoreValue = p1ScoreValue +++ scoreAmount;
+					p1ScoreValue = p1ScoreValue +++ Number(scoreAmount);
 					msg={player: player , score: p1ScoreValue };
 					bc.postMessage(msg);
 					localStorage.setItem("p"+player+"ScoreCtrlPanel", p1ScoreValue);
@@ -195,7 +195,7 @@
 					resetExt('p2','noflash');
 					} else {
 						if (p1ScoreValue > 0) {
-							p1ScoreValue = p1ScoreValue --- scoreAmount;
+							p1ScoreValue = p1ScoreValue --- Number(scoreAmount);
 							msg={player: player , score: p1ScoreValue };
 							bc.postMessage(msg);
 							localStorage.setItem("p"+player+"ScoreCtrlPanel", p1ScoreValue);
@@ -206,7 +206,7 @@
 				}
 				if(player == "2"){
 					if (opt1 == "add") {
-					p2ScoreValue = p2ScoreValue +++ scoreAmount;
+					p2ScoreValue = p2ScoreValue +++ Number(scoreAmount);
 					msg2={player: player , score: p2ScoreValue };
 					bc.postMessage(msg2);
 					localStorage.setItem("p"+player+"ScoreCtrlPanel", p2ScoreValue);
@@ -217,7 +217,7 @@
 					resetExt('p2','noflash');
 					} else {
 						if (p2ScoreValue > 0) {
-							p2ScoreValue = p2ScoreValue --- scoreAmount;
+							p2ScoreValue = p2ScoreValue --- Number(scoreAmount);
 							msg2={player: player , score: p2ScoreValue };
 							bc.postMessage(msg2);
 							localStorage.setItem("p"+player+"ScoreCtrlPanel", p2ScoreValue);
@@ -511,3 +511,9 @@
 				document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
 				}
 			}
+			function pointValue() {
+				scoreAmount = document.getElementById("scoreValue").value;
+				console.log(scoreAmount);
+				postNames();
+			}
+			

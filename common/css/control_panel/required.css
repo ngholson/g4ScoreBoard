@@ -216,8 +216,8 @@
 	min-width:71px;
 	width: 71px;
 	position:absolute;
-	left:74%;
-	margin-left:2px;
+	left:50%;
+	margin-left:75px;
 	padding-bottom:2.5px;
 	padding-top:2.5px;
 	}	
@@ -242,7 +242,6 @@
 	position:static;
 	left:50%;
 	margin-left:150px;
-	
 	margin-bottom:3px;
 	font-size:7pt;
 	}	

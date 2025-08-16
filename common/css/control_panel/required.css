@@ -172,7 +172,7 @@
 	bottom: 5px;
 	text-align:center;
 	}
-	#FileUploadL0, #FileUploadL1, #FileUploadL2, #FileUploadL3 {
+	#FileUploadL0, #FileUploadL1, #FileUploadL2, #FileUploadL3, #FileUploadL4 {
     display: none;
 	}
 
@@ -213,14 +213,27 @@
 	#settingsBox2 {
 	cursor: pointer;
 	font-size:8pt;
-	min-width:85px;
-	width: 145px;
+	min-width:71px;
+	width: 71px;
+	position:absolute;
+	left:74%;
+	margin-left:2px;
+	padding-bottom:2.5px;
+	padding-top:2.5px;
+	}	
+	
+	#settingsBox4 {
+	cursor: pointer;
+	font-size:8pt;
+	min-width:71px;
+	width: 71px;
 	position:absolute;
 	left:50%;
 	margin-left:2px;
 	padding-bottom:2.5px;
 	padding-top:2.5px;
-	}	
+	}
+	
 	
 	#settingsBox3 {
 	cursor: arrow;
@@ -244,7 +257,12 @@
 	color:red;
 	}
 		 
-	
+	}
+	hr{
+		border-top: 1px solid #997300;
+		border-bottom: 0px;
+		width:290px;
+	}
 	#bsStyle{
 		position:relative;
 		font-size: 8pt;
@@ -311,3 +329,16 @@
 		.tooltip:hover .tooltiptext {
 		  visibility: visible;
 		}
+		
+	a:link {
+		color: yellow;
+		}
+		a:visited {
+		color: yellow;
+		}
+		a:hover {
+		color: yellow;
+		}
+		a:active {
+		color: yellow;	
+		}	

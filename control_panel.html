@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- 
-G4ScoreBoard addon for OBS version 1.6.2 Copyright 2022-2025 Norman Gholson IV
+G4ScoreBoard addon for OBS Copyright 2022-2025 Norman Gholson IV
 https://g4billiards.com http://www.g4creations.com
 this is a purely javascript/html/css driven scoreboard system for OBS Studio
 free to use and modify and use as long as this copyright statment remains intact. 
@@ -17,23 +17,10 @@ for more information about Salotto please visit https://salotto.app
 	<link rel="stylesheet" href="./common/css/control_panel/light.css" />
 	<link rel="stylesheet" href="./common/css/control_panel/rachni.css" />	
 	<link rel="stylesheet" href="./common/css/control_panel/required.css" />		
-	<style>
-		a:link {
-		color: yellow;
-		}
-		a:visited {
-		color: yellow;
-		}
-		a:hover {
-		color: yellow;
-		}
-		a:active {
-		color: yellow;	
-		}
-</style>
+
 	<script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.7.1";
+	 var versionNum = "1.8.0";
  	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 <script src="./common/js/jquery.js"></script>
@@ -103,15 +90,21 @@ for more information about Salotto please visit https://salotto.app
 		<div class="hover obs28" id="p1ExtReset" onclick="resetExt('p1')">P1 Ext Reset</div>
 		<div class="hover obs28" id="p2ExtReset" onclick="resetExt('p2')">P2 Ext Reset</div><p style="font-size:9pt">&nbsp;</p>
 		<div class="obs28" id="settingsBox1">
-			<span>All <input type="checkbox" class="smallSize" id="allCheck" onchange="allCheck()" checked><br><span>Use Clock:<span> <input type="checkbox" class="smallSize" id="useClockSetting" onchange="clockSetting()" ><br><span>Salotto Logo:<span><input type="checkbox" class="smallSize" id="useSalottoSetting" onchange="salottoSetting()">
+			<span>All <input type="checkbox" class="smallSize" id="allCheck" onchange="allCheck()" checked><br><span>Use Clock:<span> <input type="checkbox" class="smallSize" id="useClockSetting" onchange="clockSetting()" ><br><span><text class="hover" onclick="salLogoNameChange()" id="salllogoName">Salotto</text>&nbsp;Logo:<span><input type="checkbox" class="smallSize" id="useSalottoSetting" onchange="salottoSetting()">
 			<br><span><text class="hover" onclick="cLogoNameChange()" id="logoName"></text>&nbsp;Logo:<span><input class="smallSize" type="checkbox" id="customLogo" onchange="customLogoSetting()">
 		</div>
 		<div class="obs28" id="settingsBox3">
 		<text>Logo Image Upload<br>Max size: 2.4MB</text>
 		</div><p style="font-size:1px">&nbsp;</p>
-		<div class="hover obs28 tooltip" id="settingsBox2">Upload Custom Logo
+		<div class="hover obs28 tooltip" id="settingsBox2">Upload<br>Right
 			<input type="file" id="FileUploadL0" onchange="logoPost(this,0)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
 			<span class="tooltiptext"><img id="l0Img" src="" style="height:30px; max-width:70px"></span>
+			</div>
+<!-- NEW UPLOAD BOX -->
+			<div class="hover obs28 tooltip" id="settingsBox4">Upload<br>Left
+			<input type="file" id="FileUploadL4" onchange="logoPost(this,4)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
+			<span class="tooltiptext"><img id="l4Img" src="" style="height:30px; max-width:70px"></span>
+<!-- END OF NEW UPLOAD BOX -->
 			<br>
 		</div>	
 		<p style="font-size:9.5pt">&nbsp;</p>
@@ -150,7 +143,7 @@ for more information about Salotto please visit https://salotto.app
 		 </select>
 		 </div>
 	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; ">g4ScoreBoard v<text id="verNum"></text></text>
-	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; left:5%"><text color="yellow"	id="updateStatus"></text></text>
+	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; left:3% " id="updateStatus"></text>
 </div>
 <script src="./common/js/control_panel_post.js"></script>
 
@@ -194,45 +187,6 @@ for more information about Salotto please visit https://salotto.app
 			
 			//////////////////// end of HotKey scripts
 			refreshData();
-</script>
-<script> // update script
-function checkForUpdate() {
-    const updateStatus = document.getElementById('updateStatus');
-    updateStatus.textContent = "Checking for updates...";
-    
-    fetch('https://api.github.com/repos/ngholson/g4Scoreboard/releases/latest')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`GitHub API request failed: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            const latestVersion = data.tag_name.replace(/^v/, '');
-            if (compareVers(latestVersion, versionNum) > 0) {
-                updateStatus.innerHTML = `<a color="grey" href="${data.html_url}" target="_blank" rel="noopener noreferrer nohighlight">Download Update</a>`;
-            } else {
-                updateStatus.textContent = "Latest version.";
-            }
-        })
-        .catch(error => {
-            updateStatus.textContent = "Error checking for updates. Please try again later.";
-            console.error("Update check failed:", error);
-        });
-}
-
-function compareVers(v1, v2) {
-    const parts1 = v1.split('.').map(Number);
-   const parts2 = v2.split('.').map(Number);
-    
-    for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
-        const part1 = parts1[i] || 0;
-        const part2 = parts2[i] || 0;
-        if (part1 > part2) return 1;
-        if (part1 < part2) return -1;
-    }
-    return 0;
-}
 </script>
 </body>
 </html>

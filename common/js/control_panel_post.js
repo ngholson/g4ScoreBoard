@@ -1,5 +1,5 @@
 'use strict';
-//  G4ScoreBoard addon for OBS version 1.6.2 Copyright 2022-2025 Norman Gholson IV
+//  G4ScoreBoard addon for OBS version 1.7.1 Copyright 2022-2025 Norman Gholson IV
 //  https://g4billiards.com http://www.g4creations.com
 //  this is a purely javascript/html/css driven scoreboard system for OBS Studio
 //  free to use and modify and use as long as this copyright statment remains intact. 
@@ -57,7 +57,7 @@
 	var c1value;
 	var c2value;
 	var pColormsg;
-
+	var salLogoName;
 					
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// onload stuff
@@ -89,6 +89,12 @@
 		document.getElementById('logoSsImg3').onclick = function() { 
 			document.getElementById('logoSsImg3').style.border = "1px solid blue";
 			document.getElementById('FileUploadL3').click();
+			setTimeout(rst_scr_btn,100);
+			};
+
+		document.getElementById('settingsBox4').onclick = function() { 
+			document.getElementById('settingsBox4').style.border = "1px solid blue";
+			document.getElementById('FileUploadL4').click();
 			setTimeout(rst_scr_btn,100);
 			};
 
@@ -161,12 +167,16 @@
 	if (localStorage.getItem("customLogo2") != null) {document.getElementById("l2Img").src = localStorage.getItem("customLogo2");} else { document.getElementById("l2Img").src = "./common/images/placeholder.png"; };
 	if (localStorage.getItem("customLogo3") != null) {document.getElementById("l3Img").src = localStorage.getItem("customLogo3");} else { document.getElementById("l3Img").src = "./common/images/placeholder.png"; };
 	if (localStorage.getItem("customLogo0") != null) {document.getElementById("l0Img").src = localStorage.getItem("customLogo0");} else { document.getElementById("l0Img").src = "./common/images/placeholder.png"; };
+	if (localStorage.getItem("customLogo4") != null) {document.getElementById("l4Img").src = localStorage.getItem("customLogo4");} else { document.getElementById("l4Img").src = "./common/images/placeholder.png"; };
+
 	if (localStorage.getItem("slideShow") == "yes") { document.getElementById("logoSlideshowChk").checked = true; logoSlideshow(); };
 	if (localStorage.getItem("obsTheme") == "28") { document.getElementById("obsTheme").value = "28"; }
 	if (localStorage.getItem("b_style") == "1") { document.getElementById("bsStyle").value = "1"; }
 	if (localStorage.getItem("b_style") == "2") { document.getElementById("bsStyle").value = "2"; }
 	if (localStorage.getItem("b_style") == "3") { document.getElementById("bsStyle").value = "3"; }
 	if (localStorage.getItem("clogoNameStored") != null) { cLogoName = localStorage.getItem("clogoNameStored"); }	
+		if (localStorage.getItem("sallogoNameStored") != null) { salLogoName = localStorage.getItem("sallogoNameStored"); }	
+		document.getElementById("salllogoName").innerHTML = salLogoName.substring(0, 13);
 	document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
 	document.getElementById("p1Name").value = localStorage.getItem("p1NameCtrlPanel");
 	document.getElementById("p2Name").value = localStorage.getItem("p2NameCtrlPanel");

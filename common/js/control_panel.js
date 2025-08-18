@@ -300,7 +300,11 @@
 					document.getElementById(player+"extensionBtn").setAttribute("onclick", "");
 					document.getElementById(player+"extensionBtn").classList.add("clkd"); 
 					document.getElementById(player+"extensionBtn").style.border = "1px solid red";
+					if (document.getElementById("shotClockShow").innerHTML == "Hide Clock") {
+						clockDisplay("show");
+					} else {
 					clockDisplay("hide");
+					}
 			}
 
 			function resetExt(player,flash) {
@@ -531,7 +535,7 @@
 
 function checkForUpdate() {
     const updateStatus = document.getElementById('updateStatus');
-    updateStatus.textContent = "Checking for updates...";
+    updateStatus.textContent = "Checking";
     
     fetch('https://api.github.com/repos/ngholson/g4Scoreboard/releases/latest')
         .then(response => {
@@ -545,7 +549,7 @@ function checkForUpdate() {
             if (compareVers(latestVersion, versionNum) > 0) {
                 updateStatus.innerHTML = `<a color="grey" href="${data.html_url}" target="_blank" rel="noopener noreferrer nohighlight">Download Update</a>`;
             } else {
-                updateStatus.textContent = "Latest version.";
+                updateStatus.textContent = "g4ScoreBoard is up to date";
             }
         })
         .catch(error => {

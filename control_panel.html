@@ -20,7 +20,7 @@ for more information about Salotto please visit https://salotto.app
 
 	<script>
 	 //---------------------------------------------------------------------------------------------
-	 var versionNum = "1.8.1";
+	 var versionNum = "1.8.2";
  	 //---------------------------------------------------------------------------------------------
 	 </script>
 	 <script src="./common/js/jquery.js"></script>
@@ -112,38 +112,40 @@ for more information about Salotto please visit https://salotto.app
 			<span>Sponsor Logos:<input class="smallSize" type="checkbox" id="logoSlideshowChk" onchange="logoSlideshow()"></span> 
 		</div>
 		<div class="tooltip obs28 hover" id="logoSsImg1"><input type="file" id="FileUploadL1" onchange="logoPost(this,1)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
-			L1 <span class="tooltiptext"><img id="l1Img" src="" style="height:30px; max-width:70px"></span>
+			SL1 <span class="tooltiptext"><img id="l1Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
 		<div class="tooltip obs28 hover" id="logoSsImg2"><input type="file" id="FileUploadL2" onchange="logoPost(this,2)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
-			L2 <span class="tooltiptext"><img id="l2Img" src="" style="height:30px; max-width:70px"></span>
+			SL2 <span class="tooltiptext"><img id="l2Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
 		<div class="tooltip obs28 hover" id="logoSsImg3"><input type="file" id="FileUploadL3" onchange="logoPost(this,3)" accept="image/png, image/jpeg, image/svg+xml, image/bmp" />
-			L3<span class="tooltiptext"><img id="l3Img" src="" style="height:30px; max-width:70px"></span>
+			SL3<span class="tooltiptext"><img id="l3Img" src="" style="height:30px; max-width:70px"></span>
 		</div>
 		<p style="font-size:11px">&nbsp;</p>
 		<div class="slidecontainer">
 			<input type="range" min="0" max="100" value="100" class="slider" id="scoreOpacity">
 		</div></center>
-<div class="themeSizeLabels" id="obsThemeLabel"><text id="StyleChange">size:&nbsp;</text>
+<div class="themeSizeLabels" id="obsThemeLabel"><text id="StyleChange"></text>
 	<select class="obs28" name="bsstyle" id="bsStyle" onchange="bsStyleChange()">
     <option value="1">small</option>
-    <option value="2" selected>medium</option>
+    <option value="2">medium</option>
 	<option value="3">large</option>
 	<option value="4">XL</option>
-	</select>&nbsp;&nbsp;point&nbsp;
-</div>	<div class="themeSizeLabels" id="obsThemeDiv">value:<input style="font-size:8pt; width: 30px; background:lightgrey" type="number" min=1 id="scoreValue" placeholder=1 onload="pointValue()" onchange="pointValue()"><br><p style="font-size:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<option value="5" selected>Size</option>
+	</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;point val
+</div>	<div class="themeSizeLabels" id="obsThemeDiv">ue:<input style="font-size:8pt; width: 30px; background:lightgrey" type="number" min=1 id="scoreValue" placeholder=1 onload="pointValue()" onchange="pointValue()"><br><p style="font-size:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
 		<select class="obs28" name="Theme" id="obsTheme" onchange="obsThemeChange()">
-            <option value="27" selected>dark</option>
+            <option value="27">dark</option>
             <option value="28">yami</option>
 			<option value="acri">acri</option>
 			<option value="grey">grey</option>
 			<option value="light">light</option>
 			<option value="rachni">rachni</option>
+			<option value="999999" selected>theme</option>
 		 </select>
 		 </div>
 	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; ">g4ScoreBoard v<text id="verNum"></text></text>
-	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; top:4px; left:3% " id="updateStatus"></text>
+	<p style="font-size:2px">&nbsp;</p><text style="font-size:7pt; color:#818181; position:fixed; bottom:4px;" id="updateStatus"></text>
 </div>
 <script src="./common/js/control_panel_post.js"></script>
 

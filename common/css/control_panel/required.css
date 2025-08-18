@@ -283,6 +283,7 @@
 		top:10px;
 		border:0px;
 		left:50%;
+	
 		text-align:justify
 	}
 	
@@ -341,3 +342,7 @@
 		a:active {
 		color: yellow;	
 		}	
+		
+	
+	}
+	

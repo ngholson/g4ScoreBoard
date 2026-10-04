@@ -1,557 +1,434 @@
 <!doctype html>
 <!--
-browser_compact.html ultra compact version of the scoreboard
-
-g4Scoreboard v1.6.0 Copyright 2022-2026, Norman H Gholson IV
-https://g4billiards.com http://www.g4creations.com
-this is a purely javascript/html/css driven scoreboard system for OBS Studio
-free to use and modify and use as long as this copyright statment remains intact. 
-Salotto logo is the copyright of Salotto and is used with their permission.
-for more information about Salotto please visit https://salotto.app
+browser_compact.html - Balanced Compact Pro Edition
+Copyright 2022-2026 Norman Gholson IV
 -->
-
-<html>
-
+<html lang="en">
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Compact Scoreboard Overlay</title>
 	<style>
-		#scoreBoardDiv {
-			font-family: tahoma;
-			font-weight: bold;
-			font-size: 15pt;
-			position: absolute;
-			bottom: 10px;
-			width: 90%;
-			left: 5%;
+		@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@700;800&family=Montserrat:wght@600;700;800&display=swap');
+
+		:root {
+			--font-names: 'Barlow Condensed', 'Montserrat', -apple-system, sans-serif;
+			--font-digits: 'JetBrains Mono', 'Barlow Condensed', monospace;
+			--font-labels: 'Montserrat', -apple-system, sans-serif;
 		}
 
-
-		table {
-			border: 0px solid #000;
+		*, *::before, *::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
 		}
 
-		td {
-			border: 2px solid #000;
-			border-radius: 5px;
-			text-align: center;
-			vertical-align: middle;
+		body {
+			background-color: transparent !important;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			font-family: var(--font-names);
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
 		}
 
 		.noShow {
-			visibility: hidden;
-		}
-
-		#player1Name {
-			background-image: linear-gradient(to left, white, steelblue);
-			text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-		}
-
-		#player2Name {
-			background-image: linear-gradient(to right, white, steelblue);
-			text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-
-		}
-
-		#p1ExtIcon {
-			position: absolute;
-			left: 573px;
-			top: 35.5px;
-			background: green;
-			border: solid 1px #000;
-			border-radius: 4px 0px 0px 5px;
-			color: #fff;
-			font-size: 10pt;
-			/*8.5*/
-			padding: 4.5px;
-		}
-
-		#p2ExtIcon {
-			position: absolute;
-			right: 573px;
-			top: 35.5px;
-			background: green;
-			border: solid 1px #000;
-			border-radius: 0px 4px 4px 0px;
-			color: #fff;
-			font-size: 10pt;
-			/*8.5*/
-			padding: 4.5px;
-
-		}
-
-		.greenBtn {
-			background: green;
-			color: white;
-		}
-
-		.redBtn {
-			background: red;
-			color: white;
-		}
-
-		.shotRed {
-			color: white;
+			display: none !important;
+			visibility: hidden !important;
+			opacity: 0 !important;
+			pointer-events: none;
 		}
 
 		.fadeInElm {
 			visibility: visible;
 			opacity: 1;
-			transition: opacity 1s linear;
+			transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 		}
 
 		.fadeOutElm {
 			visibility: hidden;
 			opacity: 0;
-			transition: visibility 0s 1s, opacity 1s linear;
+			transition: visibility 0s 0.25s, opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+			pointer-events: none;
 		}
 
-
-		/* blink code */
-
-		@keyframes blinking {
-			0% {
-				background-color: #ffffff;
-			}
-
-			100% {
-				background-color: lightgreen;
-			}
+		/* Score Pulse Animation */
+		@keyframes scoreWinPulse {
+			0% { transform: scale(1); background-color: #05080e; color: #ffffff; }
+			50% { transform: scale(1.08); background-color: #f59e0b !important; color: #000000 !important; box-shadow: 0 0 14px rgba(245, 158, 11, 0.9); }
+			100% { transform: scale(1); background-color: #05080e; color: #ffffff; }
 		}
 
 		.winBlink {
-			animation: blinking .10s 4;
+			animation: scoreWinPulse 0.35s 2 cubic-bezier(0.16, 1, 0.3, 1) !important;
 		}
 
-
-		@keyframes extblinking {
-			0% {
-				background-color: green;
-			}
-
-			100% {
-				background-color: red;
-			}
+		/* Extension Alert Animation */
+		@keyframes extAlertPulse {
+			0% { background-color: #dc2626 !important; box-shadow: 0 0 10px rgba(220, 38, 38, 0.9); color: #ffffff !important; }
+			50% { background-color: #7f1d1d !important; box-shadow: none; color: #fca5a5 !important; }
+			100% { background-color: #dc2626 !important; box-shadow: 0 0 10px rgba(220, 38, 38, 0.9); color: #ffffff !important; }
 		}
 
 		.extBlink {
-			animation: extblinking .15s 3;
+			animation: extAlertPulse 0.25s 3 ease-in-out !important;
 		}
 
-		/* end of blink code */
-
-		#raceInfo {
-			background-image: linear-gradient(to right, grey, white);
+		/* Scoreboard Chassis - Balanced Compact Anchor */
+		#scoreBoardDiv {
 			position: fixed;
-			bottom: 13px;
-			width: 245px;
-			left: 670px;
-			border-radius: 0px 00px 10px 10px;
-			text-align: center;
-			font-size: 12pt;
-			/*7*/
-			font-weight: bolder;
-			border: 1px solid #000;
-			z-index: -1;
+			bottom: 20px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 620px;
+			max-width: 96vw;
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			z-index: 100;
+			user-select: none;
 		}
 
-		#wagerInfo {
-			background-image: linear-gradient(to left, grey, white);
-			position: fixed;
-			bottom: 13px;
-			width: 245px;
-			right: 670px;
-			border-radius: 0px 00px 10px 10px;
-			text-align: center;
-			font-size: 12pt;
-			/*7*/
-			font-weight: bolder;
-			border: 1px solid #000;
-			z-index: -1;
+		/* Corner Docking overrides */
+		body.pos-top-left #scoreBoardDiv {
+			top: 20px;
+			bottom: auto;
+			left: 20px;
+			transform: none;
 		}
 
-		#salottoLogo {
-			position: absolute;
-			top: 35.5px;
-			right: 823px;
-			z-index: 9;
-			visibility: hidden;
+		body.pos-bottom-left #scoreBoardDiv {
+			bottom: 20px;
+			left: 20px;
+			transform: none;
 		}
 
-		#g4Logo {
-			position: absolute;
-			top: 35px;
-			left: 823px;
-			z-index: 9;
-			visibility: hidden;
+		/* Match Info Rail (Race & Wager Info Only - ZERO Hardcoded Branding) */
+		.infoRail {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 4px 5px 4px;
+			min-height: 0;
+			font-family: var(--font-labels);
+			font-size: 10px;
+			font-weight: 700;
+			letter-spacing: 0.8px;
+			text-transform: uppercase;
 		}
 
-		#shotClock {
-			width: 575px;
-			text-align: center;
-			font-size: 12pt;
-			vertical-align: bottom;
+		.infoRail:empty {
+			display: none;
+		}
+
+		#raceInfo, #wagerInfo {
+			background: rgba(11, 15, 23, 0.88);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			padding: 2px 10px;
+			border-radius: 4px;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+			backdrop-filter: blur(6px);
+			color: #e5e7eb;
+		}
+
+		#raceInfo { margin-right: auto; }
+		#wagerInfo { margin-left: auto; }
+
+		/* Main Compact Scoreboard Bar */
+		.mainScoreBar {
+			display: flex;
+			align-items: stretch;
+			height: 38px;
+			background: linear-gradient(180deg, #131926 0%, #0a0e17 100%);
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			border-radius: 5px;
+			box-shadow: 0 10px 28px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.5);
+			overflow: hidden;
 			position: relative;
-			padding-bottom: 2px;
-			top: -3px;
-			z-index: -2;
-			border-radius: 0px 00px 10px 10px;
-			
+		}
+
+		/* Sponsor / Organization Logos - Contained next to Extension Indicators */
+		.sponsorLogo {
+			height: 24px;
+			max-height: 24px;
+			width: auto;
+			max-width: 52px;
+			object-fit: contain;
+			align-self: center;
+			user-select: none;
+			pointer-events: none;
+			flex-shrink: 0;
+			transition: opacity 0.2s ease, max-width 0.2s ease, margin 0.2s ease;
+		}
+
+		.sponsorLeft {
+			margin-left: 6px;
+			margin-right: 3px;
+		}
+
+		.sponsorRight {
+			margin-left: 3px;
+			margin-right: 6px;
+		}
+
+		.sponsorLogo.fadeOutElm {
+			display: none !important;
+			max-width: 0 !important;
+			margin: 0 !important;
+			padding: 0 !important;
+			visibility: hidden !important;
+			opacity: 0 !important;
+			pointer-events: none !important;
+		}
+
+		.sponsorLogo.fadeInElm {
+			display: block !important;
+			visibility: visible !important;
+			opacity: 1 !important;
+		}
+
+		/* Extension Badges - Balanced Left & Right */
+		.extBadge {
+			width: 32px;
+			min-width: 32px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #15803d; /* Emerald Green */
+			color: #ffffff;
+			font-family: var(--font-labels);
+			font-size: 9.5px;
+			font-weight: 800;
+			letter-spacing: 0.5px;
+			text-transform: uppercase;
+			transition: background-color 0.2s ease;
+			user-select: none;
+			flex-shrink: 0;
+		}
+
+		#p1ExtIcon { border-right: 1px solid rgba(0, 0, 0, 0.35); }
+		#p2ExtIcon { border-left: 1px solid rgba(0, 0, 0, 0.35); }
+
+		.extBadge.fadeOutElm {
+			display: none !important;
+			width: 0 !important;
+			min-width: 0 !important;
+			padding: 0 !important;
+			border: none !important;
+			visibility: hidden !important;
+			opacity: 0 !important;
+			pointer-events: none !important;
+		}
+
+		/* Player Names - Equal Balanced Flex-1 */
+		.playerName {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			padding: 0 14px;
+			font-family: var(--font-names);
+			font-size: 17px;
+			font-weight: 700;
+			letter-spacing: 0.5px;
+			text-transform: uppercase;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: #ffffff;
+			text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.85);
+			min-width: 0;
+			transition: background 0.3s ease;
+		}
+
+		#player1Name {
+			justify-content: flex-end;
+			text-align: right;
+			background: linear-gradient(to left, rgba(255, 255, 255, 0.08), rgba(29, 78, 216, 0.55));
+		}
+
+		#player2Name {
+			justify-content: flex-start;
+			text-align: left;
+			background: linear-gradient(to right, rgba(255, 255, 255, 0.08), rgba(225, 29, 72, 0.55));
+		}
+
+		/* Scores - High-Contrast Digital Numerals */
+		.playerScore {
+			width: 50px;
+			min-width: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #05080e;
+			color: #ffffff;
+			font-family: var(--font-digits);
+			font-size: 21px;
+			font-weight: 800;
+			font-variant-numeric: tabular-nums;
+			border-left: 1px solid rgba(255, 255, 255, 0.12);
+			border-right: 1px solid rgba(255, 255, 255, 0.12);
+			user-select: none;
+			flex-shrink: 0;
+		}
+
+		/* Center Matchup Divider */
+		.centerDivider {
+			width: 28px;
+			min-width: 28px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #0d121c;
+			border-left: 1px solid rgba(255, 255, 255, 0.08);
+			border-right: 1px solid rgba(255, 255, 255, 0.08);
+			flex-shrink: 0;
+		}
+
+		.centerDivider .vsText {
+			font-family: var(--font-labels);
+			font-size: 10px;
+			font-weight: 800;
+			letter-spacing: 1px;
+			color: rgba(255, 255, 255, 0.35);
+			user-select: none;
+		}
+
+		/* Shot Clock - Dedicated Center Floating Module (Zero Overlay Occlusion) */
+		#shotClock {
+			position: absolute;
+			bottom: calc(100% + 7px);
+			left: 50%;
+			transform: translateX(-50%);
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			height: 26px;
+			min-width: 80px;
+			padding: 0 12px;
+			background: #0b0f17;
+			color: #ffffff;
+			font-family: var(--font-digits);
+			font-size: 17px;
+			font-weight: 800;
+			letter-spacing: 0.5px;
+			border-radius: 4px;
+			border: 1px solid rgba(255, 255, 255, 0.22);
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+			z-index: 20;
+		}
+
+		/* Shot Clock Progress Line */
+		.shotclockvis {
+			position: absolute;
+			bottom: calc(100% + 4px);
+			left: 50%;
+			transform: translateX(-50%);
+			width: 80px;
+			height: 2.5px;
+			border-radius: 2px;
+			background: #22c55e;
+			z-index: 21;
+		}
+
+		.startTimer {
+			width: 0px !important;
+			transition: width 30s linear !important;
+		}
+
+		.start60 {
+			width: 0px !important;
+			transition: width 60s linear !important;
+		}
+
+		.shotRed {
+			color: #ffffff !important;
+			background-color: #dc2626 !important;
 		}
 	</style>
 </head>
-
 <body>
-	<div class="noShow fadeInElm" id="raceInfo">&nbsp;</div>
-	<div class="noShow fadeInElm" id="wagerInfo">&nbsp;</div>
+	<div class="fadeInElm" id="scoreBoardDiv">
+		<!-- Dedicated Shot Clock Pill & Visual Progress Bar -->
+		<div class="fadeOutElm" id="shotClock">&nbsp;</div>
+		<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
 
-
-	<center>
-		<div class="fadeInElm" id="scoreBoardDiv">
-			<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
-			<img class="noShow fadeOutElm" id="salottoLogo" height="20px" src="./common/images/salotto.png">
-			<img class="noShow fadeOutElm" id="g4Logo" height="20px" src="./common/images/logo.png">
-			<div class="fadeInElm" id="p1ExtIcon">Ex</div>
-			<div class="fadeInElm" id="p2ExtIcon">Ex</div>
-			<table>
-				<tr>
-					<td class="noShow"></td>
-					<td class="noShow"></td>
-					<td class="noShow"></td>
-					<td class="noShow" colspan=2 width="30px">>&nbsp;</td>
-					<td class="noShow"></td>
-					<td class="noShow"></td>
-					<td class="noShow"></td>
-				</tr>
-				<tr>
-					<td id="player1Name" width="250px">p1name</td>
-					<td id="player1Score" style="background:#fff" colspan=3>0</td>
-					<td id="player2Score" style="background:#fff" colspan=3>0</td>
-					<td id="player2Name" width="250px">p2name</td>
-				</tr>
-			</table>
-			<div class="fadeOutElm" id="shotClock">&nbsp;</div>
-
+		<!-- Match Info Rail (Race & Wager Info Only - ZERO Hardcoded Branding) -->
+		<div class="infoRail" id="infoRail">
+			<div class="noShow fadeInElm" id="raceInfo">&nbsp;</div>
+			<div class="noShow fadeInElm" id="wagerInfo">&nbsp;</div>
 		</div>
-		<!-- testing -->
-		<div id="logoSlideshowDiv" class="noShow slideshow-container fadeOutElm">
-			<div class="mySlides logoSlide fade">
-				<img id="customLogo1" src="" style="height:20px">
+
+		<!-- Balanced Compact Scoreboard Bar -->
+		<div class="mainScoreBar" id="mainScoreBar">
+			<!-- Salotto Logo (Contained right next to Player 1 Extension indicator) -->
+			<img class="sponsorLogo sponsorLeft fadeOutElm" id="salottoLogo" src="./common/images/salotto.png" alt="Salotto">
+
+			<!-- Player 1 Extension -->
+			<div class="fadeInElm extBadge" id="p1ExtIcon">EX</div>
+
+			<!-- Player 1 Name & Score -->
+			<div class="playerName" id="player1Name">Player 1</div>
+			<div class="playerScore" id="player1Score">0</div>
+
+			<!-- Balanced Center Divider -->
+			<div class="centerDivider" id="centerDivider">
+				<span class="vsText">VS</span>
 			</div>
-			<div class="mySlides logoSlide fade">
-				<img id="customLogo2" src="" style="height:20px">
-			</div>
-			<div class="mySlides logoSlide fade">
-				<img id="customLogo3" src="" style="height:20px">
-			</div>
+
+			<!-- Player 2 Score & Name -->
+			<div class="playerScore" id="player2Score">0</div>
+			<div class="playerName" id="player2Name">Player 2</div>
+
+			<!-- Player 2 Extension -->
+			<div class="fadeInElm extBadge" id="p2ExtIcon">EX</div>
+
+			<!-- G4 Logo (Contained right next to Player 2 Extension indicator) -->
+			<img class="sponsorLogo sponsorRight fadeOutElm" id="g4Logo" src="./common/images/logo.png" alt="G4">
 		</div>
-		<!--testing  -->
-	</center>
+
+		<!-- Hidden Slideshow Container -->
+		<div id="logoSlideshowDiv" class="slideshow-container fadeOutElm" style="display:none;">
+			<div class="mySlides logoSlide fade"><img id="customLogo1" src="" style="height:20px"></div>
+			<div class="mySlides logoSlide fade"><img id="customLogo2" src="" style="height:20px"></div>
+			<div class="mySlides logoSlide fade"><img id="customLogo3" src="" style="height:20px"></div>
+		</div>
+	</div>
+
 	<script>
-
-
-
-		if (localStorage.getItem("customLogo1") != null) {
-			document.getElementById("customLogo1").src = localStorage.getItem("customLogo1");
-			document.getElementById("customLogo2").src = localStorage.getItem("customLogo2");
-			document.getElementById("customLogo3").src = localStorage.getItem("customLogo3");
-		}
-
-		let slideIndex = 0;
-		showSlides();
-
-		function showSlides() {
-			let i;
-			let slides = document.getElementsByClassName("logoSlide");
-			for (i = 0; i < slides.length; i++) {
-				slides[i].style.display = "none";
+		// Support URL position parameters: ?pos=top-left or ?pos=bottom-left
+		(function() {
+			const params = new URLSearchParams(window.location.search);
+			const pos = params.get('pos');
+			if (pos === 'top-left') {
+				document.body.classList.add('pos-top-left');
+			} else if (pos === 'bottom-left') {
+				document.body.classList.add('pos-bottom-left');
 			}
-			slideIndex++;
-			if (slideIndex > slides.length) { slideIndex = 1 }
-			slides[slideIndex - 1].style.display = "block";
-			setTimeout(showSlides, 20000); // Change image every 20 seconds
-		}
+		})();
 
-
-
-
-
-		if (localStorage.getItem("customImage") !== null) {
-			document.getElementById("g4Logo").src = localStorage.getItem("customImage");
-		}
-
-		if (localStorage.getItem("p1ScoreCtrlPanel") !== null) {
-			document.getElementById("player1Score").innerHTML = localStorage.getItem("p1ScoreCtrlPanel");
-		} else {
-			document.getElementById("player1Score").innerHTML = 0;
-		}
-
-		if (localStorage.getItem("p2ScoreCtrlPanel") !== null) {
-			document.getElementById("player2Score").innerHTML = localStorage.getItem("p2ScoreCtrlPanel");
-		} else {
-			document.getElementById("player2Score").innerHTML = 0;
-		}
-
-		if (localStorage.getItem("wagerInfo") !== "") {
-			document.getElementById("wagerInfo").classList.remove("noShow");
-		}
-
-		if (localStorage.getItem("raceInfo") !== "") {
-			document.getElementById("raceInfo").classList.remove("noShow");
-		}
-
-		document.getElementById("player1Name").innerHTML = localStorage.getItem("p1NameCtrlPanel");
-		document.getElementById("raceInfo").innerHTML = localStorage.getItem("raceInfo");
-		document.getElementById("player2Name").innerHTML = localStorage.getItem("p2NameCtrlPanel");
-		document.getElementById("wagerInfo").innerHTML = localStorage.getItem("wagerInfo");
-		document.getElementById("raceInfo").innerHTML = localStorage.getItem("raceInfo");
-
-
-		if (localStorage.getItem("useCustomLogo") == "yes") {
-			document.getElementById("g4Logo").classList.replace("fadeOutElm", "fadeInElm");
-		}
-		if (localStorage.getItem("useSalotto") == "yes") {
-			document.getElementById("salottoLogo").classList.replace("fadeOutElm", "fadeInElm");
-		}
-		if (localStorage.getItem("useClock") !== "yes") {
-			document.getElementById("p1ExtIcon").classList.replace("fadeInElm", "fadeOutElm");
-			document.getElementById("p2ExtIcon").classList.replace("fadeInElm", "fadeOutElm");
-		}
-
-		if (localStorage.getItem('p1colorSet') !== "") {
-			document.getElementById("player1Name").style.background = "linear-gradient(to left, white , " + localStorage.getItem('p1colorSet');
-			console.log("p1color: " + localStorage.getItem('p1colorSet'));
-		}
-		if (localStorage.getItem('p2colorSet') !== "") {
-			document.getElementById("player2Name").style.background = "linear-gradient(to right, white , " + localStorage.getItem('p2colorSet');
-			console.log("p2color: " + localStorage.getItem('p2colorSet'));
-		}
-
-
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//										variable declarations
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-
-		var countDownTime;
-		var shotClockxr = null;
-		const bcr = new BroadcastChannel('g4-recv'); // browser_source -> control_panel channel 
-		const bc = new BroadcastChannel('g4-main');
-		var playerNumber;
-
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//										broadcast channel events
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
-
-		bc.onmessage = (event) => {
-			if (event.data.score != null) {
-				console.log("event.data.player: " + event.data.player + "  event.data.score: " + event.data.score);
-				if (event.data.score > document.getElementById("player" + event.data.player + "Score").innerHTML) {
-					document.getElementById("player" + event.data.player + "Score").innerHTML = event.data.score;
-					document.getElementById("player" + event.data.player + "Score").classList.add("winBlink");
-					setTimeout("clearWinBlink()", 500);
-				} else {
-					document.getElementById("player" + event.data.player + "Score").innerHTML = event.data.score;
-				}
-			}
-
-			if (event.data.opacity != null) {
-				console.log("event.data(opacity): " + event.data.opacity);
-				document.getElementById("scoreBoardDiv").style.opacity = event.data.opacity;
-				document.getElementById("raceInfo").style.opacity = event.data.opacity;
-				document.getElementById("wagerInfo").style.opacity = event.data.opacity;
-			}
-
-			if (event.data.race != null) {
-				console.log("event.data.race: " + event.data.race);
-				if (event.data.race == "") {
-					document.getElementById("raceInfo").classList.add("noShow");
-					document.getElementById("raceInfo").classList.remove("fadeInElm");
-				} else {
-					document.getElementById("raceInfo").classList.remove("noShow");
-					document.getElementById("raceInfo").classList.add("fadeInElm");
-					document.getElementById("raceInfo").innerHTML = event.data.race;
-				}
-			}
-			if (event.data.wager != null) {
-				console.log("event.data.wager: " + event.data.wager);
-				if (event.data.wager == "") {
-					document.getElementById("wagerInfo").classList.add("noShow");
-					document.getElementById("wagerInfo").classList.remove("fadeInElm");
-				} else {
-					document.getElementById("wagerInfo").classList.remove("noShow");
-					document.getElementById("wagerInfo").classList.add("fadeInElm");
-					document.getElementById("wagerInfo").innerHTML = event.data.wager;
-				}
-			}
-
-			if (event.data.time != null) {
-				console.log("event.data.time: " + event.data.time);
-				shotTimer(event.data.time);
-			}
-
-			if (event.data.color != null) {
-				console.log("event.data.player: " + event.data.player + " event.data.color: " + event.data.color);
-				if (event.data.player == "1") { document.getElementById("player" + event.data.player + "Name").style.background = "linear-gradient(to left, white , " + event.data.color; };
-				if (event.data.player == "2") { document.getElementById("player" + event.data.player + "Name").style.background = "linear-gradient(to right, white , " + event.data.color; };
-			}
-
-			if (event.data.name != null) {
-				console.log("event.data.player: " + event.data.player + " event.data.name: " + event.data.name);
-				if (!event.data.name == "") {
-					document.getElementById("player" + event.data.player + "Name").innerHTML = event.data.name;
-				} else {
-					document.getElementById("player" + event.data.player + "Name").innerHTML = "Player " + event.data.player;
-				}
-			}
-
-			// start of original clockDisplay channel 
-			if (event.data.clockDisplay != null) {
-				console.log("event.data.clockDisplay: " + event.data.clockDisplay);
-				if (event.data.clockDisplay == "show") { showClock(); };
-				if (event.data.clockDisplay == "hide") { hideClock(); };
-				if (event.data.clockDisplay == "stopClock") { stopClock(); };
-				if (event.data.clockDisplay == "noClock") {
-					document.getElementById("p1ExtIcon").classList.replace("fadeInElm", "fadeOutElm");
-					document.getElementById("p2ExtIcon").classList.replace("fadeInElm", "fadeOutElm");
-				}
-				if (event.data.clockDisplay == "useClock") {
-					document.getElementById("p1ExtIcon").classList.replace("fadeOutElm", "fadeInElm");
-					document.getElementById("p2ExtIcon").classList.replace("fadeOutElm", "fadeInElm");
-				}
-				if (event.data.clockDisplay == "p1extension") { add30(1); };
-				if (event.data.clockDisplay == "p2extension") { add30(2); };
-				if (event.data.clockDisplay == "p1ExtReset") { extReset('p1'); };
-				if (event.data.clockDisplay == "p2ExtReset") { extReset('p2'); };
-				if (event.data.clockDisplay == "hidesalotto") { salottoHide(); };
-				if (event.data.clockDisplay == "showsalotto") { salottoShow(); };
-				if (event.data.clockDisplay == "hidecustomLogo") { customHide(); };
-				if (event.data.clockDisplay == "showcustomLogo") { customShow(); };
-				if (event.data.clockDisplay == "postLogo") { postLogo(); };
-				if (event.data.clockDisplay == "logoSlideShow-show") {
-					customHide();
-					document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
-					document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
-					setTimeout(function () { document.getElementById("g4Logo").classList.add("fade"); }, 500);
-					if (localStorage.getItem("customLogo1") != null) { document.getElementById("customLogo1").src = localStorage.getItem("customLogo1"); } else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
-					if (localStorage.getItem("customLogo2") != null) { document.getElementById("customLogo2").src = localStorage.getItem("customLogo2"); } else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
-					if (localStorage.getItem("customLogo3") != null) { document.getElementById("customLogo3").src = localStorage.getItem("customLogo3"); } else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
-				}
-				if (event.data.clockDisplay == "logoSlideShow-hide") { document.getElementById("logoSlideshowDiv").classList.replace("fadeInElm", "fadeOutElm"); };
-				if (event.data.clockDisplay == "style100") { styleChange(1); };
-				if (event.data.clockDisplay == "style125") { styleChange(2); };
-				if (event.data.clockDisplay == "style150") { styleChange(3); };
-			}
-		}
-
-		function postLogo() {
-			if (localStorage.getItem("customImage") !== "") {
-				document.getElementById("g4Logo").src = localStorage.getItem("customImage");
-
-			}
-		}
 		function clearWinBlink() {
 			document.getElementById("player1Score").classList.remove("winBlink");
 			document.getElementById("player2Score").classList.remove("winBlink");
 		}
 
-		function shotTimer(shottime) {
-			var tev;
-			countDownTime = new Date().getTime() + shottime;
-			shotClockxr = setInterval(function () {
-				var now = new Date().getTime();
-				var distance = countDownTime - now;
-				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-				document.getElementById("shotClockVis").classList.replace("fadeOutElm", "fadeInElm");
-				document.getElementById("shotClockVis").style.background = "lime";
-				document.getElementById("shotClock").style.background = "green";
-				if (distance > 21000) {
-					document.getElementById("shotClock").style.color = "white";
-				}
-				if (distance > 5000 && distance < 21000) {
-					document.getElementById("shotClock").style.color = "black";
-				}
-
-				if (shottime == 61000) {
-					document.getElementById("shotClockVis").classList.add("start60");
-				} else {
-					document.getElementById("shotClockVis").classList.add("startTimer");
-				}
-
-				if (distance > 60000) {
-					seconds = seconds + 60;
-				}
-				document.getElementById("shotClock").innerHTML = seconds + "s";
-
-				if (distance < 31000) {
-					document.getElementById("shotClockVis").classList.replace("fadeOutElm", "fadeInElm");
-					document.getElementById("shotClockVis").style.background = "lime";
-					document.getElementById("shotClockVis").classList.add("startTimer");
-
-				}
-				if (distance < 26000) {
-					document.getElementById("shotClockVis").style.background = "#5aa500";
-					document.getElementById("shotClockVis").style.opacity = "0.7";
-				}
-
-				if (distance < 21000) {
-					document.getElementById("shotClockVis").style.background = "#639b00";
-					document.getElementById("shotClock").style.background = "orange";
-
-				}
-				if (distance < 16000) {
-
-					document.getElementById("shotClock").style.background = "yellow";
-					document.getElementById("shotClockVis").style.background = "#926d00";
-
-				}
-
-				if (distance < 11000) {
-					document.getElementById("shotClock").style.background = "tomato";
-					document.getElementById("shotClockVis").style.background = "#d12f00";
-					document.getElementById("shotClockVis").style.opacity = "1";
-				}
-				if (distance < 11000 && distance > 9700) {
-					showClock();
-				}
-
-				if (distance < 6000 && distance > 999) {
-					document.getElementById("shotClock").classList.add("shotRed");
-					document.getElementById("shotClock").style.background = "red";
-					document.getElementById("shotClockVis").style.background = "red";
-					document.getElementById("shotClock").style.color = "white";
-
-				}
-				if (distance < 1000) {
-					clearInterval(shotClockxr);
-					document.getElementById("shotClock").style.background = "red";
-					document.getElementById("shotClockVis").style.background = "red";
-					document.getElementById("shotClock").style.color = "white";
-
-
-				}
-				if (seconds == tev) {
-					var ntev = seconds-- - 1;
-					document.getElementById("shotClock").innerHTML = ntev + "s";
-					tev = ntev;
-					console.log("dup Detected- tev:" + tev);
-					bcr.postMessage(tev);
-				} else {
-					document.getElementById("shotClock").innerHTML = seconds + "s";
-					tev = seconds;
-					console.log("tev:" + tev);
-					bcr.postMessage(tev);
-				}
-
-			}, 1000);
-
+		function clearExtBlink(playerN) {
+			document.getElementById("p" + playerN + "ExtIcon").classList.remove("extBlink");
+			document.getElementById("p" + playerN + "ExtIcon").style.background = "darkred";
 		}
 
+		function extReset(player) {
+			document.getElementById(player + "ExtIcon").style.background = "#15803d";
+		}
 
 		function showClock() {
 			document.getElementById("shotClock").classList.replace("fadeOutElm", "fadeInElm");
+			document.getElementById("shotClockVis").classList.replace("fadeOutElm", "fadeInElm");
 		}
 
 		function hideClock() {
 			document.getElementById("shotClock").classList.replace("fadeInElm", "fadeOutElm");
+			document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
 		}
 
 		function stopClock() {
@@ -564,9 +441,138 @@ for more information about Salotto please visit https://salotto.app
 			document.getElementById("shotClockVis").classList.remove("startTimer");
 			document.getElementById("shotClockVis").classList.remove("start60");
 			document.getElementById("shotClockVis").style.background = "";
-
 		}
+
+		function salottoShow() {
+			var el = document.getElementById("salottoLogo");
+			if (el) {
+				if (localStorage.getItem("customLogo4") && localStorage.getItem("customLogo4") !== "") {
+					el.src = localStorage.getItem("customLogo4");
+				} else {
+					el.src = "./common/images/salotto.png";
+				}
+				el.style.removeProperty('display');
+				el.classList.remove("fadeOutElm");
+				el.classList.add("fadeInElm");
+			}
+		}
+
+		function salottoHide() {
+			var el = document.getElementById("salottoLogo");
+			if (el) {
+				el.classList.remove("fadeInElm");
+				el.classList.add("fadeOutElm");
+			}
+		}
+
+		function customShow() {
+			var el = document.getElementById("g4Logo");
+			if (el) {
+				if (localStorage.getItem("customLogo0") && localStorage.getItem("customLogo0") !== "") {
+					el.src = localStorage.getItem("customLogo0");
+				} else {
+					el.src = "./common/images/logo.png";
+				}
+				el.style.removeProperty('display');
+				el.classList.remove("fadeOutElm", "logoSlide", "fade");
+				el.classList.add("fadeInElm");
+			}
+		}
+
+		function customHide() {
+			var el = document.getElementById("g4Logo");
+			if (el) {
+				el.classList.remove("fadeInElm");
+				el.classList.add("fadeOutElm");
+			}
+		}
+
+		function postLogo() {
+			if (localStorage.getItem("customLogo0") && localStorage.getItem("customLogo0") !== "") {
+				document.getElementById("g4Logo").src = localStorage.getItem("customLogo0");
+			} else {
+				document.getElementById("g4Logo").src = "./common/images/logo.png";
+			}
+			if (localStorage.getItem("customLogo4") && localStorage.getItem("customLogo4") !== "") {
+				document.getElementById("salottoLogo").src = localStorage.getItem("customLogo4");
+			} else {
+				document.getElementById("salottoLogo").src = "./common/images/salotto.png";
+			}
+		}
+
+		var countDownTime;
+		var shotClockxr = null;
 		var playerNumber;
+		const bcr = new BroadcastChannel('g4-recv');
+		const bc = new BroadcastChannel('g4-main');
+
+		function shotTimer(shottime) {
+			var tev;
+			countDownTime = new Date().getTime() + shottime;
+			showClock();
+			if (shottime == 61000) {
+				document.getElementById("shotClockVis").classList.add("start60");
+			} else {
+				document.getElementById("shotClockVis").classList.add("startTimer");
+			}
+			shotClockxr = setInterval(function () {
+				var now = new Date().getTime();
+				var distance = countDownTime - now;
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				document.getElementById("shotClockVis").style.background = "lime";
+				document.getElementById("shotClock").style.background = "green";
+				if (distance > 21000) { document.getElementById("shotClock").style.color = "white"; }
+				if (distance > 5000 && distance < 21000) { document.getElementById("shotClock").style.color = "black"; }
+				if (distance > 60000) { seconds = seconds + 60; }
+				document.getElementById("shotClock").innerHTML = seconds + "s";
+				if (distance < 31000) {
+					document.getElementById("shotClockVis").classList.replace("fadeOutElm", "fadeInElm");
+					document.getElementById("shotClockVis").style.background = "lime";
+				}
+				if (distance < 26000) {
+					document.getElementById("shotClockVis").style.opacity = "0.7";
+				}
+				if (distance < 21000) {
+					document.getElementById("shotClockVis").style.background = "orange";
+					document.getElementById("shotClock").style.background = "orange";
+				}
+				if (distance < 16000) {
+					document.getElementById("shotClock").style.background = "yellow";
+					document.getElementById("shotClockVis").style.background = "#926d00";
+				}
+				if (distance < 11000) {
+					document.getElementById("shotClock").style.background = "tomato";
+					document.getElementById("shotClockVis").style.background = "#d12f00";
+					document.getElementById("shotClockVis").style.opacity = "1";
+				}
+				if (distance < 11000 && distance > 9700) {
+					showClock();
+				}
+				if (distance < 6000 && distance > 999) {
+					document.getElementById("shotClock").classList.add("shotRed");
+					document.getElementById("shotClock").style.background = "red";
+					document.getElementById("shotClockVis").style.background = "red";
+					document.getElementById("shotClock").style.color = "white";
+				}
+				if (distance < 1000) {
+					clearInterval(shotClockxr);
+					document.getElementById("shotClock").style.background = "red";
+					document.getElementById("shotClockVis").style.background = "red";
+					document.getElementById("shotClock").style.color = "white";
+				}
+				if (seconds == tev) {
+					var ntev = seconds-- - 1;
+					document.getElementById("shotClock").innerHTML = ntev + "s";
+					tev = ntev;
+					bcr.postMessage(tev);
+				} else {
+					document.getElementById("shotClock").innerHTML = seconds + "s";
+					tev = seconds;
+					bcr.postMessage(tev);
+				}
+			}, 1000);
+		}
+
 		function add30(player) {
 			countDownTime = countDownTime + 30000;
 			document.getElementById("p" + player + "ExtIcon").style.background = "darkred";
@@ -575,62 +581,135 @@ for more information about Salotto please visit https://salotto.app
 			document.getElementById("shotClockVis").classList.remove("startTimer");
 			document.getElementById("shotClockVis").classList.remove("start60");
 			document.getElementById("shotClockVis").style.background = "";
-			document.getElementById("shotClock").classList.replace("fadeInElm", "fadeOutElm");
-			document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
+			showClock();
 			document.getElementById("p" + player + "ExtIcon").classList.add("extBlink");
 			playerNumber = player;
 			setTimeout("clearExtBlink(playerNumber)", 500);
 		}
 
-		function clearExtBlink(playerN) {
-			document.getElementById("p" + playerN + "ExtIcon").classList.remove("extBlink");
-			document.getElementById("p" + playerN + "ExtIcon").style.background = "darkred";
-
-		}
-
-		function extReset(player) {
-			document.getElementById(player + "ExtIcon").style.background = "green";
-
-		}
-
-		function salottoShow() {
-			document.getElementById("salottoLogo").classList.replace("fadeOutElm", "fadeInElm");
-
-		}
-		function salottoHide() {
-			document.getElementById("salottoLogo").classList.replace("fadeInElm", "fadeOutElm");
-
-		}
-
-		function customShow() {
-			if (document.getElementById("g4Logo").classList.contains("logoSlide")) {
-				document.getElementById("g4Logo").classList.replace("logoSlide", "fadeOutElm");
+		bc.onmessage = (event) => {
+			if (event.data.score != null) {
+				if (event.data.score > document.getElementById("player" + event.data.player + "Score").innerHTML) {
+					document.getElementById("player" + event.data.player + "Score").innerHTML = event.data.score;
+					document.getElementById("player" + event.data.player + "Score").classList.add("winBlink");
+					setTimeout(clearWinBlink, 500);
+				} else {
+					document.getElementById("player" + event.data.player + "Score").innerHTML = event.data.score;
+				}
 			}
-			if (document.getElementById("g4Logo").classList.contains("fade")) {
-				document.getElementById("g4Logo").classList.remove("fade");
+
+			if (event.data.opacity != null) {
+				document.getElementById("scoreBoardDiv").style.opacity = event.data.opacity;
 			}
-			document.getElementById("g4Logo").style.display = "block";
-			document.getElementById("g4Logo").classList.replace("fadeOutElm", "fadeInElm");
 
+			if (event.data.race != null) {
+				if (event.data.race == "") {
+					document.getElementById("raceInfo").classList.add("noShow");
+					document.getElementById("raceInfo").classList.remove("fadeInElm");
+				} else {
+					document.getElementById("raceInfo").classList.remove("noShow");
+					document.getElementById("raceInfo").classList.add("fadeInElm");
+					document.getElementById("raceInfo").innerHTML = event.data.race;
+				}
+			}
+			if (event.data.wager != null) {
+				if (event.data.wager == "") {
+					document.getElementById("wagerInfo").classList.add("noShow");
+					document.getElementById("wagerInfo").classList.remove("fadeInElm");
+				} else {
+					document.getElementById("wagerInfo").classList.remove("noShow");
+					document.getElementById("wagerInfo").classList.add("fadeInElm");
+					document.getElementById("wagerInfo").innerHTML = event.data.wager;
+				}
+			}
+
+			if (event.data.time != null) {
+				shotTimer(event.data.time);
+			}
+
+			if (event.data.color != null) {
+				if (event.data.player == "1") {
+					document.getElementById("player1Name").style.background = "linear-gradient(to left, rgba(255, 255, 255, 0.08), " + event.data.color + ")";
+				}
+				if (event.data.player == "2") {
+					document.getElementById("player2Name").style.background = "linear-gradient(to right, rgba(255, 255, 255, 0.08), " + event.data.color + ")";
+				}
+			}
+
+			if (event.data.name != null) {
+				if (event.data.name !== "") {
+					document.getElementById("player" + event.data.player + "Name").innerHTML = event.data.name;
+				} else {
+					document.getElementById("player" + event.data.player + "Name").innerHTML = "Player " + event.data.player;
+				}
+			}
+
+			if (event.data.clockDisplay != null) {
+				if (event.data.clockDisplay == "show") { showClock(); }
+				if (event.data.clockDisplay == "hide") { hideClock(); }
+				if (event.data.clockDisplay == "stopClock") { stopClock(); }
+				if (event.data.clockDisplay == "noClock") {
+					document.getElementById("p1ExtIcon").classList.replace("fadeInElm", "fadeOutElm");
+					document.getElementById("p2ExtIcon").classList.replace("fadeInElm", "fadeOutElm");
+				}
+				if (event.data.clockDisplay == "useClock") {
+					document.getElementById("p1ExtIcon").classList.replace("fadeOutElm", "fadeInElm");
+					document.getElementById("p2ExtIcon").classList.replace("fadeOutElm", "fadeInElm");
+				}
+				if (event.data.clockDisplay == "p1extension") { add30(1); }
+				if (event.data.clockDisplay == "p2extension") { add30(2); }
+				if (event.data.clockDisplay == "p1ExtReset") { extReset('p1'); }
+				if (event.data.clockDisplay == "p2ExtReset") { extReset('p2'); }
+				if (event.data.clockDisplay == "hidesalotto") { salottoHide(); }
+				if (event.data.clockDisplay == "showsalotto") { salottoShow(); }
+				if (event.data.clockDisplay == "hidecustomLogo") { customHide(); }
+				if (event.data.clockDisplay == "showcustomLogo") { customShow(); }
+				if (event.data.clockDisplay == "postLogo") { postLogo(); }
+			}
+		};
+
+		// Initial load from localStorage
+		if (localStorage.getItem("p1ScoreCtrlPanel") !== null) {
+			document.getElementById("player1Score").innerHTML = localStorage.getItem("p1ScoreCtrlPanel");
 		}
-		function customHide() {
-			document.getElementById("g4Logo").classList.replace("fadeInElm", "fadeOutElm");
-			document.getElementById("g4Logo").style.display = "none";
-
+		if (localStorage.getItem("p2ScoreCtrlPanel") !== null) {
+			document.getElementById("player2Score").innerHTML = localStorage.getItem("p2ScoreCtrlPanel");
 		}
-		if (localStorage.getItem("customLogo1") != null) { document.getElementById("customLogo1").src = localStorage.getItem("customLogo1"); } else { document.getElementById("customLogo1").src = "./common/images/placeholder.png"; };
-		if (localStorage.getItem("customLogo2") != null) { document.getElementById("customLogo2").src = localStorage.getItem("customLogo2"); } else { document.getElementById("customLogo2").src = "./common/images/placeholder.png"; };
-		if (localStorage.getItem("customLogo3") != null) { document.getElementById("customLogo3").src = localStorage.getItem("customLogo3"); } else { document.getElementById("customLogo3").src = "./common/images/placeholder.png"; };
-
-		if (localStorage.getItem("slideShow") == "yes") {
-			document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
-			document.getElementById("logoSlideshowDiv").classList.replace("fadeOutElm", "fadeInElm");
-			document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
-			document.getElementById("g4Logo").classList.add("fade");
+		if (localStorage.getItem("p1NameCtrlPanel")) {
+			document.getElementById("player1Name").innerHTML = localStorage.getItem("p1NameCtrlPanel");
+		}
+		if (localStorage.getItem("p2NameCtrlPanel")) {
+			document.getElementById("player2Name").innerHTML = localStorage.getItem("p2NameCtrlPanel");
+		}
+		if (localStorage.getItem("raceInfo") && localStorage.getItem("raceInfo") !== "") {
+			document.getElementById("raceInfo").classList.remove("noShow");
+			document.getElementById("raceInfo").innerHTML = localStorage.getItem("raceInfo");
+		}
+		if (localStorage.getItem("wagerInfo") && localStorage.getItem("wagerInfo") !== "") {
+			document.getElementById("wagerInfo").classList.remove("noShow");
+			document.getElementById("wagerInfo").innerHTML = localStorage.getItem("wagerInfo");
+		}
+		if (localStorage.getItem("useClock") !== "yes") {
+			document.getElementById("p1ExtIcon").classList.replace("fadeInElm", "fadeOutElm");
+			document.getElementById("p2ExtIcon").classList.replace("fadeInElm", "fadeOutElm");
+		}
+		if (localStorage.getItem('p1colorSet') && localStorage.getItem('p1colorSet') !== "") {
+			document.getElementById("player1Name").style.background = "linear-gradient(to left, rgba(255, 255, 255, 0.08), " + localStorage.getItem('p1colorSet') + ")";
+		}
+		if (localStorage.getItem('p2colorSet') && localStorage.getItem('p2colorSet') !== "") {
+			document.getElementById("player2Name").style.background = "linear-gradient(to right, rgba(255, 255, 255, 0.08), " + localStorage.getItem('p2colorSet') + ")";
 		}
 
+		if (localStorage.getItem("useCustomLogo") == "yes") {
+			customShow();
+		} else {
+			customHide();
+		}
+		if (localStorage.getItem("useSalotto") == "yes") {
+			salottoShow();
+		} else {
+			salottoHide();
+		}
 	</script>
 </body>
-
-
 </html>

@@ -56,7 +56,10 @@
 					reader.addEventListener("load", function () {
 					// convert image file to base64 string and save to localStorage
 					try {localStorage.setItem("customLogo"+xL, reader.result);}
-					catch(err) { alert("the selected image exceedes the maximium file size");}
+					catch(err) { 
+						try { alert("the selected image exceeds the maximum file size"); }
+						catch(e) { console.warn("The selected image exceeds the maximum file size (alert blocked)"); }
+					}
 					document.getElementById("l"+xL+"Img").src = localStorage.getItem("customLogo"+xL);
 					}, false);
 					if (document.getElementById("logoSlideshowChk").checked == true) {setTimeout(slideOther, 50); };
@@ -511,7 +514,8 @@
 			}
 			
 			function cLogoNameChange() {
-				cLogoName = prompt("Rename Custom Logo Checkbox Label");
+				try { cLogoName = prompt("Rename Custom Logo Checkbox Label"); }
+				catch(e) { cLogoName = null; console.warn("Prompt blocked"); }
 				if (cLogoName != null && cLogoName != "") {
 				localStorage.setItem("clogoNameStored", cLogoName.substring(0, 13));
 				document.getElementById("logoName").innerHTML = cLogoName.substring(0, 13);
@@ -524,7 +528,8 @@
 			}
 
 			function salLogoNameChange() {
-				salLogoName = prompt("Rename Salotto Logo Checkbox Label");
+				try { salLogoName = prompt("Rename Salotto Logo Checkbox Label"); }
+				catch(e) { salLogoName = null; console.warn("Prompt blocked"); }
 				if (salLogoName != null && salLogoName != "") {
 				localStorage.setItem("sallogoNameStored", salLogoName.substring(0, 13));
 				document.getElementById("salllogoName").innerHTML = salLogoName.substring(0, 13);

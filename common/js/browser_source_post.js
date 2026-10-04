@@ -69,8 +69,8 @@
 				
 				if (event.data.color !=null) {
 						console.log("event.data.player: "+event.data.player+" event.data.color: "+ event.data.color);
-						if (event.data.player == "1") {	document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to left, white , "+event.data.color; };
-						if (event.data.player == "2") {	document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to right, white , "+event.data.color; };
+						if (event.data.player == "1") {	document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to left, rgba(255, 255, 255, 0.08), "+event.data.color+")"; };
+						if (event.data.player == "2") {	document.getElementById("player"+event.data.player+"Name").style.background = "linear-gradient(to right, rgba(255, 255, 255, 0.08), "+event.data.color+")"; };
 				}
 				
 				if (event.data.name != null) {
@@ -135,12 +135,16 @@
 				document.getElementById("g4Logo").classList.replace("fadeOutElm", "logoSlide");
 				document.getElementById("g4Logo").classList.add("fade");
 				}
-			if (localStorage.getItem("customLogo0") != null) {
-			document.getElementById("g4Logo").src = localStorage.getItem("customLogo0");
+			if (localStorage.getItem("customLogo0") != null && localStorage.getItem("customLogo0") !== "") {
+				document.getElementById("g4Logo").src = localStorage.getItem("customLogo0");
+			} else {
+				document.getElementById("g4Logo").src = "./common/images/logo.png";
 			}
 			
-			if (localStorage.getItem("customLogo4") != null) {
-			document.getElementById("salottoLogo").src = localStorage.getItem("customLogo4");
+			if (localStorage.getItem("customLogo4") != null && localStorage.getItem("customLogo4") !== "") {
+				document.getElementById("salottoLogo").src = localStorage.getItem("customLogo4");
+			} else {
+				document.getElementById("salottoLogo").src = "./common/images/salotto.png";
 			}
 	
 			if  (localStorage.getItem("p1ScoreCtrlPanel") != null) {
@@ -170,30 +174,34 @@
 			document.getElementById("raceInfo").innerHTML = localStorage.getItem("raceInfo");			
 	
 			if (localStorage.getItem("useCustomLogo") == "yes") {
-				document.getElementById("g4Logo").classList.replace("fadeOutElm","fadeInElm");			
+				customShow();
+			} else {
+				customHide();
 			}
 			if (localStorage.getItem("useSalotto") == "yes") {
-				document.getElementById("salottoLogo").classList.replace("fadeOutElm","fadeInElm");		
+				salottoShow();
+			} else {
+				salottoHide();
 			}
 			if (localStorage.getItem("useClock") != "yes") {
 				document.getElementById("p1ExtIcon").classList.replace("fadeInElm","fadeOutElm");	
 				document.getElementById("p2ExtIcon").classList.replace("fadeInElm","fadeOutElm");			
 			}
 	
-			if (localStorage.getItem('p1colorSet') != "") {
-				document.getElementById("player1Name").style.background = "linear-gradient(to left, white , "+localStorage.getItem('p1colorSet');
+			if (localStorage.getItem('p1colorSet') && localStorage.getItem('p1colorSet') != "") {
+				document.getElementById("player1Name").style.background = "linear-gradient(to left, rgba(255, 255, 255, 0.08), "+localStorage.getItem('p1colorSet')+")";
 				console.log("p1color: "+localStorage.getItem('p1colorSet'));
 			}
-			if (localStorage.getItem('p2colorSet') != "") {
-				document.getElementById("player2Name").style.background = "linear-gradient(to right, white , "+localStorage.getItem('p2colorSet');
+			if (localStorage.getItem('p2colorSet') && localStorage.getItem('p2colorSet') != "") {
+				document.getElementById("player2Name").style.background = "linear-gradient(to right, rgba(255, 255, 255, 0.08), "+localStorage.getItem('p2colorSet')+")";
 				console.log("p2color: "+localStorage.getItem('p2colorSet'));
 			}
 	
 			if (localStorage.getItem("b_style") != null) {
 			styleChange(localStorage.getItem("b_style"));
 			}else{
-				document.styleSheets[0].disabled = true;
-				document.styleSheets[1].disabled = false;
+				document.styleSheets[0].disabled = false;
+				document.styleSheets[1].disabled = true;
 				document.styleSheets[2].disabled = true;
 			}
 						

@@ -1,52 +1,79 @@
 <!doctype html>
 <!-- 
 G4ScoreBoard addon for OBS Copyright 2022-2026 Norman Gholson IV
-https://g4billiards.com http://www.g4creations.com
-this is a purely javascript/html/css driven scoreboard system for OBS Studio
-free to use and modify and use as long as this copyright statment remains intact. 
-Salotto logo is the copyright of Salotto and is used with their permission.
-for more information about Salotto please visit https://salotto.app
 -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoreboard Overlay</title>
+    <script src="./common/js/jquery.js"></script>
+    <script src="./common/js/browser_source.js"></script>
+    <link rel="stylesheet" href="./common/css/browser_source/100.css" />
+    <link rel="stylesheet" href="./common/css/browser_source/125.css" />
+    <link rel="stylesheet" href="./common/css/browser_source/150.css" />
+    <link rel="stylesheet" href="./common/css/browser_source/200.css" />
+</head>
+<body>
+    <div id="scoreBoardDiv" class="fadeInElm">
+        <!-- Dedicated Shot Clock Pill & Visual Progress Bar (Zero Overlay Occlusion) -->
+        <div class="fadeOutElm" id="shotClock">&nbsp;</div>
+        <div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
 
-<html>
-    <head>
-	   	<script src="./common/js/jquery.js"></script>
-		<script src="./common/js/browser_source.js"></script>
-		<link rel="stylesheet" href="./common/css/browser_source/100.css" />
-		<link rel="stylesheet" href="./common/css/browser_source/125.css" />
-		<link rel="stylesheet" href="./common/css/browser_source/150.css" />
-		<link rel="stylesheet" href="./common/css/browser_source/200.css" />
+        <!-- Match Info Rail (Race & Wager/Match info only - NO BRANDING) -->
+        <div class="infoRail" id="infoRail">
+            <div class="noShow fadeInElm" id="raceInfo">&nbsp;</div>
+            <div class="noShow fadeInElm" id="wagerInfo">&nbsp;</div>
+        </div>
 
-    </head>
-    <body>
-        <div class="noShow fadeInElm" id="raceInfo">&nbsp;</div>
-		<div class="noShow fadeInElm" id="wagerInfo">&nbsp;</div>
-        <div id="scoreBoardDiv"  class="fadeInElm">
-			<div class="shotclockvis fadeOutElm" id="shotClockVis"></div>
-			<img class="fadeOutElm" id="salottoLogo" height="20px" src="./common/images/salotto.png">
-			<img class="fadeOutElm" id="g4Logo" height="20px" src="./common/images/logo.png">
-			<div class="fadeInElm" id="p1ExtIcon">Ex</div>            
-			<div class="fadeInElm" id="p2ExtIcon">Ex</div>            
-			<table id="scoreBoard">
-				 <tr>
-					<td class="noShow"></td><td class="noShow"></td><td class="noShow"></td>
-					<td class="fadeOutElm" colspan="2" width="30px" id="shotClock">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-					<td class="noShow"></td><td class="noShow"></td><td class="noShow"></td>
-				</tr>
-				<tr>
-					<td id="player1Name">Player 1</td>
-					<td id="player1Score" colspan="3">0</td>
-					<td id="player2Score" colspan="3">0</td>
-					<td id="player2Name">Player 2</td>
-				</tr>
-			</table>
-			<div id="logoSlideshowDiv" class="slideshow-container fadeOutElm">
-			<div class="mySlides logoSlide fade"><img id="customLogo1" src="" style="height:20px"></div>
-			<div class="mySlides logoSlide fade"><img id="customLogo2" src="" style="height:20px"></div>
-			<div class="mySlides logoSlide fade"><img id="customLogo3" src="" style="height:20px"></div>
-			</div>
-		</div>
-      <script src="./common/js/browser_source_post.js"></script>
-    </body>
+        <!-- Balanced Scoreboard Bar (Bilateral Symmetry) -->
+        <div class="mainScoreBar" id="mainScoreBar">
+            <!-- Salotto Logo (Contained right next to Player 1 Extension indicator) -->
+            <img class="sponsorLogo sponsorLeft fadeOutElm" id="salottoLogo" src="./common/images/salotto.png" alt="Salotto">
+
+            <!-- Player 1 Extension -->
+            <div class="fadeInElm extBadge" id="p1ExtIcon">EX</div>
+
+            <!-- Player 1 Name & Score -->
+            <div class="playerName" id="player1Name">Player 1</div>
+            <div class="playerScore" id="player1Score">0</div>
+
+            <!-- Balanced Matchup Center Divider -->
+            <div class="centerDivider" id="centerDivider">
+                <span class="vsText">VS</span>
+            </div>
+
+            <!-- Player 2 Score & Name -->
+            <div class="playerScore" id="player2Score">0</div>
+            <div class="playerName" id="player2Name">Player 2</div>
+
+            <!-- Player 2 Extension -->
+            <div class="fadeInElm extBadge" id="p2ExtIcon">EX</div>
+
+            <!-- G4 Logo (Contained right next to Player 2 Extension indicator) -->
+            <img class="sponsorLogo sponsorRight fadeOutElm" id="g4Logo" src="./common/images/logo.png" alt="G4">
+        </div>
+
+        <!-- Hidden Slideshow Container (Preserved for slideshow functionality if enabled) -->
+        <div id="logoSlideshowDiv" class="slideshow-container fadeOutElm" style="display:none;">
+            <div class="mySlides logoSlide fade"><img id="customLogo1" src="" style="height:20px"></div>
+            <div class="mySlides logoSlide fade"><img id="customLogo2" src="" style="height:20px"></div>
+            <div class="mySlides logoSlide fade"><img id="customLogo3" src="" style="height:20px"></div>
+        </div>
+    </div>
+
+    <script src="./common/js/browser_source_post.js"></script>
+    <script>
+        // Support URL position parameters: ?pos=top-left or ?pos=bottom-left
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const pos = params.get('pos');
+            if (pos === 'top-left') {
+                document.body.classList.add('pos-top-left');
+            } else if (pos === 'bottom-left') {
+                document.body.classList.add('pos-bottom-left');
+            }
+        })();
+    </script>
+</body>
 </html>
-

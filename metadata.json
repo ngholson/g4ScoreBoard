@@ -1,0 +1,7 @@
+{
+  "name": "g4ScoreBoard",
+  "description": "A professional billiard scoreboard and shot clock system for OBS Studio streamers.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

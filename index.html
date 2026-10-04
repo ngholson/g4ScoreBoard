@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>g4ScoreBoard</title>
+  <meta name="description" content="A professional billiard scoreboard and shot clock system for OBS Studio streamers.">
+  <meta property="og:title" content="g4ScoreBoard">
+  <meta property="og:description" content="A professional billiard scoreboard and shot clock system for OBS Studio streamers.">
+  <link rel="icon" type="image/png" href="./common/images/logo.png">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #18191c;
+      color: #e3e5e8;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      background: #1e1f22;
+      border-bottom: 1px solid #2e3035;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      height: 48px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand img {
+      height: 26px;
+      width: auto;
+    }
+    .brand h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f7d046;
+      letter-spacing: 0.5px;
+    }
+    .brand span {
+      font-size: 11px;
+      color: #8b8f98;
+      background: #2b2d31;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #949ba4;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover {
+      background: #2b2d31;
+      color: #dbdee1;
+    }
+    .tab-btn.active {
+      background: #35373c;
+      color: #ffffff;
+      border-color: #43444b;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .action-btn {
+      background: #2b2d31;
+      border: 1px solid #3d3f45;
+      color: #dbdee1;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .action-btn:hover {
+      background: #3b3e45;
+      color: #ffffff;
+    }
+    .main-container {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Studio View */
+    .studio-view {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+    .control-pane {
+      width: 320px;
+      min-width: 300px;
+      max-width: 360px;
+      background: #2b2e38;
+      border-right: 1px solid #383a40;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      height: 100%;
+    }
+    .pane-header {
+      padding: 8px 12px;
+      background: #23252c;
+      border-bottom: 1px solid #33363f;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      color: #b5bac1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .control-iframe-wrapper {
+      flex: 1;
+      height: 100%;
+      overflow: hidden;
+    }
+    .control-iframe-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .preview-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #111214;
+      overflow: hidden;
+    }
+    .preview-toolbar {
+      padding: 8px 16px;
+      background: #1e1f22;
+      border-bottom: 1px solid #2e3035;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #949ba4;
+    }
+    .select-input {
+      background: #2b2d31;
+      border: 1px solid #3d3f45;
+      color: #dbdee1;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      outline: none;
+    }
+    .preview-stage-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    /* 16:9 Canvas Viewport */
+    .preview-viewport {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 0 1px #2e3035;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Background Themes for preview */
+    .bg-felt-green {
+      background: radial-gradient(circle at center, #1b5329 0%, #0e3016 80%, #081d0d 100%);
+    }
+    .bg-felt-blue {
+      background: radial-gradient(circle at center, #17406f 0%, #0e2745 80%, #081729 100%);
+    }
+    .bg-dark-stream {
+      background: linear-gradient(135deg, #18191c 0%, #0d0e10 100%);
+    }
+    .bg-checkerboard {
+      background-color: #1a1a1a;
+      background-image: linear-gradient(45deg, #242424 25%, transparent 25%),
+                        linear-gradient(-45deg, #242424 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #242424 75%),
+                        linear-gradient(-45deg, transparent 75%, #242424 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+    .preview-watermark {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      background: rgba(0,0,0,0.4);
+      padding: 2px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .preview-iframe-scaler {
+      width: 1920px;
+      height: 1080px;
+      transform-origin: top left;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+    .preview-iframe-scaler iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    /* OBS Links Tab */
+    .obs-links-view {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      overflow-y: auto;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .card {
+      background: #1e1f22;
+      border: 1px solid #2e3035;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h3 {
+      font-size: 14px;
+      color: #f7d046;
+      margin-bottom: 6px;
+    }
+    .card p {
+      font-size: 12px;
+      color: #949ba4;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .url-box {
+      background: #111214;
+      border: 1px solid #2e3035;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 11px;
+      color: #23a55a;
+      overflow-x: auto;
+      white-space: nowrap;
+      margin-bottom: 10px;
+    }
+    .copy-btn {
+      background: #5865f2;
+      border: none;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+    .copy-btn:hover {
+      background: #4752c4;
+    }
+    .setup-guide {
+      background: #1e1f22;
+      border: 1px solid #2e3035;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 24px;
+    }
+    .setup-guide h2 {
+      font-size: 15px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .setup-guide ol {
+      padding-left: 20px;
+      font-size: 13px;
+      color: #dbdee1;
+      line-height: 1.6;
+    }
+    .setup-guide code {
+      background: #111214;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #f7d046;
+      font-family: monospace;
+      font-size: 12px;
+    }
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #23a55a;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+      z-index: 100;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="./common/images/logo.png" alt="g4ScoreBoard">
+      <h1>g4ScoreBoard</h1>
+      <span>v1.8.2</span>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('studio')">Studio View</button>
+      <button class="tab-btn" onclick="switchTab('links')">OBS Browser Sources & Docks</button>
+    </div>
+
+    <div class="header-actions">
+      <a href="control_panel.html" target="_blank" class="action-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        Popout Control Panel
+      </a>
+      <a href="browser_source.html" target="_blank" class="action-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        Popout Overlay
+      </a>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <!-- Studio View -->
+    <div class="studio-view" id="studioView">
+      <div class="control-pane">
+        <div class="pane-header">
+          <span>OBS Dock: Control Panel</span>
+        </div>
+        <div class="control-iframe-wrapper">
+          <iframe id="controlFrame" src="control_panel.html"></iframe>
+        </div>
+      </div>
+
+      <div class="preview-pane">
+        <div class="preview-toolbar">
+          <div class="toolbar-group">
+            <label for="overlaySelect">Overlay View:</label>
+            <select id="overlaySelect" class="select-input" onchange="changeOverlay(this.value)">
+              <option value="browser_source.html">Pro Broadcast Bar (Bottom Center)</option>
+              <option value="browser_source.html?pos=top-left">Pro Broadcast Scorebug (Top Left)</option>
+              <option value="browser_source.html?pos=bottom-left">Pro Broadcast Scorebug (Bottom Left)</option>
+              <option value="browser_compact.html">Pro Compact Bar (Bottom Center)</option>
+              <option value="browser_compact.html?pos=top-left">Pro Compact Bar (Top Left)</option>
+              <option value="shot_clock_display.html">Shot Clock Dedicated Display</option>
+            </select>
+          </div>
+
+          <div class="toolbar-group">
+            <label for="bgSelect">Stream Simulator Backdrop:</label>
+            <select id="bgSelect" class="select-input" onchange="changeBackdrop(this.value)">
+              <option value="bg-felt-blue">Billiard Table Felt (Tournament Blue)</option>
+              <option value="bg-felt-green">Billiard Table Felt (Green)</option>
+              <option value="bg-dark-stream">Dark Stream Background</option>
+              <option value="bg-checkerboard">Transparent (Checkerboard)</option>
+            </select>
+          </div>
+
+          <div class="toolbar-group">
+            <button class="action-btn" onclick="copyCurrentOverlayUrl()">Copy Overlay URL for OBS</button>
+          </div>
+        </div>
+
+        <div class="preview-stage-container" id="stageContainer">
+          <div class="preview-viewport bg-felt-blue" id="viewportStage">
+            <div class="preview-watermark">Live OBS Stream Canvas Preview (1920 &times; 1080)</div>
+            <div class="preview-iframe-scaler" id="scaler">
+              <iframe id="previewFrame" src="browser_source.html"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBS Browser Sources & Docks Tab -->
+    <div class="obs-links-view" id="linksView">
+      <h2 style="font-size: 18px; color: #f7d046; margin-bottom: 6px;">OBS Studio Integration Links</h2>
+      <p style="font-size: 13px; color: #949ba4;">Use these direct URLs in OBS Studio to add the scoreboard to your stream and dock the control panel into the OBS interface.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div>
+            <h3>1. Pro Broadcast Bar (Bottom Center)</h3>
+            <p>Clean broadcast bar with solid score blocks, crisp player names, race to X, extensions, and integrated shot clock.</p>
+            <div class="url-box" id="url-overlay"></div>
+          </div>
+          <button class="copy-btn" onclick="copyText('url-overlay')">Copy OBS Source URL</button>
+        </div>
+
+        <div class="card">
+          <div>
+            <h3>2. Pro Broadcast Scorebug (Top-Left)</h3>
+            <p>Broadcast scoreboard docked neatly in the top-left corner of the stream canvas.</p>
+            <div class="url-box" id="url-corner"></div>
+          </div>
+          <button class="copy-btn" onclick="copyText('url-corner')">Copy OBS Source URL</button>
+        </div>
+
+        <div class="card">
+          <div>
+            <h3>3. Pro Compact Bar</h3>
+            <p>Ultra-clean compact edition designed for minimal stream canvas footprint.</p>
+            <div class="url-box" id="url-compact"></div>
+          </div>
+          <button class="copy-btn" onclick="copyText('url-compact')">Copy OBS Source URL</button>
+        </div>
+
+        <div class="card">
+          <div>
+            <h3>4. Shot Clock Dedicated Display</h3>
+            <p>Digital shot clock display for a secondary player monitor or dedicated shot clock window.</p>
+            <div class="url-box" id="url-clock"></div>
+          </div>
+          <button class="copy-btn" onclick="copyText('url-clock')">Copy OBS Source URL</button>
+        </div>
+
+        <div class="card">
+          <div>
+            <h3>5. Control Panel (OBS Custom Dock)</h3>
+            <p>Operator dock for adjusting player names, colors, scores, extensions, timers, and logos.</p>
+            <div class="url-box" id="url-control"></div>
+          </div>
+          <button class="copy-btn" onclick="copyText('url-control')">Copy OBS Dock URL</button>
+        </div>
+      </div>
+
+      <div class="setup-guide">
+        <h2>Quick OBS Studio Setup Guide</h2>
+        <ol>
+          <li>In OBS Studio, go to <b>Docks &rarr; Custom Browser Docks...</b></li>
+          <li>Enter Dock Name: <code>g4ScoreBoard</code> and paste the <b>Control Panel URL</b> into the URL field, then click <b>Apply</b>.</li>
+          <li>In your streaming scene, add a new <b>Browser Source</b>.</li>
+          <li>Set URL to the <b>Scoreboard Overlay URL</b>.</li>
+          <li>Set Width to <code>1920</code> and Height to <code>1080</code>, then click <b>OK</b>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">URL copied to clipboard!</div>
+
+  <script>
+    function updateUrls() {
+      if (!localStorage.getItem("p1NameCtrlPanel")) {
+        try {
+          localStorage.setItem("p1NameCtrlPanel", "PLAYER 1");
+          localStorage.setItem("p2NameCtrlPanel", "PLAYER 2");
+          localStorage.setItem("raceInfo", "RACE TO 9");
+          localStorage.setItem("wagerInfo", "MATCH 1");
+          localStorage.setItem("p1ScoreCtrlPanel", "5");
+          localStorage.setItem("p2ScoreCtrlPanel", "3");
+          localStorage.setItem("p1colorSet", "#1d4ed8");
+          localStorage.setItem("p2colorSet", "#e11d48");
+          localStorage.setItem("useClock", "yes");
+        } catch(e) {}
+      }
+
+      const origin = window.location.origin;
+      document.getElementById('url-overlay').textContent = origin + '/browser_source.html';
+      document.getElementById('url-corner').textContent = origin + '/browser_source.html?pos=top-left';
+      document.getElementById('url-compact').textContent = origin + '/browser_compact.html';
+      document.getElementById('url-clock').textContent = origin + '/shot_clock_display.html';
+      document.getElementById('url-control').textContent = origin + '/control_panel.html';
+    }
+    updateUrls();
+
+    function switchTab(tab) {
+      const studioView = document.getElementById('studioView');
+      const linksView = document.getElementById('linksView');
+      const tabs = document.querySelectorAll('.tab-btn');
+
+      if (tab === 'studio') {
+        studioView.style.display = 'flex';
+        linksView.style.display = 'none';
+        tabs[0].classList.add('active');
+        tabs[1].classList.remove('active');
+        resizePreview();
+      } else {
+        studioView.style.display = 'none';
+        linksView.style.display = 'block';
+        tabs[0].classList.remove('active');
+        tabs[1].classList.add('active');
+      }
+    }
+
+    function changeOverlay(url) {
+      document.getElementById('previewFrame').src = url;
+    }
+
+    function changeBackdrop(bgClass) {
+      const stage = document.getElementById('viewportStage');
+      stage.className = 'preview-viewport ' + bgClass;
+    }
+
+    function resizePreview() {
+      const stageContainer = document.getElementById('stageContainer');
+      const viewport = document.getElementById('viewportStage');
+      const scaler = document.getElementById('scaler');
+      if (!stageContainer || !viewport || !scaler) return;
+
+      const availWidth = stageContainer.clientWidth - 32;
+      const availHeight = stageContainer.clientHeight - 32;
+
+      let width = availWidth;
+      let height = width * (9 / 16);
+
+      if (height > availHeight) {
+        height = availHeight;
+        width = height * (16 / 9);
+      }
+
+      viewport.style.width = width + 'px';
+      viewport.style.height = height + 'px';
+
+      const scale = width / 1920;
+      scaler.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', resizePreview);
+    setTimeout(resizePreview, 100);
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg || 'Copied to clipboard!';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    function copyText(elemId) {
+      const text = document.getElementById(elemId).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Copied to clipboard!');
+      }).catch(() => {
+        showToast('Failed to copy');
+      });
+    }
+
+    function copyCurrentOverlayUrl() {
+      const overlayUrl = window.location.origin + '/' + document.getElementById('overlaySelect').value;
+      navigator.clipboard.writeText(overlayUrl).then(() => {
+        showToast('Overlay URL copied for OBS!');
+      }).catch(() => {
+        showToast('Failed to copy');
+      });
+    }
+  </script>
+</body>
+</html>

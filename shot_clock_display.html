@@ -15,15 +15,33 @@
 
 	<html>
 		<head>
-
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>g4ScoreBoard - Shot Clock Display</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@800&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
 		<style>
+			*, *::before, *::after {
+				box-sizing: border-box;
+			}
 			body {
-			background: rgba(0,0,0,0);
-			font-size:600pt;
-			font-family:tahoma;
-			font-weight:bolder;
-			text-align:center;
-			vertical-align: middle;
+				background: rgba(0,0,0,0);
+				margin: 0;
+				padding: 0;
+				height: 100vh;
+				width: 100vw;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: clamp(100px, 40vw, 480px);
+				font-family: 'JetBrains Mono', 'Outfit', monospace;
+				font-weight: 800;
+				font-variant-numeric: tabular-nums;
+				text-align: center;
+				overflow: hidden;
+				transition: background 0.3s ease, color 0.3s ease;
+				text-shadow: 0 8px 32px rgba(0, 0, 0, 0.75);
 			}
 		</style>
 		</head>
@@ -49,7 +67,7 @@
 				if (event.data < 16) { document.getElementsByTagName("body")[0].style.background = "yellow"; } ;
 				if (event.data < 11) { document.getElementsByTagName("body")[0].style.background = "tomato"; } ;
 				if (event.data < 6) { document.getElementsByTagName("body")[0].style.background = "red"; document.getElementsByTagName("body")[0].style.color = "white"; } ;
-				if (event.data = 0) { document.getElementsByTagName("body")[0].style.background = "red"; setTimeout("resetClock()",2000);};
+				if (event.data == 0) { document.getElementsByTagName("body")[0].style.background = "red"; setTimeout("resetClock()",2000);};
 			}
 		
 			function resetClock() {

@@ -1,8 +1,373 @@
- #scoreBoardDiv {
-                position:absolute;
-                bottom:5px;
-                width:90%;
-                left:5%;
-                padding:5px;
-             
-            }
+/* Clean Broadcast Scoreboard - Required Base Styles */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@700;800&family=Montserrat:wght@600;700;800&display=swap');
+
+:root {
+  --font-names: 'Barlow Condensed', 'Montserrat', -apple-system, sans-serif;
+  --font-digits: 'JetBrains Mono', 'Barlow Condensed', monospace;
+  --font-labels: 'Montserrat', -apple-system, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: transparent !important;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: var(--font-names);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.noShow {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.fadeInElm {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fadeOutElm {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.25s, opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+/* Score Pulse Animation */
+@keyframes scoreWinPulse {
+  0% {
+    transform: scale(1);
+    background-color: #05080e;
+    color: #ffffff;
+  }
+  50% {
+    transform: scale(1.08);
+    background-color: #f59e0b !important;
+    color: #000000 !important;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.9);
+  }
+  100% {
+    transform: scale(1);
+    background-color: #05080e;
+    color: #ffffff;
+  }
+}
+
+.winBlink {
+  animation: scoreWinPulse 0.35s 2 cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Extension Alert Animation */
+@keyframes extAlertPulse {
+  0% {
+    background-color: #dc2626 !important;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.9);
+    color: #ffffff !important;
+  }
+  50% {
+    background-color: #7f1d1d !important;
+    box-shadow: none;
+    color: #fca5a5 !important;
+  }
+  100% {
+    background-color: #dc2626 !important;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.9);
+    color: #ffffff !important;
+  }
+}
+
+.extBlink {
+  animation: extAlertPulse 0.25s 3 ease-in-out !important;
+}
+
+/* Scoreboard Chassis - Balanced Lower-Third Anchor */
+#scoreBoardDiv {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 720px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 100;
+  user-select: none;
+}
+
+/* Positional Modifiers */
+body.pos-top-left #scoreBoardDiv {
+  top: 24px;
+  bottom: auto;
+  left: 24px;
+  transform: none;
+}
+
+body.pos-bottom-left #scoreBoardDiv {
+  bottom: 24px;
+  left: 24px;
+  transform: none;
+}
+
+/* Match Info Rail (Race & Wager Info Only - ZERO Hardcoded Branding) */
+.infoRail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px 6px 4px;
+  min-height: 0;
+  font-family: var(--font-labels);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.infoRail:empty {
+  display: none;
+}
+
+#raceInfo, #wagerInfo {
+  background: rgba(11, 15, 23, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  color: #e5e7eb;
+}
+
+#raceInfo {
+  margin-right: auto;
+}
+
+#wagerInfo {
+  margin-left: auto;
+}
+
+/* Main Scoreboard Bar - Bilaterally Symmetrical Flex Container */
+.mainScoreBar {
+  display: flex;
+  align-items: stretch;
+  height: 44px;
+  background: linear-gradient(180deg, #131926 0%, #0a0e17 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sponsor / Organization Logos - Contained next to Extension Indicators */
+.sponsorLogo {
+  height: 28px;
+  max-height: 28px;
+  width: auto;
+  max-width: 58px;
+  object-fit: contain;
+  align-self: center;
+  user-select: none;
+  pointer-events: none;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease, max-width 0.2s ease, margin 0.2s ease;
+}
+
+.sponsorLeft {
+  margin-left: 8px;
+  margin-right: 4px;
+}
+
+.sponsorRight {
+  margin-left: 4px;
+  margin-right: 8px;
+}
+
+.sponsorLogo.fadeOutElm {
+  display: none !important;
+  max-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.sponsorLogo.fadeInElm {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Extension Badges - Symmetrically Pinned next to logos/flanks */
+.extBadge {
+  width: 36px;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #15803d; /* Emerald Green */
+  color: #ffffff;
+  font-family: var(--font-labels);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+  user-select: none;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+#p1ExtIcon {
+  border-right: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+#p2ExtIcon {
+  border-left: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.extBadge.fadeOutElm {
+  display: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Player Names - Equal Balanced Flex-1 with High Contrast */
+.playerName {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-family: var(--font-names);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.85);
+  min-width: 0;
+  transition: background 0.3s ease;
+}
+
+#player1Name {
+  justify-content: flex-end;
+  text-align: right;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.08), rgba(29, 78, 216, 0.55));
+}
+
+#player2Name {
+  justify-content: flex-start;
+  text-align: left;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.08), rgba(225, 29, 72, 0.55));
+}
+
+/* Scores - High-Contrast Digital Numerals */
+.playerScore {
+  width: 58px;
+  min-width: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #05080e;
+  color: #ffffff;
+  font-family: var(--font-digits);
+  font-size: 24px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* Center Matchup Divider - The Symmetry Axis */
+.centerDivider {
+  width: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d121c;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.centerDivider .vsText {
+  font-family: var(--font-labels);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.35);
+  user-select: none;
+}
+
+/* Shot Clock - Dedicated Center Floating Module (Zero Overlay Occlusion) */
+#shotClock {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  min-width: 86px;
+  padding: 0 14px;
+  background: #0b0f17;
+  color: #ffffff;
+  font-family: var(--font-digits);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+  z-index: 20;
+}
+
+/* Shot Clock Progress Line (Centered under the shot clock pill) */
+.shotclockvis {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 86px;
+  height: 3px;
+  border-radius: 2px;
+  background: #22c55e;
+  z-index: 21;
+}
+
+.startTimer {
+  width: 0px !important;
+  transition: width 30s linear !important;
+}
+
+.start60 {
+  width: 0px !important;
+  transition: width 60s linear !important;
+}
+
+.shotRed {
+  color: #ffffff !important;
+  background-color: #dc2626 !important;
+}

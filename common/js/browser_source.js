@@ -13,11 +13,15 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
 
 	function postLogo() {
-		if (localStorage.getItem("customLogo0") !== "") {
+		if (localStorage.getItem("customLogo0") && localStorage.getItem("customLogo0") !== "") {
 			document.getElementById("g4Logo").src = localStorage.getItem("customLogo0");
+		} else {
+			document.getElementById("g4Logo").src = "./common/images/logo.png";
 		}
-		if (localStorage.getItem("customLogo4") !== "") {
+		if (localStorage.getItem("customLogo4") && localStorage.getItem("customLogo4") !== "") {
 			document.getElementById("salottoLogo").src = localStorage.getItem("customLogo4");
+		} else {
+			document.getElementById("salottoLogo").src = "./common/images/salotto.png";
 		}
 	}
 	
@@ -105,16 +109,18 @@
 
 	 function showClock(){
 		document.getElementById("shotClock").classList.replace("fadeOutElm","fadeInElm");
+		document.getElementById("shotClockVis").classList.replace("fadeOutElm","fadeInElm");
 	}
 
 	function hideClock(){
 		document.getElementById("shotClock").classList.replace("fadeInElm", "fadeOutElm");
+		document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
 	}
 	
 	function stopClock() {
 		clearInterval(shotClockxr);
 		hideClock();
-		document.getElementById("shotClock").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		document.getElementById("shotClock").innerHTML = "&nbsp;";
 		document.getElementById("shotClock").classList.remove("shotRed");
 		document.getElementById("shotClock").style.background = "";
 		document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
@@ -131,8 +137,7 @@
 			document.getElementById("shotClockVis").classList.remove("startTimer");
 			document.getElementById("shotClockVis").classList.remove("start60");
 			document.getElementById("shotClockVis").style.background = "";
-			document.getElementById("shotClock").classList.replace("fadeInElm", "fadeOutElm");
-			document.getElementById("shotClockVis").classList.replace("fadeInElm", "fadeOutElm");
+			showClock();
 			document.getElementById("p"+player+"ExtIcon").classList.add("extBlink");
 			playerNumber =  player;
 			setTimeout("clearExtBlink(playerNumber)",500);	
@@ -145,34 +150,52 @@
 	}
 	
 	function extReset(player) {
-		document.getElementById(player+"ExtIcon").style.background = "green";
+		document.getElementById(player+"ExtIcon").style.background = "#15803d";
 					 
 		}
 		
 	function salottoShow() {
-		document.getElementById("salottoLogo").classList.replace("fadeOutElm","fadeInElm");	
-	
+		var el = document.getElementById("salottoLogo");
+		if (el) {
+			if (localStorage.getItem("customLogo4") && localStorage.getItem("customLogo4") !== "") {
+				el.src = localStorage.getItem("customLogo4");
+			} else {
+				el.src = "./common/images/salotto.png";
+			}
+			el.style.removeProperty('display');
+			el.classList.remove("fadeOutElm");
+			el.classList.add("fadeInElm");
+		}
 	}
+
 	function salottoHide() {
-		document.getElementById("salottoLogo").classList.replace("fadeInElm","fadeOutElm");
-	
+		var el = document.getElementById("salottoLogo");
+		if (el) {
+			el.classList.remove("fadeInElm");
+			el.classList.add("fadeOutElm");
+		}
 	}
 	
 	function customShow() {
-		document.getElementById("g4Logo").style.removeProperty('display');
-		setTimeout(function(){
-		if (document.getElementById("g4Logo").classList.contains("logoSlide")) {
-			document.getElementById("g4Logo").classList.replace("logoSlide", "fadeOutElm"); }
-		if (document.getElementById("g4Logo").classList.contains("fade")) {
-			document.getElementById("g4Logo").classList.replace("fade", "fadeOutElm"); }
-		document.getElementById("g4Logo").classList.replace("fadeOutElm","fadeInElm");
-		},100);
-	
+		var el = document.getElementById("g4Logo");
+		if (el) {
+			if (localStorage.getItem("customLogo0") && localStorage.getItem("customLogo0") !== "") {
+				el.src = localStorage.getItem("customLogo0");
+			} else {
+				el.src = "./common/images/logo.png";
+			}
+			el.style.removeProperty('display');
+			el.classList.remove("fadeOutElm", "logoSlide", "fade");
+			el.classList.add("fadeInElm");
+		}
 	}
+
 	function customHide() {
-		document.getElementById("g4Logo").classList.replace("fadeInElm","fadeOutElm");
-		setTimeout( function(){document.getElementById("g4Logo").style.display = "none";},1000);
-	
+		var el = document.getElementById("g4Logo");
+		if (el) {
+			el.classList.remove("fadeInElm");
+			el.classList.add("fadeOutElm");
+		}
 	}
 	
 	function showSlides() {
